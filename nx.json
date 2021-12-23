@@ -1,5 +1,5 @@
 {
-  "npmScope": "majesdash-angular-nestjs",
+  "npmScope": "majesdash",
   "affected": {
     "defaultBase": "main"
   },

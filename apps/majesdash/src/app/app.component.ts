@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'majesdash-angular-nestjs-root',
+  selector: 'majesdash-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  title = 'majesdash';
-}
+export class AppComponent {}

@@ -1,0 +1,21 @@
+<mat-toolbar
+  fxLayout="row"
+  style="background-color: transparent; position: absolute"
+>
+  <div class="right-nav">
+    <span *ngIf="user$ | async as user">
+      <button mat-button>{{ (user$ | async)?.username }}</button>
+      <button mat-button (click)="logout()">Logout</button>
+    </span>
+    <span *ngIf="!(user$ | async)">
+      <button
+        mat-button
+        [routerLink]="['/auth/login']"
+        routerLinkActive="router-link-active"
+      >
+        <mat-icon style="color: darkgrey">account_circle</mat-icon>
+      </button>
+    </span>
+  </div>
+</mat-toolbar>
+<ng-content></ng-content>

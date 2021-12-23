@@ -13,20 +13,20 @@ import { SettingsEntity } from '../settings/settings.entity';
 @Entity('user')
 export class UserEntity {
   @PrimaryGeneratedColumn()
-  id!: number;
+  id: number;
 
   @Column({ unique: true })
-  username!: string;
+  username: string;
 
   @Column({ unique: true })
   @IsEmail()
-  email!: string;
+  email: string;
 
-  @Column({ default: '' })
-  image!: string;
+  @Column({ default: null })
+  image: string;
 
   @Column()
-  passwordHash?: string;
+  passwordHash: string;
 
   @OneToOne(() => SettingsEntity, (settings) => settings.user)
   @JoinColumn()

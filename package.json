@@ -9,13 +9,20 @@
     "build": "nx build",
     "test": "nx test"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/majesnix/majesdash.git"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.1.0",
+    "@angular/cdk": "^13.1.1",
     "@angular/common": "~13.1.0",
     "@angular/compiler": "~13.1.0",
     "@angular/core": "~13.1.0",
+    "@angular/flex-layout": "^13.0.0-beta.36",
     "@angular/forms": "~13.1.0",
+    "@angular/material": "^13.1.1",
     "@angular/platform-browser": "~13.1.0",
     "@angular/platform-browser-dynamic": "~13.1.0",
     "@angular/router": "~13.1.0",
@@ -23,6 +30,7 @@
     "@nestjs/config": "^1.1.5",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/serve-static": "^2.2.2",
     "@nestjs/typeorm": "^8.0.2",
     "@nrwl/angular": "13.3.12",
     "add": "^2.0.6",

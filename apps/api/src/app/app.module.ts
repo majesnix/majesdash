@@ -10,6 +10,8 @@ import { UserEntity } from './user/user.entity';
 import { UserModule } from './user/user.module';
 import { SettingsModule } from './settings/settings.module';
 import { SettingsEntity } from './settings/settings.entity';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -26,6 +28,9 @@ import { SettingsEntity } from './settings/settings.entity';
     TagModule,
     UserModule,
     SettingsModule,
-  ]
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'config/images'),
+    }),
+  ],
 })
 export class AppModule {}
