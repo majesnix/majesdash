@@ -11,7 +11,7 @@ export class LoginFormComponent {
   @Output() authenticateEvent = new EventEmitter<Authenticate>();
 
   loginForm = new FormGroup({
-    email: new FormControl('', {
+    emailOrUsername: new FormControl('', {
       validators: [Validators.required],
       updateOn: 'blur',
     }),
@@ -23,7 +23,7 @@ export class LoginFormComponent {
 
   login() {
     this.authenticateEvent.emit({
-      email: this.loginForm.value.email,
+      emailOrUsername: this.loginForm.value.emailOrUsername,
       password: this.loginForm.value.password,
     } as Authenticate);
   }

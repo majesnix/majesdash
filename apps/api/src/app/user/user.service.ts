@@ -23,8 +23,18 @@ export class UserService {
     return await this.userRepository.find();
   }
 
-  async findOne({ email, password }: LoginUserDto): Promise<UserEntity | null> {
-    const user = await this.userRepository.findOne({ email });
+  async findOne({
+    email,
+    username,
+    password,
+  }: LoginUserDto): Promise<UserEntity | null> {
+    let user: UserEntity;
+    if (email) {
+      user = await this.userRepository.findOne({ email });
+    } else if (username) {
+      user = await this.userRepository.findOne({ username });
+    }
+
     if (!user) {
       return null;
     }

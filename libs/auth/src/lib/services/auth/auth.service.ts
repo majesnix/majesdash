@@ -13,9 +13,18 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
   login(authenticate: Authenticate): Observable<{ user: User }> {
+    const loginWithEmail = this.isEmail(authenticate.emailOrUsername);
     return this.httpClient
       .post<{ user: User }>('http://localhost:3333/api/users/login', {
-        user: authenticate,
+        user: loginWithEmail
+          ? {
+              email: authenticate.emailOrUsername,
+              password: authenticate.password,
+            }
+          : {
+              username: authenticate.emailOrUsername,
+              password: authenticate.password,
+            },
       })
       .pipe(tap(({ user }) => this.userSubject$.next(user)));
   }
@@ -33,5 +42,11 @@ export class AuthService {
           this.userSubject$.next(user);
         })
       );
+  }
+
+  isEmail(value: string) {
+    return new RegExp(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    ).test(value);
   }
 }
