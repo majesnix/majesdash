@@ -16,8 +16,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.settingsService.getSettings().subscribe();
     this.settings$ = this.settingsService.settings$;
-    this.settings$.subscribe((data) => {
-      console.log('data in sub', data);
-    });
+    this.settings$.subscribe();
   }
 }

@@ -22,7 +22,6 @@ export class SettingsService {
       .get<{ settings: Settings }>('http://localhost:3333/api/settings')
       .pipe(
         tap(({ settings }) => {
-          console.log('SETTINGS', settings);
           this.settingsSubject$.next(settings);
         })
       );
@@ -38,7 +37,6 @@ export class SettingsService {
       )
       .pipe(
         tap(({ settings }) => {
-          console.log('SETTINGS after update', settings);
           this.settingsSubject$.next({ ...settings });
         })
       );

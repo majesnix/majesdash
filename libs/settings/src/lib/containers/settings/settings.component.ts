@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Settings, SettingsUpdate } from '@majesdash/data-models';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../../services/settings/settings.service';
@@ -15,14 +15,10 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.settingsService.getSettings().subscribe();
     this.settings$ = this.settingsService.settings$;
-    this.settings$.subscribe((data) => {
-      console.log('data in sub', data);
-    });
+    this.settings$.subscribe();
   }
 
   update(settings: SettingsUpdate) {
-    this.settingsService.updateSettings(settings).subscribe((data) => {
-      console.log('data in update', data);
-    });
+    this.settingsService.updateSettings(settings).subscribe();
   }
 }
