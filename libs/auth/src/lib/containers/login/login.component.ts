@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Authenticate } from '@majesdash/data-models';
+import { Authenticate, Settings } from '@majesdash/data-models';
+import { SettingsService } from '@majesdash/settings';
+import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -9,8 +11,22 @@ import { AuthService } from '../../services/auth/auth.service';
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+export class LoginComponent implements OnInit {
+  settings$!: Observable<Settings | undefined>;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private settingsService: SettingsService
+  ) {}
+
+  ngOnInit(): void {
+    this.settingsService.getSettings().subscribe();
+    this.settings$ = this.settingsService.settings$;
+    this.settings$.subscribe((data) => {
+      console.log('data in sub', data);
+    });
+  }
 
   login(authenticate: Authenticate) {
     this.authService.login(authenticate).subscribe((data) => {

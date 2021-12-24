@@ -7,9 +7,12 @@ import { BehaviorSubject, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class SettingsService {
-  private settingsSubject$ = new BehaviorSubject<Settings | undefined>(
-    undefined
-  );
+  private settingsSubject$ = new BehaviorSubject<Settings | undefined>({
+    customBackground: false,
+    tabTarget: 0,
+    user: undefined,
+    backgroundName: undefined,
+  });
   settings$ = this.settingsSubject$.asObservable();
 
   constructor(private httpClient: HttpClient) {}

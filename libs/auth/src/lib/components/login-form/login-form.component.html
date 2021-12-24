@@ -1,56 +1,42 @@
-<div
-  style="
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  "
-  class="bg"
->
-  <mat-card style="padding: 24px">
-    <mat-card-title>Login</mat-card-title>
-    <mat-card-content>
-      <form
-        [formGroup]="loginForm"
-        fxLayout="column"
-        fxLayoutAlign="center none"
-      >
-        <mat-form-field style="margin-bottom: 8px">
-          <input
-            matInput
-            placeholder="email / username"
-            type="text"
-            formControlName="emailOrUsername"
-          />
-          <mat-error>
-            <span
-              *ngIf="
-                loginForm.get('emailOrUsername')!.hasError('required') &&
-                loginForm.touched
-              "
-              >Required Field</span
-            >
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field style="margin-bottom: 8px">
-          <input
-            matInput
-            placeholder="password"
-            type="password"
-            formControlName="password"
-          />
-          <mat-error>
-            <span
-              *ngIf="
-                loginForm.get('password')!.hasError('required') &&
-                loginForm.touched
-              "
-              >Required Field</span
-            >
-          </mat-error>
-        </mat-form-field>
-      </form>
-      <button mat-raised-button (click)="login()">login</button>
-    </mat-card-content>
-  </mat-card>
-</div>
+<mat-card style="padding: 24px">
+  <mat-card-title>Login</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="loginForm" fxLayout="column" fxLayoutAlign="center none">
+      <mat-form-field style="margin-bottom: 8px">
+        <input
+          matInput
+          placeholder="email / username"
+          type="text"
+          formControlName="emailOrUsername"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              loginForm.get('emailOrUsername')!.hasError('required') &&
+              loginForm.touched
+            "
+            >Required Field</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field style="margin-bottom: 8px">
+        <input
+          matInput
+          placeholder="password"
+          type="password"
+          formControlName="password"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              loginForm.get('password')!.hasError('required') &&
+              loginForm.touched
+            "
+            >Required Field</span
+          >
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <button mat-raised-button (click)="login()">login</button>
+  </mat-card-content>
+</mat-card>

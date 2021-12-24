@@ -6,7 +6,7 @@ export interface SettingsUpdate {
 
 export interface Settings {
   customBackground: boolean;
-  backgroundName: string;
+  backgroundName?: string;
   tabTarget: TabTarget;
-  user: User;
+  user?: User;
 }

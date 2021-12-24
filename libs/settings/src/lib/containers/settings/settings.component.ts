@@ -10,17 +10,13 @@ import { SettingsService } from '../../services/settings/settings.service';
 })
 export class SettingsComponent implements OnInit {
   settings$!: Observable<Settings | undefined>;
-  constructor(
-    private settingsService: SettingsService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private settingsService: SettingsService) {}
 
   ngOnInit(): void {
     this.settingsService.getSettings().subscribe();
     this.settings$ = this.settingsService.settings$;
     this.settings$.subscribe((data) => {
       console.log('data in sub', data);
-      this.cdr.detectChanges();
     });
   }
 
