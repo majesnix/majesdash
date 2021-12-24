@@ -1,3 +1,3 @@
 export class UpdateSettingsDto {
-  readonly backgroundImage!: string;
+  readonly customBackground!: string;
 }

@@ -33,7 +33,6 @@ export class TileController {
 
   @Put(':id')
   async update(@Param('id') id: number, @Body('tile') tileData: CreateTileDto) {
-    // Todo: update slug also when title gets changed
     return this.tileService.update(id, tileData);
   }
 

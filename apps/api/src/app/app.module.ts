@@ -29,7 +29,8 @@ import { join } from 'path';
     UserModule,
     SettingsModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'config/images'),
+      rootPath: join(__dirname, '../../../', 'config/images'),
+      exclude: ['/api*'],
     }),
   ],
 })

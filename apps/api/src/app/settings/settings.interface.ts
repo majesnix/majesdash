@@ -1,5 +1,5 @@
 export interface SettingsData {
-  backgroundImage: string;
+  customBackground: boolean;
 }
 
 export interface SettingsRO {

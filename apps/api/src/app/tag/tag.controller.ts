@@ -33,7 +33,6 @@ export class TagController {
 
   @Put(':id')
   async update(@Param('id') id: number, @Body('tile') tileData: CreateTagDto) {
-    // Todo: update slug also when title gets changed
     return this.tagService.update(id, tileData);
   }
 

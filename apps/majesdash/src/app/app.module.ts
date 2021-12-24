@@ -7,6 +7,7 @@ import { AuthModule, authRoutes } from '@majesdash/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { dashboardRoutes } from '@majesdash/dashboard';
 import { LayoutModule } from '@majesdash/layout';
+import { settingRoutes } from '@majesdash/settings';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { LayoutModule } from '@majesdash/layout';
       [
         { path: '', children: dashboardRoutes },
         { path: 'auth', children: authRoutes },
+        { path: 'settings', children: settingRoutes },
       ],
       {
         initialNavigation: 'enabledBlocking',

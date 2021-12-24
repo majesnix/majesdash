@@ -1,0 +1,28 @@
+<div *ngIf="settings$ | async as settings">
+  <div
+    style="
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "
+    [style.background-image]="
+      settings.customBackground
+        ? 'url(http://localhost:3333/' +
+          settings.user.id +
+          '/' +
+          settings.backgroundName +
+          ')'
+        : 'url(http://localhost:3333/background.png)'
+    "
+    class="bg"
+  >
+    <div style="width: 20rem">
+      <majesdash-system-info></majesdash-system-info>
+      <div style="margin-bottom: 24px"></div>
+      <majesdash-settings-form
+        (settingsUpdateEvent)="update($event)"
+      ></majesdash-settings-form>
+    </div>
+  </div>
+</div>

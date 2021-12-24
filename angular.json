@@ -304,6 +304,32 @@
         }
       },
       "tags": []
+    },
+    "settings": {
+      "projectType": "library",
+      "root": "libs/settings",
+      "sourceRoot": "libs/settings/src",
+      "prefix": "majesdash",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/settings"],
+          "options": {
+            "jestConfig": "libs/settings/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/settings/src/**/*.ts",
+              "libs/settings/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
     }
   }
 }
