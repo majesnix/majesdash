@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Settings, SettingsUpdate } from '@majesdash/data-models';
+import { Settings, SettingsUpdate } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../../services/settings/settings.service';
 

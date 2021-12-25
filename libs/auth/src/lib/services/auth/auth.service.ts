@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Authenticate, User } from '@majesdash/data-models';
+import { Authenticate, User } from '@majesdash/data';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 

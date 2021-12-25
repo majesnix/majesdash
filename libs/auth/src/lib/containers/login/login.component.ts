@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Authenticate, Settings } from '@majesdash/data-models';
+import { Authenticate, Settings } from '@majesdash/data';
 import { SettingsService } from '@majesdash/settings';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';

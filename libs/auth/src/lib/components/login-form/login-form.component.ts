@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Authenticate } from '@majesdash/data-models';
+import { Authenticate } from '@majesdash/data';
 
 @Component({
   selector: 'majesdash-login-form',

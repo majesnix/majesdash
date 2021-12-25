@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Settings, SettingsUpdate } from '@majesdash/data-models';
+import { Settings, SettingsUpdate } from '@majesdash/data';
 import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
@@ -29,7 +29,8 @@ export class SettingsService {
 
   updateSettings(settings: SettingsUpdate) {
     const formData = new FormData();
-    formData.append('file', settings.file);
+    formData.append('background', settings.background);
+    formData.append('settings', JSON.stringify(settings.settings));
     return this.httpClient
       .post<{ settings: Settings }>(
         'http://localhost:3333/api/settings',
@@ -37,7 +38,7 @@ export class SettingsService {
       )
       .pipe(
         tap(({ settings }) => {
-          this.settingsSubject$.next({ ...settings });
+          this.settingsSubject$.next(settings);
         })
       );
   }

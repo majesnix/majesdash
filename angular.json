@@ -79,6 +79,29 @@
       },
       "tags": []
     },
+    "backend": {
+      "root": "libs/backend",
+      "sourceRoot": "libs/backend/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/backend/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/backend"],
+          "options": {
+            "jestConfig": "libs/backend/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "dashboard": {
       "projectType": "library",
       "root": "libs/dashboard",
@@ -105,17 +128,26 @@
       },
       "tags": []
     },
-    "data-models": {
+    "data": {
+      "root": "libs/data",
+      "sourceRoot": "libs/data/src",
       "projectType": "library",
       "root": "libs/data-models",
       "sourceRoot": "libs/data-models/src",
       "prefix": "majesdash",
       "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/data/**/*.ts"]
+          }
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/data-models"],
+          "outputs": ["coverage/libs/data"],
           "options": {
-            "jestConfig": "libs/data-models/jest.config.js",
+            "jestConfig": "libs/data/jest.config.js",
             "passWithNoTests": true
           }
         },
