@@ -15,13 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@majesdash/auth": ["libs/auth/src/index.ts"],
       "@majesdash/backend": ["libs/backend/src/index.ts"],
-      "@majesdash/dashboard": ["libs/dashboard/src/index.ts"],
       "@majesdash/data": ["libs/data/src/index.ts"],
-      "@majesdash/layout": ["libs/layout/src/index.ts"],
-      "@majesdash/material": ["libs/material/src/index.ts"],
-      "@majesdash/settings": ["libs/settings/src/index.ts"],
+      "@majesdash/web": ["libs/web/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

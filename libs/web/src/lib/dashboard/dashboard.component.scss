@@ -1,0 +1,25 @@
+.bg {
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+mat-grid-tile {
+  background: lightblue;
+}
+
+mat-grid-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 80%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}

@@ -53,32 +53,6 @@
       },
       "tags": []
     },
-    "auth": {
-      "projectType": "library",
-      "root": "libs/auth",
-      "sourceRoot": "libs/auth/src",
-      "prefix": "majesdash",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/auth"],
-          "options": {
-            "jestConfig": "libs/auth/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/auth/src/**/*.ts",
-              "libs/auth/src/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "backend": {
       "root": "libs/backend",
       "sourceRoot": "libs/backend/src",
@@ -102,39 +76,10 @@
       },
       "tags": []
     },
-    "dashboard": {
-      "projectType": "library",
-      "root": "libs/dashboard",
-      "sourceRoot": "libs/dashboard/src",
-      "prefix": "majesdash",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/dashboard"],
-          "options": {
-            "jestConfig": "libs/dashboard/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/dashboard/src/**/*.ts",
-              "libs/dashboard/src/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "data": {
       "root": "libs/data",
       "sourceRoot": "libs/data/src",
       "projectType": "library",
-      "root": "libs/data-models",
-      "sourceRoot": "libs/data-models/src",
-      "prefix": "majesdash",
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
@@ -149,41 +94,6 @@
           "options": {
             "jestConfig": "libs/data/jest.config.js",
             "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/data-models/src/**/*.ts",
-              "libs/data-models/src/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
-    "layout": {
-      "projectType": "library",
-      "root": "libs/layout",
-      "sourceRoot": "libs/layout/src",
-      "prefix": "majesdash",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/layout"],
-          "options": {
-            "jestConfig": "libs/layout/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/layout/src/**/*.ts",
-              "libs/layout/src/**/*.html"
-            ]
           }
         }
       },
@@ -311,17 +221,17 @@
       "tags": [],
       "implicitDependencies": ["majesdash"]
     },
-    "material": {
+    "web": {
       "projectType": "library",
-      "root": "libs/material",
-      "sourceRoot": "libs/material/src",
+      "root": "libs/web",
+      "sourceRoot": "libs/web/src",
       "prefix": "majesdash",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/material"],
+          "outputs": ["coverage/libs/web"],
           "options": {
-            "jestConfig": "libs/material/jest.config.js",
+            "jestConfig": "libs/web/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -329,34 +239,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/material/src/**/*.ts",
-              "libs/material/src/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
-    "settings": {
-      "projectType": "library",
-      "root": "libs/settings",
-      "sourceRoot": "libs/settings/src",
-      "prefix": "majesdash",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/settings"],
-          "options": {
-            "jestConfig": "libs/settings/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/settings/src/**/*.ts",
-              "libs/settings/src/**/*.html"
+              "libs/web/src/**/*.ts",
+              "libs/web/src/**/*.html"
             ]
           }
         }
