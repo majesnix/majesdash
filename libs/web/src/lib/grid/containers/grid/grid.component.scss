@@ -1,6 +1,52 @@
-
+// Extra small devices (portrait phones, less than 576px)
+// No media query since this is the default in Bootstrap
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  gap: 1rem;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+}
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .wrapper {
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .wrapper {
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .wrapper {
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .wrapper {
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+  }
 }
