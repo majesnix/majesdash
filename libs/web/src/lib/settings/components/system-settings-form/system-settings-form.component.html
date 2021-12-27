@@ -28,11 +28,15 @@
             systemSettingsForm.get('background')?.hasError('maxContentSize')
           "
         >
-          The total size must not exceed {{
-          systemSettingsForm.get('background')?.getError('maxContentSize')
-          .maxSize | byteFormat }} ({{
-          systemSettingsForm.get('background')?.getError('maxContentSize')
-          .actualSize | byteFormat }}).
+          The total size must not exceed
+          {{
+            systemSettingsForm.get('background')?.getError('maxContentSize')
+              .maxSize | byteFormat
+          }}
+          ({{
+            systemSettingsForm.get('background')?.getError('maxContentSize')
+              .actualSize | byteFormat
+          }}).
         </mat-error>
       </mat-form-field>
     </form>
