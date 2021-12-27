@@ -116,7 +116,7 @@
             "tsConfig": "apps/majesdash/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "apps/majesdash/src/favicon.ico",
+              "apps/majesdash/src/favicon.png",
               "apps/majesdash/src/assets"
             ],
             "styles": ["apps/majesdash/src/styles.scss"],
