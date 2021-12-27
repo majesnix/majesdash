@@ -21,7 +21,6 @@ export class GridComponent {
       }
       count++;
     }
-    console.log('string', rowsString);
 
     return rowsString;
   }

@@ -61,7 +61,6 @@ export class SettingsService {
       )
       .pipe(
         tap(({ settings }) => {
-          console.log('SETTINGS', settings);
           this.systemSettingsSubject$.next(settings);
         })
       );

@@ -17,7 +17,6 @@ export class TilesService {
       .get<{ tiles: Tile[] }>('http://localhost:3333/api/tiles')
       .pipe(
         tap(({ tiles }) => {
-          console.log('TIELS', tiles);
           this.tilesSubject$.next(tiles);
         })
       );

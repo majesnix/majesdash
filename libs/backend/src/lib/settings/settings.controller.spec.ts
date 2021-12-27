@@ -52,7 +52,6 @@ export class SettingsController {
     @Request() req: CustomRequest,
     @Body('settings') userSettings: string
   ) {
-    console.log('settings', JSON.parse(userSettings) as Settings);
     let settings: SettingsEntity;
     if (!file) {
       settings = await this.settingsService.createOrUpdate(req.user.id);
