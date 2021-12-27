@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/services/auth.service';
+import { UserService } from '../user/services/user.service';
 
 @Component({
   selector: 'majesdash-layout',
@@ -10,19 +11,25 @@ import { AuthService } from '../auth/services/auth.service';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
-  user$: Observable<User | null> | undefined;
+  user$: Observable<User | undefined>;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.user$ = this.userService.user$;
+  }
 
   ngOnInit(): void {
-    this.user$ = this.authService.user$;
     if (localStorage.getItem('token')) {
-      this.authService.getUserInfo().subscribe();
+      this.userService.getUser().subscribe();
     }
   }
 
   logout(): void {
     this.authService.logout();
+    this.userService.reset();
     this.router.navigate(['/']);
   }
 }

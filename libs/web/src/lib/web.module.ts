@@ -10,7 +10,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { SettingsComponent } from './settings/containers/settings/settings.component';
 import { MainViewModule } from './main-view/main-view.module';
 import { MainViewComponent } from './main-view/main-view.component';
-
+import { UserComponent } from './user/containers/user/user.component';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { MainViewComponent } from './main-view/main-view.component';
     LayoutModule,
     DashboardModule,
     MainViewModule,
+    UserModule,
     RouterModule.forRoot(
       [
         {
@@ -33,6 +35,10 @@ import { MainViewComponent } from './main-view/main-view.component';
         {
           path: 'settings',
           component: SettingsComponent,
+        },
+        {
+          path: 'user',
+          component: UserComponent,
         },
       ],
       {

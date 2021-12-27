@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Authenticate, Settings, SystemSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../../../settings/services/settings.service';
+import { UserService } from '../../../user/services/user.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private settingsService: SettingsService,
+    private userService: UserService,
     private cdRef: ChangeDetectorRef
   ) {}
 
@@ -42,6 +44,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(authenticate).subscribe({
       next: (data) => {
         localStorage.setItem('token', data.user.token);
+        this.userService.getUser().subscribe();
         this.router.navigate(['/']);
       },
       error: () => {

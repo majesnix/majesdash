@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserRO } from './user.interface';
-import { CreateUserDto, UpdateUserDto, LoginUserDto } from './dto';
+import { CreateUserDto, LoginUserDto } from './dto';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { User } from './user.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -51,9 +51,15 @@ export class UserController {
   async update(
     @UploadedFile() file: Express.Multer.File,
     @User('id') userId: number,
-    @Body('user') userData: UpdateUserDto
+    @Body('user') userData: string
   ) {
-    return await this.userService.update(userId, userData, file?.filename);
+    return {
+      user: await this.userService.update(
+        userId,
+        JSON.parse(userData),
+        file?.filename
+      ),
+    };
   }
 
   @Post('users')

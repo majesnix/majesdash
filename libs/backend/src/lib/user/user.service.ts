@@ -101,16 +101,25 @@ export class UserService {
     dto: UpdateUserDto,
     profilePic?: string
   ): Promise<UserEntity> {
-    const toUpdate = await this.userRepository.findOne(id);
-    if (toUpdate?.passwordHash) {
-      delete toUpdate.passwordHash;
-    }
+    const user = await this.userRepository.findOne(id);
+
+    if (!user)
+      new HttpException({ message: 'User not found' }, HttpStatus.NOT_FOUND);
+
     if (profilePic) {
-      toUpdate.image = profilePic;
+      user.image = profilePic;
+    }
+    if (dto.password && dto.passwordRepeat && dto.password === dto.password) {
+      user.passwordHash = await bcrypt.hash(dto.password, 10);
     }
 
-    const updated = Object.assign(toUpdate, dto);
-    return await this.userRepository.save(updated);
+    await this.userRepository.save(user);
+
+    if (user?.passwordHash) {
+      delete user.passwordHash;
+    }
+
+    return user;
   }
 
   async delete(id: number): Promise<DeleteResult> {

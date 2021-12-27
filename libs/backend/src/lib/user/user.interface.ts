@@ -1,4 +1,3 @@
-import { Settings } from '@majesdash/data';
 import { SettingsEntity } from '../settings/settings.entity';
 
 export interface UserData {
