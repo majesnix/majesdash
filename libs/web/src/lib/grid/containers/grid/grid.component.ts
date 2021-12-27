@@ -1,13 +1,22 @@
-import { Component, Input } from '@angular/core';
-import { Tile } from '@majesdash/data';
+import { Component, Input, OnInit } from '@angular/core';
+import { Settings, Tile } from '@majesdash/data';
+import { Observable } from 'rxjs';
+import { SettingsService } from '../../../settings/services/settings.service';
 
 @Component({
   selector: 'majesdash-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss'],
 })
-export class GridComponent {
+export class GridComponent implements OnInit {
   @Input() tiles!: Tile[] | null;
+  settings$!: Observable<Settings | undefined>;
+
+  constructor(private settingsService: SettingsService) {}
+
+  ngOnInit(): void {
+      this.settings$ = this.settingsService.settings$;
+  }
 
   generateAreas() {
     const rows = this.tiles?.length ? Math.ceil(this.tiles.length / 4) : 1;

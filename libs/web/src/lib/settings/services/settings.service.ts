@@ -5,6 +5,7 @@ import {
   SettingsUpdate,
   SystemSettings,
   SystemSettingsUpdate,
+  TabTarget,
 } from '@majesdash/data';
 import { BehaviorSubject, tap } from 'rxjs';
 
@@ -14,7 +15,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 export class SettingsService {
   private settingsSubject$ = new BehaviorSubject<Settings | undefined>({
     customBackground: false,
-    tabTarget: 0,
+    tabTarget: TabTarget.NEW_TAB,
     user: undefined,
     backgroundName: undefined,
   });

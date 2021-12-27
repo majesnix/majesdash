@@ -17,15 +17,15 @@ export class SettingsFormComponent {
   @Output() settingsUpdateEvent = new EventEmitter<SettingsUpdate>();
 
   tabOptions: TabOptions[] = [
-    { value: '0', viewValue: 'New Tab' },
-    { value: '1', viewValue: 'Same Tab' },
+    { value: '_blank', viewValue: 'New Tab' },
+    { value: '_self', viewValue: 'Same Tab' },
   ];
 
   settingsForm = new FormGroup({
     background: new FormControl(undefined, {
       validators: [MaxSizeValidator(16 * 1024)],
     }),
-    tabOption: new FormControl('0', {
+    tabOption: new FormControl('_blank', {
       validators: [],
     }),
   });
