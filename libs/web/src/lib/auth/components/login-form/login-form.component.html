@@ -23,9 +23,12 @@
         <input
           matInput
           placeholder="password"
-          type="password"
+          [type]="hide ? 'password' : 'text'"
           formControlName="password"
         />
+        <mat-icon matSuffix (click)="hide = !hide" style="color: gray;">{{
+          hide ? 'visibility_off' : 'visibility'
+        }}</mat-icon>
         <mat-error>
           <span
             *ngIf="

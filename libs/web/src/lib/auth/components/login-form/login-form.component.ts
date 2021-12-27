@@ -18,6 +18,7 @@ export class LoginFormComponent implements OnInit {
   @Output() authenticateEvent = new EventEmitter<Authenticate>();
   @Input() hasError!: boolean;
   @Output() hasErrorChange = new EventEmitter<boolean>();
+  hide = true;
 
   loginForm = new FormGroup({
     emailOrUsername: new FormControl('', {
