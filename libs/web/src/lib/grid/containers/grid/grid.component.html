@@ -1,0 +1,10 @@
+<!--<div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="8px">-->
+<div
+  class="wrapper"
+>
+  <majesdash-tile
+    *ngFor="let tile of tiles"
+    [name]="tile.applicationName"
+    [url]="tile.url"
+  ></majesdash-tile>
+</div>

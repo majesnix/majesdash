@@ -7,10 +7,10 @@ import { RouterModule } from '@angular/router';
 import { LayoutModule } from '@angular/cdk/layout';
 import { LoginComponent } from './auth/containers/login/login.component';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { TilesModule } from './tiles/tiles.module';
 import { SettingsComponent } from './settings/containers/settings/settings.component';
 import { MainViewModule } from './main-view/main-view.module';
 import { MainViewComponent } from './main-view/main-view.component';
+
 
 @NgModule({
   imports: [
@@ -19,7 +19,6 @@ import { MainViewComponent } from './main-view/main-view.component';
     AuthModule,
     LayoutModule,
     DashboardModule,
-    TilesModule,
     MainViewModule,
     RouterModule.forRoot(
       [
