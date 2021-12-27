@@ -1,28 +1,21 @@
-<majesdash-layout>
-  <div *ngIf="settings$ | async as settings">
-    <div
-      style="
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      "
-      [style.background-image]="
-        settings.customBackground
-          ? 'url(http://localhost:3333/' +
-            settings.user!.id +
-            '/' +
-            settings.backgroundName +
-            ')'
-          : (systemSettings$ | async)?.background
-          ? 'url(http://localhost:3333/' +
-            (systemSettings$ | async)?.background +
-            ')'
-          : 'url(http://localhost:3333/background.png'
-      "
-      class="bg"
-    >
-      <router-outlet></router-outlet>
-    </div>
+<majesdash-layout></majesdash-layout>
+<div *ngIf="settings$ | async as settings">
+  <div
+    [style.background-image]="
+      settings.customBackground
+        ? 'url(http://localhost:3333/' +
+          settings.user!.id +
+          '/' +
+          settings.backgroundName +
+          ')'
+        : (systemSettings$ | async)?.background
+        ? 'url(http://localhost:3333/' +
+          (systemSettings$ | async)?.background +
+          ')'
+        : 'url(http://localhost:3333/background.png'
+    "
+    class="bg"
+  >
+    <router-outlet></router-outlet>
   </div>
-</majesdash-layout>
+</div>

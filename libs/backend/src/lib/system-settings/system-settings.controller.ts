@@ -1,14 +1,12 @@
 import {
-  Body,
   Controller,
-  Post,
   UploadedFile,
   UseInterceptors,
-  Request,
   Get,
+  Post,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { emptyDir, readdir, unlink } from 'fs-extra';
+import { readdir, unlink } from 'fs-extra';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { CustomRequest } from '../auth.middleware';

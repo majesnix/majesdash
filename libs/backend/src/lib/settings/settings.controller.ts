@@ -2,17 +2,17 @@ import {
   Get,
   Controller,
   UseInterceptors,
-  Post,
   UploadedFile,
   Request,
   Body,
+  Post,
 } from '@nestjs/common';
 import { SettingsService } from './settings.service';
 import { SettingsRO } from './settings.interface';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { CustomRequest } from '../auth.middleware';
-import { emptyDir, access, mkdir } from 'fs-extra';
+import { access, mkdir, unlink } from 'fs-extra';
 import { SettingsEntity } from './settings.entity';
 import { Settings } from '@majesdash/data';
 import { extname } from 'path';
@@ -37,7 +37,9 @@ export class SettingsController {
         destination: async (req: CustomRequest, file, cb) => {
           try {
             await access(`./config/images/${req.user.id}`);
-            await emptyDir(`./config/images/${req.user.id}`);
+            await unlink(
+              `./config/images/${req.user.id}/${req.user.settings.backgroundName}`
+            );
           } catch (error) {
             await mkdir(`./config/images/${req.user.id}`, { recursive: true });
           }
@@ -49,15 +51,19 @@ export class SettingsController {
       }),
     })
   )
-  async settings(
+  async updateSettings(
     @UploadedFile() file: Express.Multer.File,
     @Request() req: CustomRequest,
     @Body('settings') userSettings: string
   ) {
-    console.log('settings', JSON.parse(userSettings) as Settings);
+    console.log(userSettings);
     let settings: SettingsEntity;
     if (!file) {
-      settings = await this.settingsService.createOrUpdate(req.user.id);
+      settings = await this.settingsService.createOrUpdate(
+        req.user.id,
+        undefined,
+        JSON.parse(userSettings) as Settings
+      );
     } else {
       settings = await this.settingsService.createOrUpdate(
         req.user.id,

@@ -13,10 +13,9 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
   login(authenticate: Authenticate): Observable<{ user: User }> {
-    const loginWithEmail = this.isEmail(authenticate.emailOrUsername);
     return this.httpClient
       .post<{ user: User }>('http://localhost:3333/api/users/login', {
-        user: loginWithEmail
+        user: this.isEmail(authenticate.emailOrUsername)
           ? {
               email: authenticate.emailOrUsername,
               password: authenticate.password,
