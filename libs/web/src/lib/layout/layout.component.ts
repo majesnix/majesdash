@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/services/auth.service';
@@ -11,7 +12,7 @@ import { AuthService } from '../auth/services/auth.service';
 export class LayoutComponent implements OnInit {
   user$: Observable<User | null> | undefined;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.user$ = this.authService.user$;
@@ -22,5 +23,6 @@ export class LayoutComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['/']);
   }
 }
