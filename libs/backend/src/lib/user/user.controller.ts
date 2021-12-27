@@ -2,16 +2,23 @@ import {
   Get,
   Post,
   Body,
-  Put,
   Delete,
   Param,
   Controller,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserRO } from './user.interface';
 import { CreateUserDto, UpdateUserDto, LoginUserDto } from './dto';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { User } from './user.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { access, mkdir, unlink } from 'fs-extra';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { CustomRequest } from '../auth.middleware';
+import { nanoid } from 'nanoid';
 
 @Controller()
 export class UserController {
@@ -22,12 +29,31 @@ export class UserController {
     return await this.userService.findByEmail(email);
   }
 
-  @Put('user')
+  @Post('user')
+  @UseInterceptors(
+    FileInterceptor('profilepic', {
+      storage: diskStorage({
+        destination: async (req: CustomRequest, file, cb) => {
+          try {
+            await access(`./config/images/${req.user.id}`);
+            await unlink(`./config/images/${req.user.id}/${req.user.image}`);
+          } catch (error) {
+            await mkdir(`./config/images/${req.user.id}`, { recursive: true });
+          }
+          return cb(null, `./config/images/${req.user.id}`);
+        },
+        filename: (req, file, cb) => {
+          return cb(null, `${nanoid(5)}${extname(file.originalname)}`);
+        },
+      }),
+    })
+  )
   async update(
+    @UploadedFile() file: Express.Multer.File,
     @User('id') userId: number,
     @Body('user') userData: UpdateUserDto
   ) {
-    return await this.userService.update(userId, userData);
+    return await this.userService.update(userId, userData, file?.filename);
   }
 
   @Post('users')

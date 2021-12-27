@@ -9,7 +9,12 @@
         style="color: darkgrey; font-size: 0.75rem"
         [matMenuTriggerFor]="menu"
       >
-        <mat-icon>account_circle</mat-icon>
+        <mat-icon *ngIf="!user.image">account_circle</mat-icon>
+        <img
+          *ngIf="user.image"
+          src="http://localhost:3333/{{ user.id }}/{{ user.image }}"
+          class="profile-pic"
+        />
         {{ (user$ | async)?.username }}
       </button>
     </span>

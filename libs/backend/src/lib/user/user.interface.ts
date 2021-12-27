@@ -1,3 +1,6 @@
+import { Settings } from '@majesdash/data';
+import { SettingsEntity } from '../settings/settings.entity';
+
 export interface UserData {
   id: number;
   username: string;
@@ -5,6 +8,7 @@ export interface UserData {
   token: string;
   image?: string;
   isAdmin: boolean;
+  settings?: SettingsEntity;
 }
 
 export interface UserRO {

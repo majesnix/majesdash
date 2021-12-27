@@ -96,10 +96,17 @@ export class UserService {
     }
   }
 
-  async update(id: number, dto: UpdateUserDto): Promise<UserEntity> {
+  async update(
+    id: number,
+    dto: UpdateUserDto,
+    profilePic?: string
+  ): Promise<UserEntity> {
     const toUpdate = await this.userRepository.findOne(id);
     if (toUpdate?.passwordHash) {
       delete toUpdate.passwordHash;
+    }
+    if (profilePic) {
+      toUpdate.image = profilePic;
     }
 
     const updated = Object.assign(toUpdate, dto);
@@ -111,7 +118,9 @@ export class UserService {
   }
 
   async findById(id: number): Promise<UserRO> {
-    const user = await this.userRepository.findOne(id);
+    const user = await this.userRepository.findOne(id, {
+      relations: ['settings'],
+    });
 
     if (!user) {
       const errors = { User: ' not found' };
@@ -155,6 +164,7 @@ export class UserService {
         token: this.generateJWT(user),
         image: user.image,
         isAdmin: user.isAdmin,
+        settings: user.settings,
       },
     };
   }
