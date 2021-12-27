@@ -1,4 +1,11 @@
-import { Component, EventEmitter, HostListener, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Authenticate } from '@majesdash/data';
 
@@ -7,8 +14,10 @@ import { Authenticate } from '@majesdash/data';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
   @Output() authenticateEvent = new EventEmitter<Authenticate>();
+  @Input() hasError!: boolean;
+  @Output() hasErrorChange = new EventEmitter<boolean>();
 
   loginForm = new FormGroup({
     emailOrUsername: new FormControl('', {
@@ -21,10 +30,20 @@ export class LoginFormComponent {
     }),
   });
 
+  ngOnInit(): void {
+    this.loginForm.valueChanges.subscribe(() => {
+      if (this.hasError) {
+        this.hasErrorChange.emit(false);
+      }
+    });
+  }
+
   @HostListener('document:keydown.enter') login() {
-    this.authenticateEvent.emit({
-      emailOrUsername: this.loginForm.value.emailOrUsername,
-      password: this.loginForm.value.password,
-    } as Authenticate);
+    if (this.loginForm.valid) {
+      this.authenticateEvent.emit({
+        emailOrUsername: this.loginForm.value.emailOrUsername,
+        password: this.loginForm.value.password,
+      } as Authenticate);
+    }
   }
 }

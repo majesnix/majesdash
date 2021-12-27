@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Authenticate, Settings, SystemSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
@@ -14,11 +19,13 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
   settings$!: Observable<Settings | undefined>;
   systemSettings$!: Observable<SystemSettings | undefined>;
+  error = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -32,9 +39,15 @@ export class LoginComponent implements OnInit {
   }
 
   login(authenticate: Authenticate) {
-    this.authService.login(authenticate).subscribe((data) => {
-      localStorage.setItem('token', data.user.token);
-      this.router.navigate(['/']);
+    this.authService.login(authenticate).subscribe({
+      next: (data) => {
+        localStorage.setItem('token', data.user.token);
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        this.error = true;
+        this.cdRef.detectChanges();
+      },
     });
   }
 }

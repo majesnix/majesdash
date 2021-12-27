@@ -1,3 +1,9 @@
+<mat-card
+  *ngIf="error"
+  style="margin-bottom: 16px; background-color: lightcoral"
+  ><mat-card-content>Invalid Credentials</mat-card-content></mat-card
+>
 <majesdash-login-form
   (authenticateEvent)="login($event)"
+  [(hasError)]="error"
 ></majesdash-login-form>
