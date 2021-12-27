@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Authenticate } from '@majesdash/data';
 
@@ -13,15 +13,15 @@ export class LoginFormComponent {
   loginForm = new FormGroup({
     emailOrUsername: new FormControl('', {
       validators: [Validators.required],
-      updateOn: 'blur',
+      updateOn: 'change',
     }),
     password: new FormControl('', {
       validators: [Validators.required],
-      updateOn: 'blur',
+      updateOn: 'change',
     }),
   });
 
-  login() {
+  @HostListener('document:keydown.enter') login() {
     this.authenticateEvent.emit({
       emailOrUsername: this.loginForm.value.emailOrUsername,
       password: this.loginForm.value.password,
