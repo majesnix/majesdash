@@ -72,6 +72,7 @@ export class UserService {
     newUser.username = username;
     newUser.email = email;
     newUser.passwordHash = password;
+    newUser.isAdmin = false;
 
     const errors = await validate(newUser);
     if (errors.length > 0) {
@@ -86,7 +87,10 @@ export class UserService {
       // create standard user settings
       const settings = new SettingsEntity();
       settings.user = savedUser;
-      await this.settingsRepository.save(settings);
+      const savedSettings = await this.settingsRepository.save(settings);
+      // add new settings to user
+      savedUser.settings = savedSettings;
+      await this.userRepository.save(savedUser);
 
       return this.buildUserRO(savedUser);
     }
@@ -143,14 +147,15 @@ export class UserService {
   }
 
   private buildUserRO(user: UserEntity) {
-    const userRO = {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      token: this.generateJWT(user),
-      image: user.image,
+    return {
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        token: this.generateJWT(user),
+        image: user.image,
+        isAdmin: user.isAdmin,
+      },
     };
-
-    return { user: userRO };
   }
 }

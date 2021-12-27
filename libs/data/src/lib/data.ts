@@ -3,6 +3,14 @@ export interface SettingsUpdate {
   settings: Partial<Settings>;
 }
 
+export interface SystemSettingsUpdate {
+  background: any;
+}
+
+export interface SystemSettings {
+  background: any;
+}
+
 export interface Settings {
   customBackground: boolean;
   backgroundName?: string;

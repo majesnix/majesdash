@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Settings, SettingsUpdate } from '@majesdash/data';
+import {
+  Settings,
+  SettingsUpdate,
+  SystemSettings,
+  SystemSettingsUpdate,
+} from '@majesdash/data';
 import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
@@ -14,6 +19,12 @@ export class SettingsService {
     backgroundName: undefined,
   });
   settings$ = this.settingsSubject$.asObservable();
+  private systemSettingsSubject$ = new BehaviorSubject<
+    SystemSettings | undefined
+  >({
+    background: 'background.png',
+  });
+  systemSettings$ = this.systemSettingsSubject$.asObservable();
 
   constructor(private httpClient: HttpClient) {}
 
@@ -39,6 +50,34 @@ export class SettingsService {
       .pipe(
         tap(({ settings }) => {
           this.settingsSubject$.next(settings);
+        })
+      );
+  }
+
+  getSystemSettings() {
+    return this.httpClient
+      .get<{ settings: SystemSettings }>(
+        'http://localhost:3333/api/system-settings'
+      )
+      .pipe(
+        tap(({ settings }) => {
+          console.log('SETTINGS', settings);
+          this.systemSettingsSubject$.next(settings);
+        })
+      );
+  }
+
+  updateSystemSettings(settings: SystemSettingsUpdate) {
+    const formData = new FormData();
+    formData.append('background', settings.background);
+    return this.httpClient
+      .post<{ settings: SystemSettings }>(
+        'http://localhost:3333/api/system-settings',
+        formData
+      )
+      .pipe(
+        tap(({ settings }) => {
+          this.systemSettingsSubject$.next(settings);
         })
       );
   }

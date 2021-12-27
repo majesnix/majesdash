@@ -28,6 +28,9 @@ export class UserEntity {
   @Column()
   passwordHash: string;
 
+  @Column({ default: false })
+  isAdmin: boolean;
+
   @OneToOne(() => SettingsEntity, (settings) => settings.user)
   @JoinColumn()
   settings: SettingsEntity;

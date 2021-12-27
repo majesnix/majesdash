@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Authenticate, Settings } from '@majesdash/data';
+import { Authenticate, Settings, SystemSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../../../settings/services/settings.service';
 import { AuthService } from '../../services/auth.service';
@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   settings$!: Observable<Settings | undefined>;
+  systemSettings$!: Observable<SystemSettings | undefined>;
 
   constructor(
     private authService: AuthService,
@@ -21,9 +22,11 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.settingsService.getSettings().subscribe();
     this.settings$ = this.settingsService.settings$;
-    this.settings$.subscribe();
+    this.settingsService.getSettings().subscribe();
+
+    this.systemSettings$ = this.settingsService.systemSettings$;
+    this.settingsService.getSystemSettings().subscribe();
   }
 
   login(authenticate: Authenticate) {

@@ -17,19 +17,17 @@ export class TileService {
   ) {}
 
   async findAll(tags?: string[]): Promise<TilesRO> {
-    const qb = getRepository(TileEntity)
-      .createQueryBuilder('tile')
-      .leftJoinAndSelect('tile.author', 'author');
+    const qb = getRepository(TileEntity).createQueryBuilder('tile');
 
     qb.where('1 = 1');
 
     if (tags) {
-      qb.andWhere('tile.tagList LIKE :tag', { tag: `%${tags}%` });
+      qb.andWhere('tile.tags LIKE :tag', { tag: `%${tags}%` });
     }
 
     qb.orderBy('tile.created', 'DESC');
 
-    return { tiles: await qb.getMany() };
+    return { tiles: await this.tileRepository.find() };
   }
 
   async findOne(where: string): Promise<TileRO> {

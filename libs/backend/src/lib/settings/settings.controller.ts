@@ -15,6 +15,8 @@ import { CustomRequest } from '../auth.middleware';
 import { emptyDir, access, mkdir } from 'fs-extra';
 import { SettingsEntity } from './settings.entity';
 import { Settings } from '@majesdash/data';
+import { extname } from 'path';
+import { nanoid } from 'nanoid';
 
 @Controller('settings')
 export class SettingsController {
@@ -42,7 +44,7 @@ export class SettingsController {
           return cb(null, `./config/images/${req.user.id}`);
         },
         filename: (req, file, cb) => {
-          return cb(null, file.originalname);
+          return cb(null, `${nanoid(5)}${extname(file.originalname)}`);
         },
       }),
     })
@@ -59,7 +61,7 @@ export class SettingsController {
     } else {
       settings = await this.settingsService.createOrUpdate(
         req.user.id,
-        file.originalname,
+        file.filename,
         JSON.parse(userSettings) as Settings
       );
     }

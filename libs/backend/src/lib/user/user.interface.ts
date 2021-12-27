@@ -4,6 +4,7 @@ export interface UserData {
   email: string;
   token: string;
   image?: string;
+  isAdmin: boolean;
 }
 
 export interface UserRO {

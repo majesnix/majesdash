@@ -48,8 +48,8 @@ export class UserController {
     if (!_user) throw new HttpException({ errors }, 401);
 
     const token = this.userService.generateJWT(_user);
-    const { id, email, username, image } = _user;
-    const user = { id, email, token, username, image };
+    const { id, email, username, image, isAdmin } = _user;
+    const user = { id, email, token, username, image, isAdmin };
     return { user };
   }
 }
