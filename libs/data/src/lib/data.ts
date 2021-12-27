@@ -19,8 +19,8 @@ export interface Settings {
 }
 
 export enum TabTarget {
-  NEW_TAB = 0,
-  SAME_TAB,
+  NEW_TAB = '_blank',
+  SAME_TAB = '_self',
 }
 
 export interface User {
@@ -30,6 +30,12 @@ export interface User {
   token: string;
   image?: string;
   isAdmin: boolean;
+}
+
+export interface UserUpdate {
+  profilepic?: any;
+  password?: string;
+  passwordRepeat?: string;
 }
 
 export interface Authenticate {
