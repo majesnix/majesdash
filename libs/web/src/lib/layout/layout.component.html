@@ -13,7 +13,7 @@
         {{ (user$ | async)?.username }}
       </button>
     </span>
-    <span *ngIf="!(user$ | async)">
+    <span *ngIf="!!(user$ | async) !== true">
       <button
         mat-button
         [routerLink]="['/login']"
@@ -23,6 +23,15 @@
       </button>
     </span>
     <mat-menu #menu="matMenu">
+      <button
+        mat-menu-item
+        class=".menu-item"
+        [routerLink]="['/']"
+        routerLinkActive="router-link-active"
+      >
+        <mat-icon>home</mat-icon>
+        <span>Dashboard</span>
+      </button>
       <button mat-menu-item disabled class=".menu-item">
         <mat-icon>dashboard_customize</mat-icon>
         <span>Tiles</span>
