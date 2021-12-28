@@ -8,4 +8,4 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, MaterialModule, RouterModule],
   exports: [],
 })
-export class LayoutModule {}
+export class HeaderModule {}

@@ -6,11 +6,11 @@ import { AuthService } from '../auth/services/auth.service';
 import { UserService } from '../user/services/user.service';
 
 @Component({
-  selector: 'majesdash-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
+  selector: 'majesdash-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
 })
-export class LayoutComponent implements OnInit {
+export class HeaderComponent implements OnInit {
   user$: Observable<User | undefined>;
 
   constructor(
