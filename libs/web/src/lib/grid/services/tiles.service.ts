@@ -19,6 +19,7 @@ export class TilesService {
         tap(({ tiles }) => {
           this.tilesSubject$.next(tiles);
         })
-      );
+      )
+      .subscribe();
   }
 }

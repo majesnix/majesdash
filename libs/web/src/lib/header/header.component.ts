@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@majesdash/data';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { UserService } from '../user/services/user.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   user$: Observable<User | undefined>;
 
   constructor(
@@ -19,12 +19,6 @@ export class HeaderComponent implements OnInit {
     private router: Router
   ) {
     this.user$ = this.userService.user$;
-  }
-
-  ngOnInit(): void {
-    if (localStorage.getItem('token')) {
-      this.userService.getUser().subscribe();
-    }
   }
 
   logout(): void {

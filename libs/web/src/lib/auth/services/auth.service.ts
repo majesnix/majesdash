@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Authenticate, User } from '@majesdash/data';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,9 +8,10 @@ import { Observable } from 'rxjs';
 export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
-  login(authenticate: Authenticate): Observable<{ user: User }> {
-    return this.httpClient
-      .post<{ user: User }>('http://localhost:3333/api/users/login', {
+  login(authenticate: Authenticate) {
+    return this.httpClient.post<{ user: User }>(
+      'http://localhost:3333/api/users/login',
+      {
         user: this.isEmail(authenticate.emailOrUsername)
           ? {
               email: authenticate.emailOrUsername,
@@ -21,7 +21,8 @@ export class AuthService {
               username: authenticate.emailOrUsername,
               password: authenticate.password,
             },
-      })
+      }
+    );
   }
 
   logout() {

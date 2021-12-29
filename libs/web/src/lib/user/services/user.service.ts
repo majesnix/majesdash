@@ -19,7 +19,8 @@ export class UserService {
         tap(({ user }) => {
           this.userSubject$.next(user);
         })
-      );
+      )
+      .subscribe();
   }
 
   updateUser(user: UserUpdate) {
@@ -34,7 +35,8 @@ export class UserService {
         tap(({ user }) => {
           this.userSubject$.next(user);
         })
-      );
+      )
+      .subscribe();
   }
 
   reset() {

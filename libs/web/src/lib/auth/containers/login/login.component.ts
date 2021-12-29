@@ -32,19 +32,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.settings$ = this.settingsService.settings$;
-    if (localStorage.getItem('token')) {
-      this.settingsService.getSettings().subscribe();
-    }
-
     this.systemSettings$ = this.settingsService.systemSettings$;
-    this.settingsService.getSystemSettings().subscribe();
   }
 
   login(authenticate: Authenticate) {
     this.authService.login(authenticate).subscribe({
       next: (data) => {
         localStorage.setItem('token', data.user.token);
-        this.userService.getUser().subscribe();
+        this.userService.getUser();
         this.router.navigate(['/']);
       },
       error: () => {

@@ -29,17 +29,18 @@ export class SettingsService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getSettings() {
+  getUserSettings() {
     return this.httpClient
       .get<{ settings: Settings }>('http://localhost:3333/api/settings')
       .pipe(
         tap(({ settings }) => {
           this.settingsSubject$.next(settings);
         })
-      );
+      )
+      .subscribe();
   }
 
-  updateSettings(settings: SettingsUpdate) {
+  updateUserSettings(settings: SettingsUpdate) {
     const formData = new FormData();
     formData.append('background', settings.background);
     formData.append('settings', JSON.stringify(settings.settings));
@@ -52,7 +53,8 @@ export class SettingsService {
         tap(({ settings }) => {
           this.settingsSubject$.next(settings);
         })
-      );
+      )
+      .subscribe();
   }
 
   getSystemSettings() {
@@ -64,7 +66,8 @@ export class SettingsService {
         tap(({ settings }) => {
           this.systemSettingsSubject$.next(settings);
         })
-      );
+      )
+      .subscribe();
   }
 
   updateSystemSettings(settings: SystemSettingsUpdate) {
@@ -79,6 +82,7 @@ export class SettingsService {
         tap(({ settings }) => {
           this.systemSettingsSubject$.next(settings);
         })
-      );
+      )
+      .subscribe();
   }
 }

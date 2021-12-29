@@ -18,11 +18,8 @@ export class DashboardComponent {
     private tilesService: TilesService
   ) {
     this.settings$ = this.settingsService.settings$;
-    if (localStorage.getItem('token')) {
-      this.settingsService.getSettings().subscribe();
-    }
 
     this.tiles$ = this.tilesService.tiles$;
-    this.tilesService.getTiles().subscribe();
+    this.tilesService.getTiles();
   }
 }

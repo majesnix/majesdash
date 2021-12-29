@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Settings, SystemSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../settings/services/settings.service';
+import { UserService } from '../user/services/user.service';
 
 @Component({
   selector: 'majesdash-main-view',
@@ -13,16 +14,18 @@ export class MainViewComponent implements OnInit {
   systemSettings$!: Observable<SystemSettings | undefined>;
 
   constructor(
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
     this.settings$ = this.settingsService.settings$;
-    if (localStorage.getItem('token')) {
-      this.settingsService.getSettings().subscribe();
-    }
-
     this.systemSettings$ = this.settingsService.systemSettings$;
-    this.settingsService.getSystemSettings().subscribe();
+
+    if (localStorage.getItem('token')) {
+      this.settingsService.getUserSettings();
+      this.userService.getUser();
+    }
+    this.settingsService.getSystemSettings();
   }
 }

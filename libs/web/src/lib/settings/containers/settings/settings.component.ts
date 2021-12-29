@@ -20,19 +20,14 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.settings$ = this.settingsService.settings$;
-    if (localStorage.getItem('token')) {
-      this.settingsService.getSettings().subscribe();
-    }
-
     this.systemSettings$ = this.settingsService.systemSettings$;
-    this.settingsService.getSystemSettings().subscribe();
   }
 
   update(settings: SettingsUpdate) {
-    this.settingsService.updateSettings(settings).subscribe();
+    this.settingsService.updateUserSettings(settings);
   }
 
   updateSystemSettings(settings: SystemSettingsUpdate) {
-    this.settingsService.updateSystemSettings(settings).subscribe();
+    this.settingsService.updateSystemSettings(settings);
   }
 }
