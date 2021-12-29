@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class TileComponent {
   @Input() url!: string;
-  @Input() name!: string;
+  @Input() title!: string;
   @Input() type!: string;
   @Input() target = '_blank';
 }

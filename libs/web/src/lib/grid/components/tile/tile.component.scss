@@ -12,4 +12,9 @@ a {
   width: 200px;
   height: 60px;
   border: 1px solid rgb(182, 180, 180);
+  transition: transform 0.2s;
+}
+
+.box:hover {
+  transform: scale(1.05);
 }

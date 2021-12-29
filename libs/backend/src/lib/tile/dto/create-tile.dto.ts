@@ -10,7 +10,9 @@ export class CreateTileDto {
   @IsUrl()
   readonly url!: string;
 
-  readonly colour!: string;
-  readonly icon!: string;
   readonly tags!: string[];
+  readonly config?: string;
+  readonly type?: string;
+  readonly color?: string;
+  readonly icon?: string;
 }

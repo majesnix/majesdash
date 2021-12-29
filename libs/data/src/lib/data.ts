@@ -45,12 +45,14 @@ export interface Authenticate {
 
 export interface Tile {
   id: number;
-  applicationName: string;
+  title: string;
   applicationType: string;
   color: string;
   url: string;
   icon: string;
   tags?: Tag[];
+  order: number;
+  config: string;
 }
 
 export interface Tag {

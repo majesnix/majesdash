@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository, DeleteResult } from 'typeorm';
-import { TileEntity } from './tile.entity';
-import { CreateTileDto } from './dto';
-
-import { TileRO, TilesRO } from './tile.interface';
+import { DeleteResult, getRepository, Repository } from 'typeorm';
 import { TagEntity } from '../tag/tag.entity';
+import { CreateTileDto } from './dto';
+import { TileEntity } from './tile.entity';
+import { TileRO, TilesRO } from './tile.interface';
 
 @Injectable()
 export class TileService {
@@ -40,12 +39,13 @@ export class TileService {
       tags = await this.tagRepository.find({ where: tileData.tags });
     }
     const tile = new TileEntity();
-    tile.applicationName = tileData.applicationName;
-    tile.applicationType = tileData.applicationType;
+    tile.title = tileData.applicationName;
+    tile.applicationType = null;
     tile.url = tileData.url;
-    tile.colour = tileData.colour;
-    tile.icon = tileData.icon;
     tile.tags = tags || [];
+    tile.color = tileData.color;
+    tile.config = JSON.stringify(tileData.config) ?? '';
+    tile.icon = '';
 
     return await this.tileRepository.save(tile);
   }

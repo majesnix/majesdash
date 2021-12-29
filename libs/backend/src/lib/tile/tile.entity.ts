@@ -1,9 +1,10 @@
+import { IsUrl } from 'class-validator';
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
+  Entity,
   JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TagEntity } from '../tag/tag.entity';
 
@@ -13,21 +14,28 @@ export class TileEntity {
   id!: number;
 
   @Column()
-  applicationName!: string;
+  title!: string;
 
-  @Column()
-  applicationType!: string;
+  @Column({ nullable: true })
+  applicationType?: string;
 
-  @Column()
-  colour!: string;
-
-  @Column()
-  url!: string;
+  @Column({ nullable: true })
+  color?: string;
 
   @Column()
   icon!: string;
 
+  @Column()
+  @IsUrl()
+  url!: string;
+
+  @Column({ default: 0 })
+  order!: number;
+
   @ManyToMany(() => TagEntity)
   @JoinTable()
   tags!: TagEntity[];
+
+  @Column()
+  config!: string;
 }
