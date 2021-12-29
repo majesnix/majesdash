@@ -1,21 +1,20 @@
 export interface SettingsUpdate {
-  background: any;
+  background: Blob;
   settings: Partial<Settings>;
 }
 
 export interface SystemSettingsUpdate {
-  background: any;
+  background: Blob;
 }
 
 export interface SystemSettings {
-  background: any;
+  background: string;
 }
 
 export interface Settings {
   customBackground: boolean;
   backgroundName?: string;
   tabTarget: TabTarget;
-  user?: User;
 }
 
 export enum TabTarget {
@@ -30,10 +29,11 @@ export interface User {
   token: string;
   image?: string;
   isAdmin: boolean;
+  settings?: Settings;
 }
 
 export interface UserUpdate {
-  profilepic?: any;
+  profilepic?: Blob;
   password?: string;
   passwordRepeat?: string;
 }
@@ -47,7 +47,7 @@ export interface Tile {
   id: number;
   applicationName: string;
   applicationType: string;
-  colour: string;
+  color: string;
   url: string;
   icon: string;
   tags?: Tag[];

@@ -8,24 +8,16 @@ import { UserEntity } from '../user/user.entity';
 @Injectable()
 export class SettingsService {
   constructor(
-    @InjectRepository(SettingsEntity)
-    private readonly settingsRepository: Repository<SettingsEntity>,
     @InjectRepository(UserEntity)
     private readonly usersRepository: Repository<UserEntity>
   ) {}
 
   async findOne(id: number): Promise<SettingsEntity> {
-    const user = await this.usersRepository.findOne(id);
-
-    const settings = await this.settingsRepository.findOne({
-      where: { user: id },
-      relations: ['user'],
+    const user = await this.usersRepository.findOne(id, {
+      relations: ['settings'],
     });
 
-    if (settings.user) {
-      delete settings.user.passwordHash;
-    }
-    return settings;
+    return user.settings;
   }
 
   /**
@@ -39,27 +31,16 @@ export class SettingsService {
     filename?: string,
     userSettings?: Settings
   ): Promise<SettingsEntity> {
-    const user = await this.usersRepository.findOne(id);
-    let settings = await this.settingsRepository.findOne(id, {
-      relations: ['user'],
+    const user = await this.usersRepository.findOne(id, {
+      relations: ['settings'],
     });
-    if (settings) {
-      settings.customBackground = !!filename;
-      settings.backgroundName = filename;
-      settings.tabTarget = userSettings.tabTarget;
-    } else {
-      settings = new SettingsEntity();
-      settings.customBackground = !!filename;
-      settings.user = user;
-      settings.backgroundName = filename;
-    }
-    await this.settingsRepository.save(settings);
-    await this.usersRepository.save({ ...user, settings });
 
-    if (settings.user) {
-      delete settings.user.passwordHash;
-    }
+    user.settings.customBackground = !!filename;
+    user.settings.backgroundName = filename;
+    user.settings.tabTarget = userSettings.tabTarget;
 
-    return settings;
+    await this.usersRepository.save(user);
+
+    return user.settings;
   }
 }

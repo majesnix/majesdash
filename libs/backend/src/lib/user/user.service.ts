@@ -67,12 +67,16 @@ export class UserService {
       );
     }
 
+    // create standard user settings
+    const settings = await this.settingsRepository.save(new SettingsEntity());
+
     // create new user
     const newUser = new UserEntity();
     newUser.username = username;
     newUser.email = email;
     newUser.passwordHash = password;
     newUser.isAdmin = false;
+    newUser.settings = settings;
 
     const errors = await validate(newUser);
     if (errors.length > 0) {
@@ -83,14 +87,6 @@ export class UserService {
       );
     } else {
       const savedUser = await this.userRepository.save(newUser);
-
-      // create standard user settings
-      const settings = new SettingsEntity();
-      settings.user = savedUser;
-      const savedSettings = await this.settingsRepository.save(settings);
-      // add new settings to user
-      savedUser.settings = savedSettings;
-      await this.userRepository.save(savedUser);
 
       return this.buildUserRO(savedUser);
     }

@@ -31,7 +31,9 @@ export class UserEntity {
   @Column({ default: false })
   isAdmin: boolean;
 
-  @OneToOne(() => SettingsEntity, (settings) => settings.user)
+  @OneToOne(() => SettingsEntity, {
+    cascade: true,
+  })
   @JoinColumn()
   settings: SettingsEntity;
 

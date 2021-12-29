@@ -1,12 +1,17 @@
 <majesdash-header></majesdash-header>
-<div *ngIf="settings$ | async as settings">
+<div
+  *ngIf="{
+    settings: settings$ | async,
+    user: user$ | async
+  } as userAndSettings"
+>
   <div
     [style.background-image]="
-      settings.customBackground
+      userAndSettings.settings?.customBackground
         ? 'url(http://localhost:3333/' +
-          settings.user!.id +
+          userAndSettings.user?.id +
           '/' +
-          settings.backgroundName +
+          userAndSettings.settings?.backgroundName +
           ')'
         : (systemSettings$ | async)?.background
         ? 'url(http://localhost:3333/' +

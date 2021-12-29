@@ -25,8 +25,4 @@ export class SettingsEntity {
     default: TabTarget.NEW_TAB,
   })
   tabTarget!: TabTarget;
-
-  @OneToOne(() => UserEntity, (user) => user.id)
-  @JoinColumn()
-  user: UserEntity;
 }

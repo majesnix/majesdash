@@ -8,7 +8,7 @@
     <div style="margin-bottom: 24px"></div>
     <majesdash-system-settings-form
       (systemSettingsUpdateEvent)="updateSystemSettings($event)"
-      *ngIf="settings.user?.isAdmin"
+      *ngIf="(user$ | async)?.isAdmin"
     ></majesdash-system-settings-form>
   </div>
 </div>

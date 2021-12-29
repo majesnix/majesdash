@@ -16,7 +16,6 @@ export class SettingsService {
   private settingsSubject$ = new BehaviorSubject<Settings | undefined>({
     customBackground: false,
     tabTarget: TabTarget.NEW_TAB,
-    user: undefined,
     backgroundName: undefined,
   });
   settings$ = this.settingsSubject$.asObservable();
@@ -84,5 +83,9 @@ export class SettingsService {
         })
       )
       .subscribe();
+  }
+
+  reset() {
+    this.settingsSubject$.next(undefined);
   }
 }

@@ -4,8 +4,10 @@ import {
   SettingsUpdate,
   SystemSettings,
   SystemSettingsUpdate,
+  User,
 } from '@majesdash/data';
 import { Observable } from 'rxjs';
+import { UserService } from '../../../user/services/user.service';
 import { SettingsService } from '../../services/settings.service';
 
 @Component({
@@ -16,11 +18,17 @@ import { SettingsService } from '../../services/settings.service';
 export class SettingsComponent implements OnInit {
   settings$!: Observable<Settings | undefined>;
   systemSettings$!: Observable<SystemSettings | undefined>;
-  constructor(private settingsService: SettingsService) {}
+  user$!: Observable<User | undefined>;
+
+  constructor(
+    private settingsService: SettingsService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.settings$ = this.settingsService.settings$;
     this.systemSettings$ = this.settingsService.systemSettings$;
+    this.user$ = this.userService.user$;
   }
 
   update(settings: SettingsUpdate) {
