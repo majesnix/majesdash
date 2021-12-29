@@ -1,12 +1,8 @@
 import { TabTarget } from '@majesdash/data';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('settings')
-export class SettingsEntity {
+@Entity('user-settings')
+export class UserSettingsEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

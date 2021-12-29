@@ -1,27 +1,27 @@
+import { UserSettings } from '@majesdash/data';
 import {
-  Get,
-  Controller,
-  UseInterceptors,
-  Post,
-  UploadedFile,
-  Request,
   Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
-import { SettingsService } from './settings.service';
-import { SettingsRO } from './settings.interface';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { access, emptyDir, mkdir } from 'fs-extra';
 import { diskStorage } from 'multer';
 import { CustomRequest } from '../auth.middleware';
-import { emptyDir, access, mkdir } from 'fs-extra';
-import { SettingsEntity } from './settings.entity';
-import { Settings } from '@majesdash/data';
+import { UserSettingsEntity } from './user-settings.entity';
+import { UserSettingsRO } from './user-settings.interface';
+import { UserSettingsService } from './user-settings.service';
 
-@Controller('settings')
+@Controller('user-settings')
 export class SettingsController {
-  constructor(private readonly settingsService: SettingsService) {}
+  constructor(private readonly settingsService: UserSettingsService) {}
 
   @Get()
-  async findMe(@Request() req: CustomRequest): Promise<SettingsRO> {
+  async findMe(@Request() req: CustomRequest): Promise<UserSettingsRO> {
     const settings = await this.settingsService.findOne(req.user.id);
     return {
       settings,
@@ -52,14 +52,14 @@ export class SettingsController {
     @Request() req: CustomRequest,
     @Body('settings') userSettings: string
   ) {
-    let settings: SettingsEntity;
+    let settings: UserSettingsEntity;
     if (!file) {
       settings = await this.settingsService.createOrUpdate(req.user.id);
     } else {
       settings = await this.settingsService.createOrUpdate(
         req.user.id,
         file.originalname,
-        JSON.parse(userSettings) as Settings
+        JSON.parse(userSettings) as UserSettings
       );
     }
 

@@ -1,30 +1,30 @@
+import { UserSettings } from '@majesdash/data';
 import {
-  Get,
-  Controller,
-  UseInterceptors,
-  UploadedFile,
-  Request,
   Body,
+  Controller,
+  Get,
   Post,
+  Request,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
-import { SettingsService } from './settings.service';
-import { SettingsRO } from './settings.interface';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { CustomRequest } from '../auth.middleware';
 import { access, mkdir, unlink } from 'fs-extra';
-import { SettingsEntity } from './settings.entity';
-import { Settings } from '@majesdash/data';
-import { extname } from 'path';
+import { diskStorage } from 'multer';
 import { nanoid } from 'nanoid';
+import { extname } from 'path';
+import { CustomRequest } from '../auth.middleware';
+import { UserSettingsEntity } from './user-settings.entity';
+import { UserSettingsRO } from './user-settings.interface';
+import { UserSettingsService } from './user-settings.service';
 
 @Controller('settings')
-export class SettingsController {
-  constructor(private readonly settingsService: SettingsService) {}
+export class UserSettingsController {
+  constructor(private readonly userSettingsService: UserSettingsService) {}
 
   @Get()
-  async findMe(@Request() req: CustomRequest): Promise<SettingsRO> {
-    const settings = await this.settingsService.findOne(req.user.id);
+  async findMe(@Request() req: CustomRequest): Promise<UserSettingsRO> {
+    const settings = await this.userSettingsService.findOne(req.user.id);
     return {
       settings,
     };
@@ -57,18 +57,18 @@ export class SettingsController {
     @Body('settings') userSettings: string
   ) {
     console.log(userSettings);
-    let settings: SettingsEntity;
+    let settings: UserSettingsEntity;
     if (!file) {
-      settings = await this.settingsService.createOrUpdate(
+      settings = await this.userSettingsService.createOrUpdate(
         req.user.id,
         undefined,
-        JSON.parse(userSettings) as Settings
+        JSON.parse(userSettings) as UserSettings
       );
     } else {
-      settings = await this.settingsService.createOrUpdate(
+      settings = await this.userSettingsService.createOrUpdate(
         req.user.id,
         file.filename,
-        JSON.parse(userSettings) as Settings
+        JSON.parse(userSettings) as UserSettings
       );
     }
 

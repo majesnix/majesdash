@@ -4,15 +4,15 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { UserController } from './user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthMiddleware } from '../auth.middleware';
+import { UserSettingsEntity } from '../user-settings/user-settings.entity';
+import { UserController } from './user.controller';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
-import { AuthMiddleware } from '../auth.middleware';
-import { SettingsEntity } from '../settings/settings.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity, SettingsEntity])],
+  imports: [TypeOrmModule.forFeature([UserEntity, UserSettingsEntity])],
   providers: [UserService],
   controllers: [UserController],
   exports: [UserService],

@@ -1,24 +1,23 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository, DeleteResult } from 'typeorm';
-import { UserEntity } from './user.entity';
-import { CreateUserDto, LoginUserDto, UpdateUserDto } from './dto';
-import * as jwt from 'jsonwebtoken';
-import { UserRO } from './user.interface';
-import { validate } from 'class-validator';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
-import { HttpStatus } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
-import { SettingsEntity } from '../settings/settings.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcrypt';
+import { validate } from 'class-validator';
+import * as jwt from 'jsonwebtoken';
+import { DeleteResult, getRepository, Repository } from 'typeorm';
+import { UserSettingsEntity } from '../user-settings/user-settings.entity';
+import { CreateUserDto, LoginUserDto, UpdateUserDto } from './dto';
+import { UserEntity } from './user.entity';
+import { UserRO } from './user.interface';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    @InjectRepository(SettingsEntity)
-    private readonly settingsRepository: Repository<SettingsEntity>,
+    @InjectRepository(UserSettingsEntity)
+    private readonly settingsRepository: Repository<UserSettingsEntity>,
     private configService: ConfigService
   ) {}
 
@@ -68,7 +67,9 @@ export class UserService {
     }
 
     // create standard user settings
-    const settings = await this.settingsRepository.save(new SettingsEntity());
+    const settings = await this.settingsRepository.save(
+      new UserSettingsEntity()
+    );
 
     // create new user
     const newUser = new UserEntity();

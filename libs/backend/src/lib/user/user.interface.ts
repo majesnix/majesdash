@@ -1,4 +1,4 @@
-import { SettingsEntity } from '../settings/settings.entity';
+import { UserSettingsEntity } from '../user-settings/user-settings.entity';
 
 export interface UserData {
   id: number;
@@ -7,7 +7,7 @@ export interface UserData {
   token: string;
   image?: string;
   isAdmin: boolean;
-  settings?: SettingsEntity;
+  settings?: UserSettingsEntity;
 }
 
 export interface UserRO {

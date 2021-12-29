@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { Authenticate, Settings, SystemSettings } from '@majesdash/data';
+import { Authenticate, SystemSettings, UserSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../../../settings/services/settings.service';
 import { UserService } from '../../../user/services/user.service';
@@ -18,7 +18,7 @@ import { AuthService } from '../../services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-  settings$!: Observable<Settings | undefined>;
+  userSettings$!: Observable<UserSettings | undefined>;
   systemSettings$!: Observable<SystemSettings | undefined>;
   error = false;
 
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.settings$ = this.settingsService.settings$;
+    this.userSettings$ = this.settingsService.userSettings$;
     this.systemSettings$ = this.settingsService.systemSettings$;
   }
 

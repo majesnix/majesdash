@@ -1,18 +1,18 @@
+import { UserSettings } from '@majesdash/data';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { SettingsEntity } from './settings.entity';
-import { Settings } from '@majesdash/data';
 import { UserEntity } from '../user/user.entity';
+import { UserSettingsEntity } from './user-settings.entity';
 
 @Injectable()
-export class SettingsService {
+export class UserSettingsService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly usersRepository: Repository<UserEntity>
   ) {}
 
-  async findOne(id: number): Promise<SettingsEntity> {
+  async findOne(id: number): Promise<UserSettingsEntity> {
     const user = await this.usersRepository.findOne(id, {
       relations: ['settings'],
     });
@@ -29,8 +29,8 @@ export class SettingsService {
   async createOrUpdate(
     id: number,
     filename?: string,
-    userSettings?: Settings
-  ): Promise<SettingsEntity> {
+    userSettings?: UserSettings
+  ): Promise<UserSettingsEntity> {
     const user = await this.usersRepository.findOne(id, {
       relations: ['settings'],
     });

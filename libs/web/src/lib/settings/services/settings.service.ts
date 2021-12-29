@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
-  Settings,
   SettingsUpdate,
   SystemSettings,
   SystemSettingsUpdate,
   TabTarget,
+  UserSettings,
 } from '@majesdash/data';
 import { BehaviorSubject, tap } from 'rxjs';
 
@@ -13,12 +13,12 @@ import { BehaviorSubject, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class SettingsService {
-  private settingsSubject$ = new BehaviorSubject<Settings | undefined>({
+  private userSettingSubject$ = new BehaviorSubject<UserSettings | undefined>({
     customBackground: false,
     tabTarget: TabTarget.NEW_TAB,
     backgroundName: undefined,
   });
-  settings$ = this.settingsSubject$.asObservable();
+  userSettings$ = this.userSettingSubject$.asObservable();
   private systemSettingsSubject$ = new BehaviorSubject<
     SystemSettings | undefined
   >({
@@ -30,10 +30,10 @@ export class SettingsService {
 
   getUserSettings() {
     return this.httpClient
-      .get<{ settings: Settings }>('http://localhost:3333/api/settings')
+      .get<{ settings: UserSettings }>('http://localhost:3333/api/settings')
       .pipe(
         tap(({ settings }) => {
-          this.settingsSubject$.next(settings);
+          this.userSettingSubject$.next(settings);
         })
       )
       .subscribe();
@@ -44,13 +44,13 @@ export class SettingsService {
     formData.append('background', settings.background);
     formData.append('settings', JSON.stringify(settings.settings));
     return this.httpClient
-      .post<{ settings: Settings }>(
+      .post<{ settings: UserSettings }>(
         'http://localhost:3333/api/settings',
         formData
       )
       .pipe(
         tap(({ settings }) => {
-          this.settingsSubject$.next(settings);
+          this.userSettingSubject$.next(settings);
         })
       )
       .subscribe();
@@ -86,6 +86,6 @@ export class SettingsService {
   }
 
   reset() {
-    this.settingsSubject$.next(undefined);
+    this.userSettingSubject$.next(undefined);
   }
 }

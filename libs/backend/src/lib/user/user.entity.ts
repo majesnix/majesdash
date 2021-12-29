@@ -1,14 +1,14 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  BeforeInsert,
-  OneToOne,
-  JoinColumn,
-} from 'typeorm';
-import { IsEmail } from 'class-validator';
 import * as bcrypt from 'bcrypt';
-import { SettingsEntity } from '../settings/settings.entity';
+import { IsEmail } from 'class-validator';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { UserSettingsEntity } from '../user-settings/user-settings.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -31,11 +31,11 @@ export class UserEntity {
   @Column({ default: false })
   isAdmin: boolean;
 
-  @OneToOne(() => SettingsEntity, {
+  @OneToOne(() => UserSettingsEntity, {
     cascade: true,
   })
   @JoinColumn()
-  settings: SettingsEntity;
+  settings: UserSettingsEntity;
 
   @BeforeInsert()
   async hashPassword() {

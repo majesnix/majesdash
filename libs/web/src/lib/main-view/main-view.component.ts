@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Settings, SystemSettings, User } from '@majesdash/data';
+import { SystemSettings, User, UserSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../settings/services/settings.service';
 import { UserService } from '../user/services/user.service';
@@ -10,7 +10,7 @@ import { UserService } from '../user/services/user.service';
   styleUrls: ['./main-view.component.scss'],
 })
 export class MainViewComponent implements OnInit {
-  settings$!: Observable<Settings | undefined>;
+  userSettings$!: Observable<UserSettings | undefined>;
   systemSettings$!: Observable<SystemSettings | undefined>;
   user$!: Observable<User | undefined>;
 
@@ -20,7 +20,7 @@ export class MainViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.settings$ = this.settingsService.settings$;
+    this.userSettings$ = this.settingsService.userSettings$;
     this.systemSettings$ = this.settingsService.systemSettings$;
     this.user$ = this.userService.user$;
 

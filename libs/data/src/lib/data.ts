@@ -1,6 +1,6 @@
 export interface SettingsUpdate {
   background: Blob;
-  settings: Partial<Settings>;
+  settings: Partial<UserSettings>;
 }
 
 export interface SystemSettingsUpdate {
@@ -11,7 +11,7 @@ export interface SystemSettings {
   background: string;
 }
 
-export interface Settings {
+export interface UserSettings {
   customBackground: boolean;
   backgroundName?: string;
   tabTarget: TabTarget;
@@ -29,7 +29,7 @@ export interface User {
   token: string;
   image?: string;
   isAdmin: boolean;
-  settings?: Settings;
+  settings?: UserSettings;
 }
 
 export interface UserUpdate {

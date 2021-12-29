@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  Settings,
   SettingsUpdate,
   SystemSettings,
   SystemSettingsUpdate,
   User,
+  UserSettings,
 } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { UserService } from '../../../user/services/user.service';
@@ -16,7 +16,7 @@ import { SettingsService } from '../../services/settings.service';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  settings$!: Observable<Settings | undefined>;
+  userSettings$!: Observable<UserSettings | undefined>;
   systemSettings$!: Observable<SystemSettings | undefined>;
   user$!: Observable<User | undefined>;
 
@@ -26,7 +26,7 @@ export class SettingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.settings$ = this.settingsService.settings$;
+    this.userSettings$ = this.settingsService.userSettings$;
     this.systemSettings$ = this.settingsService.systemSettings$;
     this.user$ = this.userService.user$;
   }

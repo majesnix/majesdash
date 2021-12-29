@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Settings, Tile } from '@majesdash/data';
+import { Tile, UserSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../../../settings/services/settings.service';
 
@@ -10,12 +10,12 @@ import { SettingsService } from '../../../settings/services/settings.service';
 })
 export class GridComponent implements OnInit {
   @Input() tiles!: Tile[] | null;
-  settings$!: Observable<Settings | undefined>;
+  userSettings$!: Observable<UserSettings | undefined>;
 
   constructor(private settingsService: SettingsService) {}
 
   ngOnInit(): void {
-      this.settings$ = this.settingsService.settings$;
+    this.userSettings$ = this.settingsService.userSettings$;
   }
 
   generateAreas() {
