@@ -2,11 +2,8 @@ import { TabTarget } from '@majesdash/data';
 import {
   Entity,
   Column,
-  OneToOne,
-  JoinColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UserEntity } from '../user/user.entity';
 
 @Entity('settings')
 export class SettingsEntity {
