@@ -9,7 +9,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 })
 export class UserService {
   private userSubject$ = new BehaviorSubject<User | undefined>(undefined);
-  user$ = this.userSubject$.asObservable();
+  readonly user$ = this.userSubject$.asObservable();
 
   constructor(
     private httpClient: HttpClient,

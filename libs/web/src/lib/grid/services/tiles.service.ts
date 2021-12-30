@@ -9,7 +9,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 })
 export class TilesService {
   private tilesSubject$ = new BehaviorSubject<Tile[]>([]);
-  tiles$ = this.tilesSubject$.asObservable();
+  readonly tiles$ = this.tilesSubject$.asObservable();
 
   constructor(private httpClient: HttpClient,
     @Inject(ENVIRONMENT) public env: Environment) {}

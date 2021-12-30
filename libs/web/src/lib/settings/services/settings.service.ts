@@ -19,13 +19,13 @@ export class SettingsService {
     tabTarget: TabTarget.NEW_TAB,
     backgroundName: undefined,
   });
-  userSettings$ = this.userSettingSubject$.asObservable();
+  readonly userSettings$ = this.userSettingSubject$.asObservable();
   private systemSettingsSubject$ = new BehaviorSubject<
     SystemSettings | undefined
   >({
     background: 'background.png',
   });
-  systemSettings$ = this.systemSettingsSubject$.asObservable();
+  readonly systemSettings$ = this.systemSettingsSubject$.asObservable();
 
   constructor(private httpClient: HttpClient,
     @Inject(ENVIRONMENT) public env: Environment) {}
