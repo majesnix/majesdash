@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Tile, UserSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
-import { TilesService } from '../grid/services/tiles.service';
 import { SettingsService } from '../settings/services/settings.service';
+import { TilesService } from '../tiles/services/tile.service';
 
 @Component({
   selector: 'majesdash-dashboard',

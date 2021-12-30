@@ -11,8 +11,10 @@ export class TilesService {
   private tilesSubject$ = new BehaviorSubject<Tile[]>([]);
   readonly tiles$ = this.tilesSubject$.asObservable();
 
-  constructor(private httpClient: HttpClient,
-    @Inject(ENVIRONMENT) public env: Environment) {}
+  constructor(
+    private httpClient: HttpClient,
+    @Inject(ENVIRONMENT) public env: Environment
+  ) {}
 
   getTiles() {
     return this.httpClient
