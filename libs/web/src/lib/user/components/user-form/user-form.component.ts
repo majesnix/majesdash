@@ -21,7 +21,6 @@ export class UserFormComponent {
   });
 
   update() {
-    console.log('form update');
     this.userUpdateEvent.emit({
       profilepic: this.userForm.value.profilepic,
       password: this.userForm.value.password,
