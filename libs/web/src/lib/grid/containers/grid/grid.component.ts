@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Tile, UserSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../../../settings/services/settings.service';
@@ -8,15 +8,12 @@ import { SettingsService } from '../../../settings/services/settings.service';
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss'],
 })
-export class GridComponent implements OnInit {
+export class GridComponent {
   @Input() tiles!: Tile[] | null;
-  userSettings$!: Observable<UserSettings | undefined>;
+  userSettings$: Observable<UserSettings | undefined> =
+    this.settingsService.userSettings$;
 
   constructor(private settingsService: SettingsService) {}
-
-  ngOnInit(): void {
-    this.userSettings$ = this.settingsService.userSettings$;
-  }
 
   generateAreas() {
     const rows = this.tiles?.length ? Math.ceil(this.tiles.length / 4) : 1;

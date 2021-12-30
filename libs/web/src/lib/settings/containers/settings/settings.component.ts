@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   SettingsUpdate,
   SystemSettings,
@@ -15,21 +15,17 @@ import { SettingsService } from '../../services/settings.service';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent implements OnInit {
-  userSettings$!: Observable<UserSettings | undefined>;
-  systemSettings$!: Observable<SystemSettings | undefined>;
-  user$!: Observable<User | undefined>;
+export class SettingsComponent {
+  userSettings$: Observable<UserSettings | undefined> =
+    this.settingsService.userSettings$;
+  systemSettings$: Observable<SystemSettings | undefined> =
+    this.settingsService.systemSettings$;
+  user$: Observable<User | undefined> = this.userService.user$;
 
   constructor(
     private settingsService: SettingsService,
     private userService: UserService
   ) {}
-
-  ngOnInit(): void {
-    this.userSettings$ = this.settingsService.userSettings$;
-    this.systemSettings$ = this.settingsService.systemSettings$;
-    this.user$ = this.userService.user$;
-  }
 
   update(settings: SettingsUpdate) {
     this.settingsService.updateUserSettings(settings);

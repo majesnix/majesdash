@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Authenticate, SystemSettings, UserSettings } from '@majesdash/data';
@@ -17,9 +16,11 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit {
-  userSettings$!: Observable<UserSettings | undefined>;
-  systemSettings$!: Observable<SystemSettings | undefined>;
+export class LoginComponent {
+  userSettings$: Observable<UserSettings | undefined> =
+    this.settingsService.userSettings$;
+  systemSettings$: Observable<SystemSettings | undefined> =
+    this.settingsService.systemSettings$;
   error = false;
 
   constructor(
@@ -29,11 +30,6 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private cdRef: ChangeDetectorRef
   ) {}
-
-  ngOnInit(): void {
-    this.userSettings$ = this.settingsService.userSettings$;
-    this.systemSettings$ = this.settingsService.systemSettings$;
-  }
 
   login(authenticate: Authenticate) {
     this.authService.login(authenticate).subscribe({

@@ -9,11 +9,10 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
-  user$!: Observable<User | undefined>;
+  user$: Observable<User | undefined> = this.userService.user$;
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.user$ = this.userService.user$;
     if (localStorage.getItem('token')) {
       this.userService.getUser();
     }

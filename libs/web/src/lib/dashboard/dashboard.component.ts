@@ -10,16 +10,14 @@ import { TilesService } from '../tiles/services/tile.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-  userSettings$: Observable<UserSettings | undefined>;
-  tiles$: Observable<Tile[]>;
+  userSettings$: Observable<UserSettings | undefined> =
+    this.settingsService.userSettings$;
+  tiles$: Observable<Tile[]> = this.tilesService.tiles$;
 
   constructor(
     private settingsService: SettingsService,
     private tilesService: TilesService
   ) {
-    this.userSettings$ = this.settingsService.userSettings$;
-
-    this.tiles$ = this.tilesService.tiles$;
     this.tilesService.getTiles();
   }
 }

@@ -11,9 +11,11 @@ import { UserService } from '../user/services/user.service';
   styleUrls: ['./main-view.component.scss'],
 })
 export class MainViewComponent implements OnInit {
-  userSettings$!: Observable<UserSettings | undefined>;
-  systemSettings$!: Observable<SystemSettings | undefined>;
-  user$!: Observable<User | undefined>;
+  userSettings$: Observable<UserSettings | undefined> =
+    this.settingsService.userSettings$;
+  systemSettings$: Observable<SystemSettings | undefined> =
+    this.settingsService.systemSettings$;
+  user$: Observable<User | undefined> = this.userService.user$;
 
   constructor(
     private settingsService: SettingsService,
@@ -22,10 +24,6 @@ export class MainViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userSettings$ = this.settingsService.userSettings$;
-    this.systemSettings$ = this.settingsService.systemSettings$;
-    this.user$ = this.userService.user$;
-
     if (localStorage.getItem('token')) {
       this.settingsService.getUserSettings();
       this.userService.getUser();
