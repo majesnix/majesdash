@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { SystemSettings, User, UserSettings } from '@majesdash/data';
+import { Environment, ENVIRONMENT } from '@majesdash/environment';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../settings/services/settings.service';
 import { UserService } from '../user/services/user.service';
@@ -16,7 +17,8 @@ export class MainViewComponent implements OnInit {
 
   constructor(
     private settingsService: SettingsService,
-    private userService: UserService
+    private userService: UserService,
+    @Inject(ENVIRONMENT) public env: Environment
   ) {}
 
   ngOnInit(): void {

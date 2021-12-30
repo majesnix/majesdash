@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@majesdash/data';
+import { ENVIRONMENT, Environment } from '@majesdash/environment';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/services/auth.service';
 import { SettingsService } from '../settings/services/settings.service';
@@ -18,7 +19,8 @@ export class HeaderComponent {
     private userService: UserService,
     private authService: AuthService,
     private settingsService: SettingsService,
-    private router: Router
+    private router: Router,
+    @Inject(ENVIRONMENT) public env: Environment
   ) {
     this.user$ = this.userService.user$;
   }

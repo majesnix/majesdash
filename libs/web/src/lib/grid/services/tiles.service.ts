@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Tile } from '@majesdash/data';
+import { ENVIRONMENT, Environment } from '@majesdash/environment';
 import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
@@ -10,11 +11,12 @@ export class TilesService {
   private tilesSubject$ = new BehaviorSubject<Tile[]>([]);
   tiles$ = this.tilesSubject$.asObservable();
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient,
+    @Inject(ENVIRONMENT) public env: Environment) {}
 
   getTiles() {
     return this.httpClient
-      .get<{ tiles: Tile[] }>('http://localhost:3333/api/tiles')
+      .get<{ tiles: Tile[] }>(`${this.env.base_url}/api/tiles`)
       .pipe(
         tap(({ tiles }) => {
           this.tilesSubject$.next(tiles);

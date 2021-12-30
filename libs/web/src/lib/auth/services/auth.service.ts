@@ -1,16 +1,18 @@
-import { Injectable } from '@angular/core';
-import { Authenticate, User } from '@majesdash/data';
 import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { Authenticate, User } from '@majesdash/data';
+import { ENVIRONMENT, Environment } from '@majesdash/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient,
+    @Inject(ENVIRONMENT) public env: Environment) {}
 
   login(authenticate: Authenticate) {
     return this.httpClient.post<{ user: User }>(
-      'http://localhost:3333/api/users/login',
+      `${this.env.base_url}/api/users/login`,
       {
         user: this.isEmail(authenticate.emailOrUsername)
           ? {

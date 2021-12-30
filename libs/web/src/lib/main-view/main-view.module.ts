@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainViewComponent } from './main-view.component';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from '../material/material.module';
 import { HeaderComponent } from '../header/header.component';
+import { MaterialModule } from '../material/material.module';
+import { MainViewComponent } from './main-view.component';
 
 @NgModule({
   declarations: [MainViewComponent, HeaderComponent],

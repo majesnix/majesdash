@@ -12,7 +12,7 @@
         <mat-icon *ngIf="!user.image" class="user-pic">account_circle</mat-icon>
         <img
           *ngIf="user.image"
-          src="http://localhost:3333/{{ user.id }}/{{ user.image }}"
+          src="{{ this.env.base_url }}/{{ user.id }}/{{ user.image }}"
           class="user-pic"
         />
         {{ (user$ | async)?.username }}

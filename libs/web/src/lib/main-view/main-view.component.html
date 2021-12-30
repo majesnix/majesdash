@@ -8,16 +8,21 @@
   <div
     [style.background-image]="
       userAndSettings.userSettings?.customBackground
-        ? 'url(http://localhost:3333/' +
+        ? 'url(' +
+          env.base_url +
+          '/' +
           userAndSettings.user?.id +
           '/' +
           userAndSettings.userSettings?.backgroundName +
           ')'
         : (systemSettings$ | async)?.background
-        ? 'url(http://localhost:3333/' +
+        ? 'url(' +
+          env.base_url +
+          '/' +
+          '' +
           (systemSettings$ | async)?.background +
           ')'
-        : 'url(http://localhost:3333/background.png'
+        : 'url(' + env.base_url + '/' + 'background.png'
     "
     class="bg"
   >
