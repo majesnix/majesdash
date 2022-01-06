@@ -1,16 +1,16 @@
 import {
-  Get,
-  Post,
   Body,
-  Put,
-  Delete,
-  Query,
-  Param,
   Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
 } from '@nestjs/common';
-import { TileService } from './tile.service';
 import { CreateTileDto } from './dto';
-import { TilesRO, TileRO } from './tile.interface';
+import { TileRO, TilesRO } from './tile.interface';
+import { TileService } from './tile.service';
 
 @Controller('tiles')
 export class TileController {

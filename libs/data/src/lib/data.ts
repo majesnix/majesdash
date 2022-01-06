@@ -46,7 +46,7 @@ export interface Authenticate {
 export interface Tile {
   id: number;
   title: string;
-  applicationType: string;
+  type: string;
   color: string;
   url: string;
   icon: string;

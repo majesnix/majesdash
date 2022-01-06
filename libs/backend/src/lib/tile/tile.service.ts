@@ -35,17 +35,20 @@ export class TileService {
 
   async create(tileData: CreateTileDto): Promise<TileEntity> {
     let tags;
-    if (tileData.tags) {
+    if (tileData.tags.length) {
       tags = await this.tagRepository.find({ where: tileData.tags });
     }
+
     const tile = new TileEntity();
-    tile.title = tileData.applicationName;
-    tile.applicationType = null;
-    tile.url = tileData.url;
-    tile.tags = tags || [];
+    tile.title = tileData.title;
+    tile.type = tileData.type;
+
     tile.color = tileData.color;
-    tile.config = JSON.stringify(tileData.config) ?? '';
-    tile.icon = '';
+    tile.icon = tileData.icon || '';
+    tile.url = tileData.url;
+    tile.order = parseInt(tileData.order) ?? 0;
+    tile.tags = tags ?? [];
+    tile.config = JSON.stringify(tileData.config) ?? '{}';
 
     return await this.tileRepository.save(tile);
   }

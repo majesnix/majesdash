@@ -2,17 +2,17 @@ import { IsNotEmpty, IsUrl } from 'class-validator';
 
 export class CreateTileDto {
   @IsNotEmpty()
-  readonly applicationName!: string;
+  readonly title!: string;
 
   @IsNotEmpty()
-  readonly applicationType!: string;
+  readonly type!: string;
 
   @IsUrl()
   readonly url!: string;
 
   readonly tags!: string[];
   readonly config?: string;
-  readonly type?: string;
   readonly color?: string;
   readonly icon?: string;
+  readonly order?: string;
 }

@@ -17,7 +17,7 @@ export class TileEntity {
   title!: string;
 
   @Column({ nullable: true })
-  applicationType?: string;
+  type?: string;
 
   @Column({ nullable: true })
   color?: string;
@@ -30,9 +30,9 @@ export class TileEntity {
   url!: string;
 
   @Column({ default: 0 })
-  order!: number;
+  order?: number;
 
-  @ManyToMany(() => TagEntity)
+  @ManyToMany(() => TagEntity, { cascade: true })
   @JoinTable()
   tags!: TagEntity[];
 
