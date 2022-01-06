@@ -1,4 +1,4 @@
-import { Entity, Column, Check, PrimaryColumn } from 'typeorm';
+import { Check, Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('systemSettings')
 @Check(`id = 1`)
@@ -8,4 +8,7 @@ export class SystemSettingsEntity {
 
   @Column({ default: 'background.png' })
   background!: string;
+
+  @Column({ default: false })
+  initialized!: boolean;
 }

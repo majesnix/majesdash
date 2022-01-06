@@ -1,9 +1,9 @@
 import {
   Controller,
-  UploadedFile,
-  UseInterceptors,
   Get,
   Post,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { readdir, unlink } from 'fs-extra';
