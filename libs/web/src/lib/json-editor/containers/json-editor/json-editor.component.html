@@ -1,0 +1,9 @@
+<mat-form-field>
+  <textarea
+    [value]="jsonString"
+    (change)="onChange($event)"
+    (keyup)="onChange($event)"
+    cdkTextareaAutosize
+    matInput
+  ></textarea>
+</mat-form-field>

@@ -7,7 +7,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class TilesService {
+export class TileService {
   private tilesSubject$ = new BehaviorSubject<Tile[]>([]);
   readonly tiles$ = this.tilesSubject$.asObservable();
 
@@ -24,6 +24,14 @@ export class TilesService {
           this.tilesSubject$.next(tiles);
         })
       )
+      .subscribe();
+  }
+
+  addTile(tile: Partial<Tile>) {
+    return this.httpClient
+      .post<{ tile: Tile }>(`${this.env.base_url}/api/tiles`, {
+        tile: { ...tile, order: 0 },
+      })
       .subscribe();
   }
 }

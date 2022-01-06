@@ -1,0 +1,26 @@
+.list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+}
+
+.list-entity {
+  background-color: #fff;
+  margin: 8px;
+  padding: 16px;
+  border: 1px solid #fff;
+  border-radius: 8px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+}
+
+mat-icon:hover {
+  cursor: pointer;
+}

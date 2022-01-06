@@ -37,7 +37,12 @@
         <mat-icon>home</mat-icon>
         <span>Dashboard</span>
       </button>
-      <button mat-menu-item disabled class=".menu-item">
+      <button
+        mat-menu-item
+        class="menu-item"
+        [routerLink]="['/tiles']"
+        routerLinkActive="router-link-active"
+      >
         <mat-icon>dashboard_customize</mat-icon>
         <span>Tiles</span>
       </button>

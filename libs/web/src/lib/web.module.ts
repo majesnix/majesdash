@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { LoginComponent } from './auth/containers/login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { JsonEditorModule } from './json-editor/json-editor.module';
 import { MainViewComponent } from './main-view/main-view.component';
 import { MainViewModule } from './main-view/main-view.module';
 import { SettingsComponent } from './settings/containers/settings/settings.component';
@@ -24,6 +25,7 @@ import { UserModule } from './user/user.module';
     MainViewModule,
     UserModule,
     TileModule,
+    JsonEditorModule,
     RouterModule.forRoot(
       [
         {
@@ -49,7 +51,8 @@ import { UserModule } from './user/user.module';
       }
     ),
   ],
-  declarations: [],
+  declarations: [
+  ],
   exports: [MainViewComponent],
 })
 export class WebModule {}

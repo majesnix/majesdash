@@ -1,0 +1,17 @@
+<div class="container">
+  <mat-icon
+    style="
+      transform: scale(1.5);
+      float: right;
+      display: flex;
+      justify-self: end;
+    "
+    mat-button
+    [routerLink]="['/tiles/create']"
+  >
+    library_add</mat-icon
+  >
+  <mat-list *ngFor="let tile of tiles$ | async" class="list">
+    <mat-list-item class="list-entity">{{ tile.title }}</mat-list-item>
+  </mat-list>
+</div>

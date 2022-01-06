@@ -1,0 +1,67 @@
+<mat-card style="padding: 24px">
+  <mat-card-title>Create Tile</mat-card-title>
+  <mat-card-content>
+    <form
+      [formGroup]="createTileForm"
+      fxLayout="column"
+      fxLayoutAlign="center none"
+      style="padding: 16px; width: 320px"
+    >
+      <mat-form-field style="margin-bottom: 8px">
+        <input matInput placeholder="name" formControlName="name" />
+        <mat-error>
+          <span
+            *ngIf="
+              createTileForm.get('name')!.hasError('required') &&
+              createTileForm.touched
+            "
+            >Required Field</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field style="margin-bottom: 8px">
+        <input matInput placeholder="type" formControlName="type" />
+        <mat-error>
+          <span
+            *ngIf="
+              createTileForm.get('type')!.hasError('required') &&
+              createTileForm.touched
+            "
+            >Required Field</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field style="margin-bottom: 8px">
+        <input matInput placeholder="url" formControlName="url" />
+        <mat-error>
+          <span
+            *ngIf="
+              createTileForm.get('url')!.hasError('required') &&
+              createTileForm.touched
+            "
+            >Required Field</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          [ngxMatColorPicker]="picker"
+          formControlName="color"
+          placeholder="color"
+        />
+        <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+        <ngx-mat-color-picker #picker [color]="color"></ngx-mat-color-picker>
+      </mat-form-field>
+      <div>Settings</div>
+      <majesdash-json-editor formControlName="settings" placeholder="Settings">
+      </majesdash-json-editor>
+      <mat-error>
+        <span *ngIf="!createTileForm.get('settings')!.valid"
+          >Settings are not valid json</span
+        >
+      </mat-error>
+    </form>
+    <button mat-raised-button (click)="addTile()">Add</button>
+  </mat-card-content>
+</mat-card>

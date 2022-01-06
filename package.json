@@ -16,6 +16,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-material-components/color-picker": "^7.0.1",
     "@angular-material-components/file-input": "^7.0.1",
     "@angular/animations": "~13.1.0",
     "@angular/cdk": "^13.1.1",
@@ -38,7 +39,7 @@
     "@nestjs/typeorm": "^8.0.2",
     "@nestjs/websockets": "^8.2.4",
     "@nrwl/angular": "13.3.12",
-    "add": "^2.0.6",
+    "angular-jsoneditor": "^0.0.2",
     "bcrypt": "^5.0.1",
     "better-sqlite3": "^7.4.5",
     "class-validator": "^0.13.2",
