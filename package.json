@@ -8,7 +8,8 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "clearDB": "cd config && rm *.sql*"
+    "clearDB": "cd config && rm *.sql*",
+    "docker:build": "nx run-many --target=build --projects=api,majesdash && docker build -f ./apps/api/Dockerfile . -t majesdash"
   },
   "repository": {
     "type": "git",
