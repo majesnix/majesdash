@@ -183,6 +183,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "majesdash:build",
+            "proxyConfig": "apps/majesdash/proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "browserTarget": "majesdash:build:production"
