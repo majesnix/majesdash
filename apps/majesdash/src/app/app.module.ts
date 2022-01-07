@@ -9,7 +9,10 @@ import { AppComponent } from './app.component';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, BrowserAnimationsModule, WebModule],
-  providers: [{ provide: ENVIRONMENT, useValue: environment }],
+  providers: [
+    { provide: ENVIRONMENT, useValue: environment },
+    { provide: Window, useValue: window },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

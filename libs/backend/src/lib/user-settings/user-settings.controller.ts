@@ -36,14 +36,16 @@ export class UserSettingsController {
       storage: diskStorage({
         destination: async (req: CustomRequest, file, cb) => {
           try {
-            await access(`./config/images/${req.user.id}`);
+            await access(`./config/web/images/${req.user.id}`);
             await unlink(
-              `./config/images/${req.user.id}/${req.user.settings.backgroundName}`
+              `./config/web/images/${req.user.id}/${req.user.settings.backgroundName}`
             );
           } catch (error) {
-            await mkdir(`./config/images/${req.user.id}`, { recursive: true });
+            await mkdir(`./config/web/images/${req.user.id}`, {
+              recursive: true,
+            });
           }
-          return cb(null, `./config/images/${req.user.id}`);
+          return cb(null, `./config/web/images/${req.user.id}`);
         },
         filename: (req, file, cb) => {
           return cb(null, `${nanoid(5)}${extname(file.originalname)}`);

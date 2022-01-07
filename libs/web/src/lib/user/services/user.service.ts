@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { User, UserUpdate } from '@majesdash/data';
-import { ENVIRONMENT, Environment } from '@majesdash/environment';
 import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
@@ -11,14 +10,11 @@ export class UserService {
   private userSubject$ = new BehaviorSubject<User | undefined>(undefined);
   readonly user$ = this.userSubject$.asObservable();
 
-  constructor(
-    private httpClient: HttpClient,
-    @Inject(ENVIRONMENT) public env: Environment
-  ) {}
+  constructor(private httpClient: HttpClient, private window: Window) {}
 
   getUser() {
     return this.httpClient
-      .get<{ user: User }>(`${this.env.base_url}/api/user`)
+      .get<{ user: User }>(`${this.window.location.origin}/api/user`)
       .pipe(
         tap(({ user }) => {
           this.userSubject$.next(user);
@@ -34,7 +30,7 @@ export class UserService {
     }
     formData.append('user', JSON.stringify(user));
     return this.httpClient
-      .post<{ user: User }>(`${this.env.base_url}/api/user`, formData)
+      .post<{ user: User }>(`${this.window.location.origin}/api/user`, formData)
       .pipe(
         tap(({ user }) => {
           this.userSubject$.next(user);

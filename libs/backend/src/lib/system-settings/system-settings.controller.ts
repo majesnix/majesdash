@@ -27,14 +27,14 @@ export class SystemSettingsController {
       storage: diskStorage({
         destination: async (req: CustomRequest, file, cb) => {
           const files = (
-            await readdir('./config/images/', {
+            await readdir('./config/web/images/', {
               withFileTypes: true,
             })
           ).filter((file) => file.isFile());
           for (const file of files) {
-            await unlink(`./config/images/${file.name}`);
+            await unlink(`./config/web/images/${file.name}`);
           }
-          return cb(null, `./config/images/`);
+          return cb(null, `./config/web/images/`);
         },
         filename: (req, file, cb) => {
           return cb(null, `background${extname(file.originalname)}`);

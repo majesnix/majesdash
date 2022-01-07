@@ -20,7 +20,7 @@ export class MainViewComponent implements OnInit {
   constructor(
     private settingsService: SettingsService,
     private userService: UserService,
-    @Inject(ENVIRONMENT) public env: Environment
+    public window: Window
   ) {}
 
   ngOnInit(): void {

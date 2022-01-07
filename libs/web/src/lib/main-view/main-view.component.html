@@ -9,20 +9,19 @@
     [style.background-image]="
       userAndSettings.userSettings?.customBackground
         ? 'url(' +
-          env.base_url +
-          '/' +
+          window.location.origin +
+          '/images/' +
           userAndSettings.user?.id +
-          '/' +
+          '/images/' +
           userAndSettings.userSettings?.backgroundName +
           ')'
         : (systemSettings$ | async)?.background
         ? 'url(' +
-          env.base_url +
-          '/' +
-          '' +
+          window.location.origin +
+          '/images/' +
           (systemSettings$ | async)?.background +
           ')'
-        : 'url(' + env.base_url + '/' + 'background.png'
+        : 'url(' + window.location.origin + '/images/' + 'background.png'
     "
     class="bg"
   >

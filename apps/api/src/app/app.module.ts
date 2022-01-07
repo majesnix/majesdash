@@ -1,15 +1,18 @@
+import { BackendModule } from '@majesdash/backend';
 import { Module } from '@nestjs/common';
-
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { BackendModule } from '@majesdash/backend';
 
 @Module({
   imports: [
     BackendModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../../../', 'config/images'),
+      rootPath: join(__dirname, './config/web/images'),
       exclude: ['/api*'],
+      serveRoot: '/images',
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, './client'),
     }),
   ],
 })

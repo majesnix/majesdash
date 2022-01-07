@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   SettingsUpdate,
   SystemSettings,
@@ -7,7 +7,6 @@ import {
   TabTarget,
   UserSettings,
 } from '@majesdash/data';
-import { ENVIRONMENT, Environment } from '@majesdash/environment';
 import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
@@ -27,12 +26,13 @@ export class SettingsService {
   });
   readonly systemSettings$ = this.systemSettingsSubject$.asObservable();
 
-  constructor(private httpClient: HttpClient,
-    @Inject(ENVIRONMENT) public env: Environment) {}
+  constructor(private httpClient: HttpClient, private window: Window) {}
 
   getUserSettings() {
     return this.httpClient
-      .get<{ settings: UserSettings }>(`${this.env.base_url}/api/settings`)
+      .get<{ settings: UserSettings }>(
+        `${this.window.location.origin}/api/settings`
+      )
       .pipe(
         tap(({ settings }) => {
           this.userSettingSubject$.next(settings);
@@ -47,7 +47,7 @@ export class SettingsService {
     formData.append('settings', JSON.stringify(settings.settings));
     return this.httpClient
       .post<{ settings: UserSettings }>(
-        `${this.env.base_url}/api/settings`,
+        `${this.window.location.origin}/api/settings`,
         formData
       )
       .pipe(
@@ -61,7 +61,7 @@ export class SettingsService {
   getSystemSettings() {
     return this.httpClient
       .get<{ settings: SystemSettings }>(
-        `${this.env.base_url}/api/system-settings`
+        `${this.window.location.origin}/api/system-settings`
       )
       .pipe(
         tap(({ settings }) => {
@@ -76,7 +76,7 @@ export class SettingsService {
     formData.append('background', settings.background);
     return this.httpClient
       .post<{ settings: SystemSettings }>(
-        `${this.env.base_url}/api/system-settings`,
+        `${this.window.location.origin}/api/system-settings`,
         formData
       )
       .pipe(
