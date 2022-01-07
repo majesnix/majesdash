@@ -11,9 +11,9 @@ import { SystemInfoComponent } from './components/system-info/system-info.compon
 import { SystemSettingsFormComponent } from './components/system-settings-form/system-settings-form.component';
 import { SettingsComponent } from './containers/settings/settings.component';
 
-export const settingRoutes: Route[] = [
+const settingRoutes: Route[] = [
   {
-    path: '',
+    path: 'settings',
     component: SettingsComponent,
   },
 ];
@@ -21,7 +21,7 @@ export const settingRoutes: Route[] = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule,
+    RouterModule.forChild(settingRoutes),
     HttpClientModule,
     MaterialModule,
     ReactiveFormsModule,

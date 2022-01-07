@@ -8,12 +8,13 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { LoginComponent } from './containers/login/login.component';
 import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 
-export const authRoutes: Route[] = [
+const authRoutes: Route[] = [
   { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({
   imports: [
+    RouterModule.forChild(authRoutes),
     CommonModule,
     RouterModule,
     HttpClientModule,
