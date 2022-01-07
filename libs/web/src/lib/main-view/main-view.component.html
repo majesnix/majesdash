@@ -12,7 +12,7 @@
           window.location.origin +
           '/images/' +
           userAndSettings.user?.id +
-          '/images/' +
+          '/' +
           userAndSettings.userSettings?.backgroundName +
           ')'
         : (systemSettings$ | async)?.background
