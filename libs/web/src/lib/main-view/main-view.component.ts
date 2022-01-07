@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SystemSettings, User, UserSettings } from '@majesdash/data';
-import { Environment, ENVIRONMENT } from '@majesdash/environment';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../settings/services/settings.service';
 import { UserService } from '../user/services/user.service';

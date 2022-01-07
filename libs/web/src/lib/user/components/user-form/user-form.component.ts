@@ -1,6 +1,6 @@
 import { MaxSizeValidator } from '@angular-material-components/file-input';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { UserUpdate } from '@majesdash/data';
 
 @Component({

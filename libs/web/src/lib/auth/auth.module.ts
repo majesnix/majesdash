@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule, Route } from '@angular/router';
-import { LoginComponent } from './containers/login/login.component';
-import { LoginFormComponent } from './components/login-form/login-form.component';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
+import { Route, RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { LoginComponent } from './containers/login/login.component';
+import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 
 export const authRoutes: Route[] = [
   { path: 'login', component: LoginComponent },

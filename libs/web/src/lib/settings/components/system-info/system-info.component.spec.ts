@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SystemInfoComponent } from './system-info.component';
 
 describe('SystemInfoComponent', () => {
@@ -8,9 +7,8 @@ describe('SystemInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SystemInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [SystemInfoComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

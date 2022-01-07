@@ -1,24 +1,24 @@
 import {
-  Get,
-  Post,
   Body,
-  Delete,
-  Param,
   Controller,
-  UseInterceptors,
+  Delete,
+  Get,
+  Param,
+  Post,
   UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { UserRO } from './user.interface';
-import { CreateUserDto, LoginUserDto } from './dto';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
-import { User } from './user.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { access, mkdir, unlink } from 'fs-extra';
 import { diskStorage } from 'multer';
+import { nanoid } from 'nanoid';
 import { extname } from 'path';
 import { CustomRequest } from '../auth.middleware';
-import { nanoid } from 'nanoid';
+import { CreateUserDto, LoginUserDto } from './dto';
+import { User } from './user.decorator';
+import { UserRO } from './user.interface';
+import { UserService } from './user.service';
 
 @Controller()
 export class UserController {
@@ -36,9 +36,13 @@ export class UserController {
         destination: async (req: CustomRequest, file, cb) => {
           try {
             await access(`./config/web/images/${req.user.id}`);
-            await unlink(`./config/web/images/${req.user.id}/${req.user.image}`);
+            await unlink(
+              `./config/web/images/${req.user.id}/${req.user.image}`
+            );
           } catch (error) {
-            await mkdir(`./config/web/images/${req.user.id}`, { recursive: true });
+            await mkdir(`./config/web/images/${req.user.id}`, {
+              recursive: true,
+            });
           }
           return cb(null, `./config/web/images/${req.user.id}`);
         },

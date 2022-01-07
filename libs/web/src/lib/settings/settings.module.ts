@@ -1,15 +1,15 @@
-import { NgModule } from '@angular/core';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { CommonModule } from '@angular/common';
-import { SettingsFormComponent } from './components/settings-form/settings-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Route, RouterModule } from '@angular/router';
-import { NgxMatFileInputModule } from '@angular-material-components/file-input';
-import { SystemInfoComponent } from './components/system-info/system-info.component';
 import { MaterialModule } from '../material/material.module';
-import { SettingsComponent } from './containers/settings/settings.component';
-import { SystemSettingsFormComponent } from './components/system-settings-form/system-settings-form.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { SettingsFormComponent } from './components/settings-form/settings-form.component';
+import { SystemInfoComponent } from './components/system-info/system-info.component';
+import { SystemSettingsFormComponent } from './components/system-settings-form/system-settings-form.component';
+import { SettingsComponent } from './containers/settings/settings.component';
 
 export const settingRoutes: Route[] = [
   {
@@ -26,7 +26,7 @@ export const settingRoutes: Route[] = [
     MaterialModule,
     ReactiveFormsModule,
     NgxMatFileInputModule,
-    PipesModule
+    PipesModule,
   ],
   declarations: [
     SettingsFormComponent,

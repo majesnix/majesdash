@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TileListComponent } from './tile-list.component';
 
 describe('TileListComponent', () => {
@@ -8,9 +7,8 @@ describe('TileListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TileListComponent ]
-    })
-    .compileComponents();
+      declarations: [TileListComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,10 +1,10 @@
+import { HttpStatus, Injectable, NestMiddleware } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
-import { NestMiddleware, HttpStatus, Injectable } from '@nestjs/common';
-import { Request, Response, NextFunction } from 'express';
-import * as jwt from 'jsonwebtoken';
-import { UserService } from './user/user.service';
-import { UserData } from './user/user.interface';
 import { ConfigService } from '@nestjs/config';
+import { NextFunction, Request, Response } from 'express';
+import * as jwt from 'jsonwebtoken';
+import { UserData } from './user/user.interface';
+import { UserService } from './user/user.service';
 
 export interface CustomRequest extends Request {
   user?: UserData;

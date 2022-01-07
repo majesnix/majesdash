@@ -51,8 +51,7 @@ import { UserModule } from './user/user.module';
       }
     ),
   ],
-  declarations: [
-  ],
+  declarations: [],
   exports: [MainViewComponent],
 })
 export class WebModule {}

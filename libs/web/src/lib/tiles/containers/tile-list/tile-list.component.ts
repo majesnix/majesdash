@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Tile } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { TileService } from '../../services/tile.service';

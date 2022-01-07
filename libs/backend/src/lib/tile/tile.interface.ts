@@ -7,4 +7,3 @@ export interface TileRO {
 export interface TilesRO {
   tiles: TileEntity[];
 }
-
