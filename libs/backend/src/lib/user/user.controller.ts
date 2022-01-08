@@ -66,6 +66,11 @@ export class UserController {
     };
   }
 
+  @Get('users')
+  async getUsers() {
+    return this.userService.findAll();
+  }
+
   @Post('users')
   async create(@Body('user') userData: CreateUserDto) {
     return this.userService.create(userData);
