@@ -2,26 +2,31 @@
 <div
   *ngIf="{
     userSettings: userSettings$ | async,
-    user: user$ | async
-  } as userAndSettings"
+    user: user$ | async,
+    systemSettings: systemSettings$ | async
+  } as config"
 >
   <div
     [style.background-image]="
-      userAndSettings.userSettings?.customBackground
+      config.userSettings?.customBackground
         ? 'url(' +
           window.location.origin +
           '/images/' +
-          userAndSettings.user?.id +
+          config.user?.id +
           '/' +
-          userAndSettings.userSettings?.backgroundName +
+          config.userSettings?.backgroundName +
           ')'
-        : (systemSettings$ | async)?.background
+        : config.systemSettings?.background
         ? 'url(' +
           window.location.origin +
           '/images/' +
-          (systemSettings$ | async)?.background +
+          config.systemSettings?.background +
           ')'
-        : 'url(' + window.location.origin + '/images/' + 'background.png)'
+        : 'url(' +
+          window.location.origin +
+          '/images/' +
+          config.systemSettings!.background +
+          ')'
     "
     class="bg"
   >

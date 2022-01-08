@@ -6,8 +6,9 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { readdir, unlink } from 'fs-extra';
+import { access, mkdir, readdir, unlink } from 'fs-extra';
 import { diskStorage } from 'multer';
+import { nanoid } from 'nanoid';
 import { extname } from 'path';
 import { CustomRequest } from '../auth.middleware';
 import { SystemSettingsService } from './system-settings.service';
@@ -26,18 +27,26 @@ export class SystemSettingsController {
     FileInterceptor('background', {
       storage: diskStorage({
         destination: async (req: CustomRequest, file, cb) => {
-          const files = (
-            await readdir('./config/web/images/', {
-              withFileTypes: true,
-            })
-          ).filter((file) => file.isFile());
-          for (const file of files) {
-            await unlink(`./config/web/images/${file.name}`);
+          try {
+            await access(`./config/web/images/`);
+            const files = (
+              await readdir('./config/web/images/', {
+                withFileTypes: true,
+              })
+            ).filter((file) => file.isFile());
+            for (const file of files) {
+              await unlink(`./config/web/images/${file.name}`);
+            }
+          } catch (error) {
+            await mkdir(`./config/web/images/`, {
+              recursive: true,
+            });
           }
+
           return cb(null, `./config/web/images/`);
         },
         filename: (req, file, cb) => {
-          return cb(null, `background${extname(file.originalname)}`);
+          return cb(null, `${nanoid()}${extname(file.originalname)}`);
         },
       }),
     })
