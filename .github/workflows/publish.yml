@@ -31,9 +31,9 @@ jobs:
       - run: npm install -g nx && npm install
 
       - name: Build projects
-        run: nx run-many --target=build --projects=api,majesdash --prod
+        run: nx run-many --target=build --projects=api,majesdash
 
-      - name: Build majesdash
+      - name: Build Docker image
         uses: docker/build-push-action@v2
         with:
           context: .
