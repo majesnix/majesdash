@@ -5,30 +5,21 @@
       <mat-form-field style="margin-bottom: 8px" title="Profile Image">
         <ngx-mat-file-input
           accept=".png,.jpg,.jpeg,.gif"
-          formControlName="profilepic"
+          formControlName="profilePic"
           placeholder="Select Profile Image"
         >
           <mat-icon ngxMatFileInputIcon>folder</mat-icon>
         </ngx-mat-file-input>
-        <mat-error>
-          <span
-            *ngIf="
-              userForm.get('profilepic')!.hasError('required') &&
-              userForm.touched
-            "
-            >Required Field</span
-          >
-        </mat-error>
         <mat-error
-          *ngIf="userForm.get('profilepic')?.hasError('maxContentSize')"
+          *ngIf="userForm.get('profilePic')?.hasError('maxContentSize')"
         >
           The total size must not exceed
           {{
-            userForm.get('profilepic')?.getError('maxContentSize').maxSize
+            userForm.get('profilePic')?.getError('maxContentSize').maxSize
               | byteFormat
           }}
           ({{
-            userForm.get('profilepic')?.getError('maxContentSize').actualSize
+            userForm.get('profilePic')?.getError('maxContentSize').actualSize
               | byteFormat
           }}).
         </mat-error>

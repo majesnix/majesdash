@@ -13,7 +13,7 @@ export class UserFormComponent {
   hide = true;
 
   userForm = new FormGroup({
-    profilepic: new FormControl(undefined, {
+    profilePic: new FormControl(undefined, {
       validators: [MaxSizeValidator(16 * 1024)],
     }),
     password: new FormControl(undefined),
@@ -22,7 +22,7 @@ export class UserFormComponent {
 
   update() {
     this.userUpdateEvent.emit({
-      profilepic: this.userForm.value.profilepic,
+      profilePic: this.userForm.value.profilePic,
       password: this.userForm.value.password,
       passwordRepeat: this.userForm.value.passwordRepeat,
     });

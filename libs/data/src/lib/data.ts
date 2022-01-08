@@ -9,6 +9,7 @@ export interface SystemSettingsUpdate {
 
 export interface SystemSettings {
   background: string;
+  initialized?: boolean;
 }
 
 export interface UserSettings {
@@ -33,7 +34,7 @@ export interface User {
 }
 
 export interface UserUpdate {
-  profilepic?: Blob;
+  profilePic?: Blob;
   password?: string;
   passwordRepeat?: string;
 }
@@ -58,4 +59,12 @@ export interface Tile {
 export interface Tag {
   id: string;
   name: string;
+}
+
+export interface CreateUserDto {
+  username: string;
+  email: string;
+  password: string;
+  passwordRepeat: string;
+  isAdmin?: boolean;
 }

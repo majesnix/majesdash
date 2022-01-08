@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   SettingsUpdate,
   SystemSettings,
@@ -26,7 +27,11 @@ export class SettingsService {
   });
   readonly systemSettings$ = this.systemSettingsSubject$.asObservable();
 
-  constructor(private httpClient: HttpClient, private window: Window) {}
+  constructor(
+    private httpClient: HttpClient,
+    private window: Window,
+    private router: Router
+  ) {}
 
   getUserSettings() {
     return this.httpClient
@@ -66,6 +71,11 @@ export class SettingsService {
       .pipe(
         tap(({ settings }) => {
           this.systemSettingsSubject$.next(settings);
+          if (!settings.initialized) {
+            this.router.navigate(['/setup']);
+          } else if (this.router.url === '/setup') {
+            this.router.navigate(['/login']);
+          }
         })
       )
       .subscribe();

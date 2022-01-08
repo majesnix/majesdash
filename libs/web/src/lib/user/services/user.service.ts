@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User, UserUpdate } from '@majesdash/data';
+import { CreateUserDto, User, UserUpdate } from '@majesdash/data';
 import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
@@ -11,6 +11,15 @@ export class UserService {
   readonly user$ = this.userSubject$.asObservable();
 
   constructor(private httpClient: HttpClient, private window: Window) {}
+
+  create(user: CreateUserDto) {
+    return this.httpClient.post(
+      `${this.window.location.origin}/api/users`,
+      {
+        user
+      }
+    );
+  }
 
   getUser() {
     return this.httpClient
@@ -25,8 +34,8 @@ export class UserService {
 
   updateUser(user: UserUpdate) {
     const formData = new FormData();
-    if (user.profilepic) {
-      formData.append('profilepic', user.profilepic);
+    if (user.profilePic) {
+      formData.append('profilePic', user.profilePic);
     }
     formData.append('user', JSON.stringify(user));
     return this.httpClient
