@@ -3,6 +3,7 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { ConfigService } from '@nestjs/config';
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
+import { SystemSettingsService } from './system-settings/system-settings.service';
 import { UserData } from './user/user.interface';
 import { UserService } from './user/user.service';
 
@@ -14,12 +15,17 @@ export interface CustomRequest extends Request {
 export class AdminAuthMiddleware implements NestMiddleware {
   constructor(
     private readonly userService: UserService,
+    private readonly systemSettingsService: SystemSettingsService,
     private readonly configService: ConfigService
   ) {}
 
   async use(req: CustomRequest, res: Response, next: NextFunction) {
     const authHeaders = req.headers.authorization;
-    if (authHeaders && (authHeaders as string).split(' ')[1]) {
+    const systemSettings = await this.systemSettingsService.findOne();
+
+    if (!systemSettings.initialized) {
+      next();
+    } else if (authHeaders && (authHeaders as string).split(' ')[1]) {
       const token = (authHeaders as string).split(' ')[1];
       const decoded: any = jwt.verify(
         token,

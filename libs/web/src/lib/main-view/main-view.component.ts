@@ -23,10 +23,11 @@ export class MainViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.settingsService.getSystemSettings();
+
     if (localStorage.getItem('token')) {
       this.settingsService.getUserSettings();
       this.userService.getUser();
     }
-    this.settingsService.getSystemSettings();
   }
 }

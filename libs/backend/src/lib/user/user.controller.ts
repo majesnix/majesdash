@@ -31,7 +31,7 @@ export class UserController {
 
   @Post('user')
   @UseInterceptors(
-    FileInterceptor('profilepic', {
+    FileInterceptor('profilePic', {
       storage: diskStorage({
         destination: async (req: CustomRequest, file, cb) => {
           try {

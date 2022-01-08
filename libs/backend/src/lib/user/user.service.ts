@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { validate } from 'class-validator';
 import * as jwt from 'jsonwebtoken';
 import { DeleteResult, getRepository, Repository } from 'typeorm';
+import { SystemSettingsEntity } from '../system-settings/system-settings.entity';
 import { UserSettingsEntity } from '../user-settings/user-settings.entity';
 import { CreateUserDto, LoginUserDto, UpdateUserDto } from './dto';
 import { UserEntity } from './user.entity';
@@ -18,6 +19,8 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
     @InjectRepository(UserSettingsEntity)
     private readonly settingsRepository: Repository<UserSettingsEntity>,
+    @InjectRepository(SystemSettingsEntity)
+    private readonly systemSetingsRepository: Repository<SystemSettingsEntity>,
     private configService: ConfigService
   ) {}
 
@@ -49,8 +52,10 @@ export class UserService {
   }
 
   async create(dto: CreateUserDto): Promise<UserRO> {
+    const systemSettings = await this.systemSetingsRepository.findOne();
+
     // check uniqueness of username/email
-    const { username, email, password } = dto;
+    const { username, email, password, passwordRepeat, isAdmin } = dto;
     const qb = getRepository(UserEntity)
       .createQueryBuilder('user')
       .where('user.username = :username', { username })
@@ -60,6 +65,14 @@ export class UserService {
 
     if (user) {
       const errors = { username: 'Username and email must be unique.' };
+      throw new HttpException(
+        { message: 'Input data validation failed', errors },
+        HttpStatus.BAD_REQUEST
+      );
+    }
+
+    if (password !== passwordRepeat) {
+      const errors = { password: 'Passwords do not match.' };
       throw new HttpException(
         { message: 'Input data validation failed', errors },
         HttpStatus.BAD_REQUEST
@@ -76,8 +89,13 @@ export class UserService {
     newUser.username = username;
     newUser.email = email;
     newUser.passwordHash = password;
-    newUser.isAdmin = false;
+    newUser.isAdmin = systemSettings.initialized ? isAdmin : true;
     newUser.settings = settings;
+
+    if (!systemSettings.initialized) {
+      systemSettings.initialized = true;
+      await this.systemSetingsRepository.save(systemSettings);
+    }
 
     const errors = await validate(newUser);
     if (errors.length > 0) {

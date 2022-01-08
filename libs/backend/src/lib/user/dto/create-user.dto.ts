@@ -11,5 +11,7 @@ export class CreateUserDto {
   readonly password!: string;
 
   @IsNotEmpty()
-  readonly admin!: boolean;
+  readonly passwordRepeat!: string;
+
+  readonly isAdmin?: boolean;
 }
