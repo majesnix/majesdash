@@ -10,18 +10,18 @@ export class UserService {
   private userSubject$ = new BehaviorSubject<User | undefined>(undefined);
   readonly user$ = this.userSubject$.asObservable();
 
+  private usersSubject$ = new BehaviorSubject<User[]>([]);
+  readonly users$ = this.usersSubject$.asObservable();
+
   constructor(private httpClient: HttpClient, private window: Window) {}
 
   create(user: CreateUserDto) {
-    return this.httpClient.post(
-      `${this.window.location.origin}/api/users`,
-      {
-        user
-      }
-    );
+    return this.httpClient.post(`${this.window.location.origin}/api/users`, {
+      user,
+    });
   }
 
-  getUser() {
+  getCurrent() {
     return this.httpClient
       .get<{ user: User }>(`${this.window.location.origin}/api/user`)
       .pipe(
@@ -32,7 +32,7 @@ export class UserService {
       .subscribe();
   }
 
-  updateUser(user: UserUpdate) {
+  updateCurrent(user: UserUpdate) {
     const formData = new FormData();
     if (user.profilePic) {
       formData.append('profilePic', user.profilePic);
@@ -43,6 +43,29 @@ export class UserService {
       .pipe(
         tap(({ user }) => {
           this.userSubject$.next(user);
+        })
+      )
+      .subscribe();
+  }
+
+  delete(id: number) {
+    return this.httpClient
+      .delete(`${this.window.location.origin}/api/users/${id}`)
+      .subscribe({
+        complete: () => {
+          this.usersSubject$.next(
+            this.usersSubject$.value.filter((user) => user.id !== id)
+          );
+        },
+      });
+  }
+
+  getAll() {
+    return this.httpClient
+      .get<User[]>(`${this.window.location.origin}/api/users`)
+      .pipe(
+        tap((users) => {
+          this.usersSubject$.next(users);
         })
       )
       .subscribe();

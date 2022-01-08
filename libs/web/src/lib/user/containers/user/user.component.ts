@@ -14,11 +14,11 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
-      this.userService.getUser();
+      this.userService.getCurrent();
     }
   }
 
   update(user: UserUpdate) {
-    this.userService.updateUser(user);
+    this.userService.updateCurrent(user);
   }
 }

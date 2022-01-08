@@ -35,7 +35,7 @@ export class LoginComponent {
     this.authService.login(authenticate).subscribe({
       next: (data) => {
         localStorage.setItem('token', data.user.token);
-        this.userService.getUser();
+        this.userService.getCurrent();
         this.settingsService.getUserSettings();
         this.router.navigate(['/']);
       },

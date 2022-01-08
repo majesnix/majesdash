@@ -25,7 +25,9 @@ export class UserService {
   ) {}
 
   async findAll(): Promise<UserEntity[]> {
-    return await this.userRepository.find({select: ["email", "id", "image", "isAdmin", "username"]});
+    return await this.userRepository.find({
+      select: ['email', 'id', 'isAdmin', 'username'],
+    });
   }
 
   async findOne({

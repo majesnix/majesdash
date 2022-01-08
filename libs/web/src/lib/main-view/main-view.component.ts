@@ -27,7 +27,7 @@ export class MainViewComponent implements OnInit {
 
     if (localStorage.getItem('token')) {
       this.settingsService.getUserSettings();
-      this.userService.getUser();
+      this.userService.getCurrent();
     }
   }
 }
