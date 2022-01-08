@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../auth/guards/auth.guard';
 import { MaterialModule } from '../material/material.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { UserFormComponent } from './components/user-form/user-form.component';
@@ -12,6 +13,7 @@ const userRoutes: Routes = [
   {
     path: 'user',
     component: UserComponent,
+    canActivate: [AuthGuard],
   },
 ];
 

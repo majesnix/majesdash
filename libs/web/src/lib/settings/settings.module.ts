@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Route, RouterModule } from '@angular/router';
+import { AuthGuard } from '../auth/guards/auth.guard';
 import { MaterialModule } from '../material/material.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { SettingsFormComponent } from './components/settings-form/settings-form.component';
@@ -15,6 +16,7 @@ const settingRoutes: Route[] = [
   {
     path: 'settings',
     component: SettingsComponent,
+    canActivate: [AuthGuard],
   },
 ];
 
