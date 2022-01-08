@@ -3,7 +3,7 @@ FROM node:alpine as builder
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY . .
 
 RUN apk add --update \
   && apk add --no-cache ca-certificates \
@@ -11,8 +11,6 @@ RUN apk add --update \
   && npm i \
   && npm i -g nx \
   && apk del .build-deps
-
-COPY . .
 
 RUN nx run-many --target=build --projects=api,majesdash --parallel=2
 
