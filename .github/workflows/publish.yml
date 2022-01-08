@@ -24,14 +24,11 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Setup node and install dependencies
-        uses: actions/setup-node@v2
+      - name: Build majesdash
+        uses: docker/build-push-action@v2
         with:
-          node-version: '16'
-      - run: npm install -g nx && npm install
-
-      - name: Build projects
-        run: nx run-many --target=build --projects=api,majesdash --parallel=2
-
-      - name: Build Docker image
-        run: docker build -f ./apps/api/Dockerfile . -t ${{ secrets.DOCKER_USERNAME }}/majesdash:develop && docker push ${{ secrets.DOCKER_USERNAME }}/majesdash:develop
+          context: .
+          platforms: linux/amd64,linux/arm64
+          file: ./apps/api/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/majesdash:develop
