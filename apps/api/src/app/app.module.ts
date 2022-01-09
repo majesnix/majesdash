@@ -7,12 +7,8 @@ import { join } from 'path';
   imports: [
     BackendModule,
     ServeStaticModule.forRoot({
-      rootPath: join(process.cwd(), './config/web/images'),
-      exclude: ['/api*'],
-      serveRoot: '/images',
-    }),
-    ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), './client'),
+      exclude: ['/api*'],
     }),
   ],
 })
