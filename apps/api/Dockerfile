@@ -24,12 +24,13 @@ COPY --from=builder /app/dist/apps/api .
 COPY --from=builder /app/dist/apps/majesdash ./client
 COPY --from=builder /app/package.json .
 COPY --from=builder /app/package-lock.json .
+COPY --from=builder /app/decorate-angular-cli.js .
 
 RUN apk add -q --update \
   && apk add -q --no-cache ca-certificates \
   && apk add -q --no-cache --virtual .build-deps curl make gcc g++ python3 \
-  && npm i --prod --ignore-scripts --silent \
-  && npm rebuild bcrypt --build-from-source \
+  && npm i -g @angular/compiler-cli \
+  && npm i \
   && apk del .build-deps
 
 EXPOSE 3333
