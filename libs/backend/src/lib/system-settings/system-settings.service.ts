@@ -11,7 +11,10 @@ export class SystemSettingsService {
   ) {}
 
   async findOne() {
-    return (await this.systemSettingsRepository.find())[0];
+    return {
+      ...(await this.systemSettingsRepository.find())[0],
+      version: process.env.npm_package_version,
+    };
   }
 
   async update({ background }: { background: string }) {

@@ -24,6 +24,7 @@ export class SettingsService {
     SystemSettings | undefined
   >({
     background: 'background.png',
+    version: '0.0.0',
   });
   readonly systemSettings$ = this.systemSettingsSubject$.asObservable();
 

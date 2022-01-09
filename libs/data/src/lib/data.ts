@@ -10,6 +10,7 @@ export interface SystemSettingsUpdate {
 export interface SystemSettings {
   background: string;
   initialized?: boolean;
+  version: string;
 }
 
 export interface UserSettings {

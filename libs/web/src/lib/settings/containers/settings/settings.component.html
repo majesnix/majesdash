@@ -1,6 +1,8 @@
 <div *ngIf="userSettings$ | async as settings">
   <div style="width: 20rem">
-    <majesdash-system-info></majesdash-system-info>
+    <majesdash-system-info
+      version="{{ (systemSettings$ | async)?.version }}"
+    ></majesdash-system-info>
     <div style="margin-bottom: 24px"></div>
     <majesdash-settings-form
       (settingsUpdateEvent)="update($event)"
