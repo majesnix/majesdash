@@ -17,7 +17,10 @@
       <p matLine>
         <span> {{ tile.type }} </span>
       </p>
-      <mat-icon style="color: red" (click)="delete(tile.id)"
+      <mat-icon
+        style="color: red"
+        *ngIf="(currentUser$ | async)?.isAdmin"
+        (click)="delete(tile.id)"
         >delete</mat-icon
       ></mat-list-item
     >

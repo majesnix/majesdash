@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Tile } from '@majesdash/data';
+import { Tile, User } from '@majesdash/data';
 import { Observable } from 'rxjs';
+import { UserService } from '../../../user/services/user.service';
 import { TileService } from '../../services/tile.service';
 
 @Component({
@@ -10,8 +11,12 @@ import { TileService } from '../../services/tile.service';
 })
 export class TileListComponent {
   tiles$: Observable<Tile[]> = this.tileService.tiles$;
+  currentUser$: Observable<User | undefined> = this.userService.user$;
 
-  constructor(private tileService: TileService) {}
+  constructor(
+    private tileService: TileService,
+    private userService: UserService
+  ) {}
 
   delete(id: number) {
     this.tileService.delete(id);

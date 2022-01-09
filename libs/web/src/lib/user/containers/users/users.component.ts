@@ -9,6 +9,7 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
+  currentUser$: Observable<User | undefined> = this.userService.user$;
   users$: Observable<User[] | []> = this.userService.users$;
 
   displayedColumns: string[] = ['username', 'email', 'isAdmin', 'delete'];
