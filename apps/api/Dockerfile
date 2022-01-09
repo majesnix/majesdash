@@ -11,7 +11,7 @@ RUN apk add -q --update \
   && npm i --silent \
   && npm i -g --silent nx
 
-RUN nx run-many --target=build --projects=api,majesdash --parallel=2
+RUN npm run build:all
 
 # stage 2 - build final image
 FROM node:lts-alpine

@@ -7,6 +7,7 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
     "start": "nx serve",
     "build": "genversion --es6 --semi ./libs/web/src/lib/settings/version.ts && nx build",
+    "build:all": "genversion --es6 --semi ./libs/web/src/lib/settings/version.ts && nx run-many --target=build --projects=api,majesdash --parallel=2",
     "test": "nx test",
     "clearDB": "cd config && rm *.sql*",
     "docker:build": "nx run-many --target=build --projects=api,majesdash --parallel=2 && docker build -f ./apps/api/Dockerfile . -t majesdash",
