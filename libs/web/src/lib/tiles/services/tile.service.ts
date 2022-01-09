@@ -30,4 +30,16 @@ export class TileService {
       })
       .subscribe();
   }
+
+  delete(id: number) {
+    return this.httpClient
+      .delete(`${this.window.location.origin}/api/tiles/${id}`)
+      .subscribe({
+        complete: () => {
+          this.tilesSubject$.next(
+            this.tilesSubject$.value.filter((tile) => tile.id !== id)
+          );
+        },
+      });
+  }
 }

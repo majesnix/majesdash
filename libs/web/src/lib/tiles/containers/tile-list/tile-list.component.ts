@@ -12,4 +12,8 @@ export class TileListComponent {
   tiles$: Observable<Tile[]> = this.tileService.tiles$;
 
   constructor(private tileService: TileService) {}
+
+  delete(id: number) {
+    this.tileService.delete(id);
+  }
 }
