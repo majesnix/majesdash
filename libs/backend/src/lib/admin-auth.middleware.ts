@@ -27,6 +27,7 @@ export class AdminAuthMiddleware implements NestMiddleware {
       next();
     } else if (authHeaders && (authHeaders as string).split(' ')[1]) {
       const token = (authHeaders as string).split(' ')[1];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const decoded: any = jwt.verify(
         token,
         this.configService.get<string>('SECRET')

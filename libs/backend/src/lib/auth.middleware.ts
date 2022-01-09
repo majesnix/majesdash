@@ -21,6 +21,7 @@ export class AuthMiddleware implements NestMiddleware {
     const authHeaders = req.headers.authorization;
     if (authHeaders && (authHeaders as string).split(' ')[1]) {
       const token = (authHeaders as string).split(' ')[1];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const decoded: any = jwt.verify(
         token,
         this.configService.get<string>('SECRET')
