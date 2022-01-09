@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { version } from '../../version';
 
 @Component({
   selector: 'majesdash-system-info',
@@ -6,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./system-info.component.scss'],
 })
 export class SystemInfoComponent {
-  @Input() version = '0.0.0';
+  version = version;
 }

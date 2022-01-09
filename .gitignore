@@ -45,3 +45,4 @@ config/
 
 # env files
 .env
+version.ts
