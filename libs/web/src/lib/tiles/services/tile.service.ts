@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Tile } from '@majesdash/data';
+import { CreateTileDto, Tile } from '@majesdash/data';
 import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
@@ -23,11 +23,18 @@ export class TileService {
       .subscribe();
   }
 
-  addTile(tile: Partial<Tile>) {
+  addTile(tile: Partial<CreateTileDto>) {
+    const formData = new FormData();
+    if (tile.icon) {
+      formData.append('icon', tile.icon);
+      delete tile.icon;
+    }
+    formData.append('tile', JSON.stringify(tile));
     return this.httpClient
-      .post<{ tile: Tile }>(`${this.window.location.origin}/api/tiles`, {
-        tile: { ...tile, order: 0 },
-      })
+      .post<{ tile: Tile }>(
+        `${this.window.location.origin}/api/tiles`,
+        formData
+      )
       .subscribe();
   }
 

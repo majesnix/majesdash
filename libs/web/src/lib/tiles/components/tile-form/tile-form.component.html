@@ -53,6 +53,28 @@
         <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
         <ngx-mat-color-picker #picker [color]="color"></ngx-mat-color-picker>
       </mat-form-field>
+      <mat-form-field style="margin-bottom: 8px" title="Background">
+        <ngx-mat-file-input
+          accept=".png,.jpg,.jpeg"
+          formControlName="icon"
+          placeholder="Select Tile Icon"
+        >
+          <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+        </ngx-mat-file-input>
+        <mat-error
+          *ngIf="createTileForm.get('icon')?.hasError('maxContentSize')"
+        >
+          The total size must not exceed
+          {{
+            createTileForm.get('icon')?.getError('maxContentSize').maxSize
+              | byteFormat
+          }}
+          ({{
+            createTileForm.get('icon')?.getError('maxContentSize')
+              .actualSize | byteFormat
+          }}).
+        </mat-error>
+      </mat-form-field>
       <div>Settings</div>
       <majesdash-json-editor formControlName="settings" placeholder="Settings">
       </majesdash-json-editor>

@@ -22,8 +22,8 @@ export class TileEntity {
   @Column({ nullable: true })
   color?: string;
 
-  @Column()
-  icon!: string;
+  @Column({ nullable: true })
+  icon?: string;
 
   @Column()
   @IsUrl()

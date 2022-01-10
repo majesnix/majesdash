@@ -1,7 +1,8 @@
+import { MaxSizeValidator } from '@angular-material-components/file-input';
 import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
-import { Tile } from '@majesdash/data';
+import { CreateTileDto } from '@majesdash/data';
 
 @Component({
   selector: 'majesdash-tile-form',
@@ -9,7 +10,7 @@ import { Tile } from '@majesdash/data';
   styleUrls: ['./tile-form.component.scss'],
 })
 export class TileFormComponent {
-  @Output() tileAddEvent = new EventEmitter<Partial<Tile>>();
+  @Output() tileAddEvent = new EventEmitter<Partial<CreateTileDto>>();
 
   public color: ThemePalette = 'primary';
 
@@ -27,6 +28,9 @@ export class TileFormComponent {
       updateOn: 'change',
     }),
     color: new FormControl(''),
+    icon: new FormControl(undefined, {
+      validators: [MaxSizeValidator(16 * 1024)],
+    }),
     settings: new FormControl({}),
   });
 
@@ -36,6 +40,7 @@ export class TileFormComponent {
       type: this.createTileForm.value.type,
       url: this.createTileForm.value.url,
       color: this.createTileForm.value.color.hex,
+      icon: this.createTileForm.value.icon,
       config: this.createTileForm.value.settings,
       tags: [],
     });

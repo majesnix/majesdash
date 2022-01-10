@@ -56,6 +56,17 @@ export interface Tile {
   config: string;
 }
 
+export interface CreateTileDto {
+  title: string;
+  type: string;
+  url: string;
+  color: string;
+  icon?: Blob;
+  tags?: Tag[];
+  order: number;
+  config: string;
+}
+
 export interface Tag {
   id: string;
   name: string;

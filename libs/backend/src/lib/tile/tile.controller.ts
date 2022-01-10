@@ -7,7 +7,15 @@ import {
   Post,
   Put,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { access, mkdir } from 'fs-extra';
+import { diskStorage } from 'multer';
+import { nanoid } from 'nanoid';
+import { extname } from 'path';
+import { CustomRequest } from '../admin-auth.middleware';
 import { CreateTileDto } from './dto';
 import { TileRO, TilesRO } from './tile.interface';
 import { TileService } from './tile.service';
@@ -27,8 +35,31 @@ export class TileController {
   }
 
   @Post()
-  async create(@Body('tile') tileData: CreateTileDto) {
-    return this.tileService.create(tileData);
+  @UseInterceptors(
+    FileInterceptor('icon', {
+      storage: diskStorage({
+        destination: async (req: CustomRequest, file, cb) => {
+          try {
+            await access(`./config/web/images/tiles/`);
+          } catch (error) {
+            await mkdir(`./config/web/images/tiles/`, {
+              recursive: true,
+            });
+          }
+
+          return cb(null, `./config/web/images/tiles/`);
+        },
+        filename: (req, file, cb) => {
+          return cb(null, `${nanoid()}${extname(file.originalname)}`);
+        },
+      }),
+    })
+  )
+  async create(
+    @UploadedFile() file: Express.Multer.File,
+    @Body('tile') tileData: string
+  ) {
+    return this.tileService.create(JSON.parse(tileData), file?.filename);
   }
 
   @Put(':id')

@@ -33,7 +33,10 @@ export class TileService {
     return { tile: await this.tileRepository.findOne(where) };
   }
 
-  async create(tileData: CreateTileDto): Promise<TileEntity> {
+  async create(
+    tileData: CreateTileDto,
+    filename?: string
+  ): Promise<TileEntity> {
     let tags;
     if (tileData.tags.length) {
       tags = await this.tagRepository.find({ where: tileData.tags });
@@ -44,9 +47,9 @@ export class TileService {
     tile.type = tileData.type;
 
     tile.color = tileData.color;
-    tile.icon = tileData.icon || '';
+    tile.icon = filename;
     tile.url = tileData.url;
-    tile.order = parseInt(tileData.order) ?? 0;
+    tile.order = tileData.order ? parseInt(tileData.order) : 0;
     tile.tags = tags ?? [];
     tile.config = JSON.stringify(tileData.config) ?? '{}';
 

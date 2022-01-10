@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Tile } from '@majesdash/data';
+import { CreateTileDto } from '@majesdash/data';
 import { TileService } from '../../services/tile.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { TileService } from '../../services/tile.service';
 export class TileCreateComponent {
   constructor(private tileService: TileService, private router: Router) {}
 
-  addTile(tile: Partial<Tile>) {
+  addTile(tile: Partial<CreateTileDto>) {
     this.tileService.addTile(tile);
     this.router.navigate(['/']);
   }
