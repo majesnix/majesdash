@@ -30,7 +30,7 @@ export class TileFormComponent {
     settings: new FormControl({}),
   });
 
-  addTile() {
+  @HostListener('document:keydown.enter') addTile() {
     this.tileAddEvent.emit({
       title: this.createTileForm.value.name,
       type: this.createTileForm.value.type,
