@@ -62,14 +62,13 @@ export class UserSettingsController {
     if (!file) {
       settings = await this.userSettingsService.createOrUpdate(
         req.user.id,
-        undefined,
         JSON.parse(userSettings) as UserSettings
       );
     } else {
       settings = await this.userSettingsService.createOrUpdate(
         req.user.id,
-        file.filename,
-        JSON.parse(userSettings) as UserSettings
+        JSON.parse(userSettings) as UserSettings,
+        file.filename
       );
     }
 

@@ -28,8 +28,8 @@ export class UserSettingsService {
    */
   async createOrUpdate(
     id: number,
-    filename?: string,
-    userSettings?: UserSettings
+    userSettings?: UserSettings,
+    filename?: string
   ): Promise<UserSettingsEntity> {
     const user = await this.usersRepository.findOne(id, {
       relations: ['settings'],
