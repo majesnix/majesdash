@@ -99,32 +99,6 @@
       },
       "tags": []
     },
-    "environment": {
-      "projectType": "library",
-      "root": "libs/environment",
-      "sourceRoot": "libs/environment/src",
-      "prefix": "majesdash",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/environment"],
-          "options": {
-            "jestConfig": "libs/environment/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/environment/src/**/*.ts",
-              "libs/environment/src/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "majesdash": {
       "projectType": "application",
       "root": "apps/majesdash",

@@ -17,7 +17,6 @@
     "paths": {
       "@majesdash/backend": ["libs/backend/src/index.ts"],
       "@majesdash/data": ["libs/data/src/index.ts"],
-      "@majesdash/environment": ["libs/environment/src/index.ts"],
       "@majesdash/web": ["libs/web/src/index.ts"]
     }
   },
