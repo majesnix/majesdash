@@ -1,8 +1,9 @@
+import { Tile } from '@majesdash/data';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { unlink } from 'fs-extra';
 import { DeleteResult, getRepository, Repository } from 'typeorm';
 import { TagEntity } from '../tag/tag.entity';
-import { CreateTileDto } from './dto';
 import { TileEntity } from './tile.entity';
 import { TileRO, TilesRO } from './tile.interface';
 
@@ -34,7 +35,7 @@ export class TileService {
   }
 
   async create(
-    tileData: CreateTileDto,
+    tileData: Partial<Tile>,
     filename?: string
   ): Promise<TileEntity> {
     let tags;
@@ -45,19 +46,24 @@ export class TileService {
     const tile = new TileEntity();
     tile.title = tileData.title;
     tile.type = tileData.type;
-
     tile.color = tileData.color;
     tile.icon = filename;
     tile.url = tileData.url;
-    tile.order = tileData.order ? parseInt(tileData.order) : 0;
+    tile.order = 0;
     tile.tags = tags ?? [];
     tile.config = JSON.stringify(tileData.config) ?? '{}';
 
     return await this.tileRepository.save(tile);
   }
 
-  async update(id: number, tileData: CreateTileDto): Promise<TileRO> {
+  async update(id: number, tileData: Partial<Tile>): Promise<TileRO> {
     const toUpdate = await this.tileRepository.findOne(id);
+
+    // unlink old icon
+    if (toUpdate.icon) {
+      await unlink(`./config/web/images/tiles/${toUpdate.icon}`);
+    }
+
     const updated = Object.assign(toUpdate, tileData);
 
     return { tile: await this.tileRepository.save(updated) };

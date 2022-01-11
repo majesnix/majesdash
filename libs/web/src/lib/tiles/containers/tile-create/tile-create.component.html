@@ -1,1 +1,5 @@
-<majesdash-tile-form (tileAddEvent)="addTile($event)"></majesdash-tile-form>
+<majesdash-tile-form
+  (tileAddEvent)="addTile($event)"
+  (tileUpdateEvent)="updateTile($event)"
+  [tile]="currentTile$ | async"
+></majesdash-tile-form>

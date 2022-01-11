@@ -16,7 +16,6 @@ import { diskStorage } from 'multer';
 import { nanoid } from 'nanoid';
 import { extname } from 'path';
 import { CustomRequest } from '../admin-auth.middleware';
-import { CreateTileDto } from './dto';
 import { TileRO, TilesRO } from './tile.interface';
 import { TileService } from './tile.service';
 
@@ -63,8 +62,35 @@ export class TileController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body('tile') tileData: CreateTileDto) {
-    return this.tileService.update(id, tileData);
+  @UseInterceptors(
+    FileInterceptor('icon', {
+      storage: diskStorage({
+        destination: async (req: CustomRequest, file, cb) => {
+          try {
+            await access(`./config/web/images/tiles/`);
+          } catch (error) {
+            await mkdir(`./config/web/images/tiles/`, {
+              recursive: true,
+            });
+          }
+
+          return cb(null, `./config/web/images/tiles/`);
+        },
+        filename: (req, file, cb) => {
+          return cb(null, `${nanoid()}${extname(file.originalname)}`);
+        },
+      }),
+    })
+  )
+  async update(
+    @Param('id') id: number,
+    @Body('tile') tileData: string,
+    @UploadedFile() file: Express.Multer.File
+  ) {
+    return this.tileService.update(id, {
+      ...JSON.parse(tileData),
+      icon: file.filename,
+    });
   }
 
   @Delete(':id')

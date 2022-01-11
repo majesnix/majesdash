@@ -1,41 +1,76 @@
 import { MaxSizeValidator } from '@angular-material-components/file-input';
-import { Component, EventEmitter, HostListener, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
-import { CreateTileDto } from '@majesdash/data';
+import { CreateTileDto, Tile } from '@majesdash/data';
 
 @Component({
   selector: 'majesdash-tile-form',
   templateUrl: './tile-form.component.html',
   styleUrls: ['./tile-form.component.scss'],
 })
-export class TileFormComponent {
+export class TileFormComponent implements OnInit {
   @Output() tileAddEvent = new EventEmitter<Partial<CreateTileDto>>();
+  @Output() tileUpdateEvent = new EventEmitter<Partial<Tile>>();
+  @Input() public tile?: Tile | null;
 
   public color: ThemePalette = 'primary';
 
+  constructor(public window: Window) {}
+
   createTileForm = new FormGroup({
-    name: new FormControl('', {
+    name: new FormControl(this.tile?.title ?? '', {
       validators: [Validators.required],
       updateOn: 'change',
     }),
-    type: new FormControl('', {
+    type: new FormControl(this.tile?.type ?? '', {
       validators: [Validators.required],
       updateOn: 'change',
     }),
-    url: new FormControl('', {
+    url: new FormControl(this.tile?.url ?? '', {
       validators: [Validators.required],
       updateOn: 'change',
     }),
-    color: new FormControl(''),
+    color: new FormControl(this.tile?.color ?? ''),
     icon: new FormControl(undefined, {
       validators: [MaxSizeValidator(16 * 1024)],
     }),
-    settings: new FormControl({}),
+    settings: new FormControl(this.tile?.config ?? {}),
   });
+
+  ngOnInit(): void {
+    this.createTileForm.setValue({
+      name: this.tile?.title ?? '',
+      type: this.tile?.type ?? '',
+      url: this.tile?.url ?? '',
+      color: this.tile?.color ?? '',
+      icon: this.tile?.icon ?? '',
+      settings: this.tile?.config ?? {},
+    });
+  }
 
   @HostListener('document:keydown.enter') addTile() {
     this.tileAddEvent.emit({
+      title: this.createTileForm.value.name,
+      type: this.createTileForm.value.type,
+      url: this.createTileForm.value.url,
+      color: this.createTileForm.value.color.hex,
+      icon: this.createTileForm.value.icon,
+      config: this.createTileForm.value.settings,
+      tags: [],
+    });
+  }
+
+  updateTile() {
+    this.tileUpdateEvent.emit({
+      id: this.tile?.id,
       title: this.createTileForm.value.name,
       type: this.createTileForm.value.type,
       url: this.createTileForm.value.url,

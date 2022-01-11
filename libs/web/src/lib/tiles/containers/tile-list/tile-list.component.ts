@@ -18,6 +18,14 @@ export class TileListComponent {
     private userService: UserService
   ) {}
 
+  selectTile(id: number) {
+    this.tileService.selectTile(id);
+  }
+
+  deselectTile() {
+    this.tileService.deselectTile();
+  }
+
   delete(id: number) {
     this.tileService.delete(id);
   }

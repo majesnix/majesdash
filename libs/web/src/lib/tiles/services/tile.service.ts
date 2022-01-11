@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { CreateTileDto, Tile } from '@majesdash/data';
 import { BehaviorSubject, tap } from 'rxjs';
 
@@ -10,7 +11,16 @@ export class TileService {
   private tilesSubject$ = new BehaviorSubject<Tile[]>([]);
   readonly tiles$ = this.tilesSubject$.asObservable();
 
-  constructor(private httpClient: HttpClient, private window: Window) {}
+  private currentTileSubject$ = new BehaviorSubject<Tile | undefined>(
+    undefined
+  );
+  readonly currentTile$ = this.currentTileSubject$.asObservable();
+
+  constructor(
+    private httpClient: HttpClient,
+    private window: Window,
+    private router: Router
+  ) {}
 
   getTiles() {
     return this.httpClient
@@ -21,6 +31,17 @@ export class TileService {
         })
       )
       .subscribe();
+  }
+
+  selectTile(id: number) {
+    this.currentTileSubject$.next(
+      this.tilesSubject$.value.find((tile) => tile.id === id)
+    );
+    this.router.navigate(['/tiles/create']);
+  }
+
+  deselectTile() {
+    this.currentTileSubject$.next(undefined);
   }
 
   addTile(tile: Partial<CreateTileDto>) {
@@ -35,7 +56,32 @@ export class TileService {
         `${this.window.location.origin}/api/tiles`,
         formData
       )
-      .subscribe();
+      .subscribe((data) =>
+        this.tilesSubject$.next([...this.tilesSubject$.value, data.tile])
+      );
+  }
+
+  updateTile(tile: Partial<Tile>) {
+    const formData = new FormData();
+    if (tile.icon) {
+      formData.append('icon', tile.icon);
+      delete tile.icon;
+    }
+    formData.append('tile', JSON.stringify(tile));
+    return this.httpClient
+      .put<{ tile: Tile }>(
+        `${this.window.location.origin}/api/tiles/${tile.id}`,
+        formData
+      )
+      .subscribe({
+        next: (data) => {
+          const index = this.tilesSubject$.value.findIndex(
+            (t) => t.id === tile.id
+          );
+          this.tilesSubject$.value.splice(index, 1, data.tile);
+          this.router.navigate(['/']);
+        },
+      });
   }
 
   delete(id: number) {
