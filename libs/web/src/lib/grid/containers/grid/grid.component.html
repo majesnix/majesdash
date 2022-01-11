@@ -1,6 +1,6 @@
 <div class="wrapper">
   <majesdash-tile
-    *ngFor="let tile of tiles"
+    *ngFor="let tile of tiles$ | async"
     [title]="tile.title"
     [target]="(userSettings$ | async)?.tabTarget ?? '_blank'"
     [url]="tile.url"

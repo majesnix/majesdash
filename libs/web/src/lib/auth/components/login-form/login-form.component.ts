@@ -1,10 +1,13 @@
 import {
+  AfterViewInit,
   Component,
+  ElementRef,
   EventEmitter,
   HostListener,
   Input,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Authenticate } from '@majesdash/data';
@@ -14,10 +17,11 @@ import { Authenticate } from '@majesdash/data';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent implements OnInit, AfterViewInit {
   @Output() authenticateEvent = new EventEmitter<Authenticate>();
   @Input() hasError!: boolean;
   @Output() hasErrorChange = new EventEmitter<boolean>();
+  @ViewChild('username') usernameInputField!: ElementRef;
   hide = true;
 
   loginForm = new FormGroup({
@@ -37,6 +41,10 @@ export class LoginFormComponent implements OnInit {
         this.hasErrorChange.emit(false);
       }
     });
+  }
+
+  ngAfterViewInit() {
+    this.usernameInputField.nativeElement.focus();
   }
 
   @HostListener('document:keydown.enter') login() {

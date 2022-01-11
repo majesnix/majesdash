@@ -42,6 +42,7 @@ export class TileService {
 
   deselectTile() {
     this.currentTileSubject$.next(undefined);
+    this.router.navigate(['/tiles/create']);
   }
 
   addTile(tile: Partial<CreateTileDto>) {
@@ -56,9 +57,10 @@ export class TileService {
         `${this.window.location.origin}/api/tiles`,
         formData
       )
-      .subscribe((data) =>
-        this.tilesSubject$.next([...this.tilesSubject$.value, data.tile])
-      );
+      .subscribe((data) => {
+        this.tilesSubject$.next([...this.tilesSubject$.value, data.tile]);
+        this.router.navigate(['/']);
+      });
   }
 
   updateTile(tile: Partial<Tile>) {

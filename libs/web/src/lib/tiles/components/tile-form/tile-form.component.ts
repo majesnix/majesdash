@@ -1,11 +1,14 @@
 import { MaxSizeValidator } from '@angular-material-components/file-input';
 import {
+  AfterViewInit,
   Component,
+  ElementRef,
   EventEmitter,
   HostListener,
   Input,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
@@ -16,10 +19,11 @@ import { CreateTileDto, Tile } from '@majesdash/data';
   templateUrl: './tile-form.component.html',
   styleUrls: ['./tile-form.component.scss'],
 })
-export class TileFormComponent implements OnInit {
+export class TileFormComponent implements OnInit, AfterViewInit {
   @Output() tileAddEvent = new EventEmitter<Partial<CreateTileDto>>();
   @Output() tileUpdateEvent = new EventEmitter<Partial<Tile>>();
   @Input() public tile?: Tile | null;
+  @ViewChild('tileNameInput') tileNameInputField!: ElementRef;
 
   public color: ThemePalette = 'primary';
 
@@ -54,6 +58,10 @@ export class TileFormComponent implements OnInit {
       icon: this.tile?.icon ?? '',
       settings: this.tile?.config ?? {},
     });
+  }
+
+  ngAfterViewInit() {
+    this.tileNameInputField.nativeElement.focus();
   }
 
   @HostListener('document:keydown.enter') addTile() {

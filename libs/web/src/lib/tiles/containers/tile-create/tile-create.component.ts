@@ -16,11 +16,9 @@ export class TileCreateComponent {
 
   addTile(tile: Partial<CreateTileDto>) {
     this.tileService.addTile(tile);
-    this.router.navigate(['/']);
   }
 
   updateTile(tile: Partial<Tile>) {
     this.tileService.updateTile(tile);
-    this.router.navigate(['/']);
   }
 }

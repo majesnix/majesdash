@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SystemSettings, User, UserSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../settings/services/settings.service';
+import { TileService } from '../tiles/services/tile.service';
 import { UserService } from '../user/services/user.service';
 
 @Component({
@@ -19,11 +20,13 @@ export class MainViewComponent implements OnInit {
   constructor(
     private settingsService: SettingsService,
     private userService: UserService,
+    private tileService: TileService,
     public window: Window
   ) {}
 
   ngOnInit(): void {
     this.settingsService.getSystemSettings();
+    this.tileService.getTiles();
 
     if (localStorage.getItem('token')) {
       this.settingsService.getUserSettings();

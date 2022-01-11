@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Tile, UserSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../../../settings/services/settings.service';
+import { TileService } from '../../../tiles/services/tile.service';
 
 @Component({
   selector: 'majesdash-grid',
@@ -9,25 +10,12 @@ import { SettingsService } from '../../../settings/services/settings.service';
   styleUrls: ['./grid.component.scss'],
 })
 export class GridComponent {
-  @Input() tiles!: Tile[] | null;
+  tiles$: Observable<Tile[]> = this.tileService.tiles$;
   userSettings$: Observable<UserSettings | undefined> =
     this.settingsService.userSettings$;
 
-  constructor(private settingsService: SettingsService) {}
-
-  generateAreas() {
-    const rows = this.tiles?.length ? Math.ceil(this.tiles.length / 4) : 1;
-    let count = 1;
-    let rowsString = '';
-    while (count <= rows) {
-      if (count === rows) {
-        rowsString += `area${count}`;
-      } else {
-        rowsString += `area${count} | `;
-      }
-      count++;
-    }
-
-    return rowsString;
-  }
+  constructor(
+    private settingsService: SettingsService,
+    private tileService: TileService
+  ) {}
 }

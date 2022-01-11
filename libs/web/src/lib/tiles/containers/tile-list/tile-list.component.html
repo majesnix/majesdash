@@ -1,17 +1,4 @@
 <div class="container">
-  <mat-icon
-    style="
-      transform: scale(1.5);
-      float: right;
-      display: flex;
-      justify-self: end;
-    "
-    mat-button
-    [routerLink]="['/tiles/create']"
-    (click)="deselectTile()"
-  >
-    library_add</mat-icon
-  >
   <mat-list *ngFor="let tile of tiles$ | async" class="list">
     <mat-list-item class="list-entity" (click)="selectTile(tile.id)"
       ><h3 matLine>{{ tile.title }}</h3>
@@ -26,4 +13,7 @@
       ></mat-list-item
     >
   </mat-list>
+  <button mat-raised-button (click)="deselectTile()" style="margin-top: 8px">
+    Create
+  </button>
 </div>
