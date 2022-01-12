@@ -57,8 +57,8 @@ export class TileService {
         `${this.window.location.origin}/api/tiles`,
         formData
       )
-      .subscribe((data) => {
-        this.tilesSubject$.next([...this.tilesSubject$.value, data.tile]);
+      .subscribe(({ tile }) => {
+        this.tilesSubject$.next([...this.tilesSubject$.value, tile]);
         this.router.navigate(['/']);
       });
   }
@@ -76,11 +76,11 @@ export class TileService {
         formData
       )
       .subscribe({
-        next: (data) => {
+        next: ({ tile }) => {
           const index = this.tilesSubject$.value.findIndex(
             (t) => t.id === tile.id
           );
-          this.tilesSubject$.value.splice(index, 1, data.tile);
+          this.tilesSubject$.value.splice(index, 1, tile);
           this.router.navigate(['/']);
         },
       });
