@@ -1,8 +1,10 @@
 name: Build and Publish
+# Only trigger, when version bump succeeded
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ['Bump Version']
+    types:
+      - completed
 
 jobs:
   build:
