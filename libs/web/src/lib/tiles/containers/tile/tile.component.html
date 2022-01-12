@@ -1,5 +1,9 @@
 <a href="{{ url }}" target="{{ target }}"
-  ><div class="box">
+  ><div
+    class="box"
+    [style.background-color]="'#' + color"
+    style="filter: brightness(85%)"
+  >
     <img
       *ngIf="icon"
       src="{{ window.location.origin + '/images/tiles/' + icon }}"

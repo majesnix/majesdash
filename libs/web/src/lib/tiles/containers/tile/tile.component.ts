@@ -10,6 +10,7 @@ export class TileComponent {
   @Input() url!: string;
   @Input() title!: string;
   @Input() type!: string;
+  @Input() color?: string;
   @Input() target = '_blank';
   @Input() icon?: string;
 }
