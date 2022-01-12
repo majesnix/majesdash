@@ -11,9 +11,7 @@ export class SystemSettingsService {
   ) {}
 
   async findOne() {
-    return {
-      ...(await this.systemSettingsRepository.find())[0],
-    };
+    return (await this.systemSettingsRepository.find())[0];
   }
 
   async update({ background }: { background: string }) {
