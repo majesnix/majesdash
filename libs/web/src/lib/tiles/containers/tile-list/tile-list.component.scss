@@ -1,16 +1,5 @@
-.list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-}
-
-.list-entity {
-  background-color: #fff;
-  margin: 4px;
-  padding: 16px;
-  border: 1px solid #fff;
-  border-radius: 8px;
+mat-list-item:hover {
+  cursor: pointer;
 }
 
 .container {
@@ -18,9 +7,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 352px;
+  width: 800px;
+  padding: 24px;
 }
 
 mat-icon:hover {
   cursor: pointer;
+}
+
+table {
+  width: 100%;
 }

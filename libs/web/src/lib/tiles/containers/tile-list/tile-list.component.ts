@@ -13,12 +13,24 @@ export class TileListComponent {
   tiles$: Observable<Tile[]> = this.tileService.tiles$;
   currentUser$: Observable<User | undefined> = this.userService.user$;
 
+  displayedColumns = [
+    'title',
+    'type',
+    'color',
+    'url',
+    'icon',
+    'tags',
+    'config',
+    'action',
+  ];
+
   constructor(
     private tileService: TileService,
-    private userService: UserService
+    private userService: UserService,
+    public window: Window
   ) {}
 
-  selectTile(id: number) {
+  editTile(id: number) {
     this.tileService.selectTile(id);
   }
 
