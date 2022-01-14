@@ -16,11 +16,8 @@ export class TileListComponent {
   displayedColumns = [
     'title',
     'type',
-    'color',
     'url',
     'icon',
-    'tags',
-    'config',
     'action',
   ];
 
