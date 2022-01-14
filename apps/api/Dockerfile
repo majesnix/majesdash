@@ -8,8 +8,8 @@ COPY . .
 RUN apk add -q --update \
   && apk add -q --no-cache ca-certificates \
   && apk add -q --no-cache --virtual .build-deps curl make gcc g++ python3 \
-  && npm i --silent \
-  && npm i -g --silent nx
+  && npm i -g --silent nx \
+  && npm ci
 
 RUN npm run build:all
 
@@ -30,7 +30,7 @@ RUN apk add -q --update \
   && apk add -q --no-cache ca-certificates \
   && apk add -q --no-cache --virtual .build-deps curl make gcc g++ python3 \
   && npm i -g @angular/compiler-cli \
-  && npm i \
+  && npm ci \
   && apk del .build-deps
 
 EXPOSE 3333
