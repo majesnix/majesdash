@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from '../auth/guards/admin.guard';
-import { AuthGuard } from '../auth/guards/auth.guard';
 import { MaterialModule } from '../material/material.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { UserFormComponent } from './components/user-form/user-form.component';
@@ -13,11 +12,6 @@ import { UserComponent } from './containers/user/user.component';
 import { UsersComponent } from './containers/users/users.component';
 
 const userRoutes: Routes = [
-  {
-    path: 'profile',
-    component: UserComponent,
-    canActivate: [AuthGuard],
-  },
   {
     path: 'users',
     component: UsersComponent,

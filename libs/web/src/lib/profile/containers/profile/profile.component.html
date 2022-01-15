@@ -1,0 +1,7 @@
+<div *ngIf="user$ | async">
+  <div style="width: 20rem">
+    <majesdash-profile-form
+      (userUpdateEvent)="update($event)"
+    ></majesdash-profile-form>
+  </div>
+</div>
