@@ -15,11 +15,10 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     return this.userService.user$.pipe(
       map((user) => {
-        if (user) {
+        if (user || localStorage.getItem('token')) {
           return true;
         } else {
-          this.router.navigate(['/login']);
-          return false;
+          return this.router.parseUrl('/login');
         }
       })
     );
