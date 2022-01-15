@@ -12,7 +12,7 @@ export class UsersComponent implements OnInit {
   currentUser$: Observable<User | undefined> = this.userService.user$;
   users$: Observable<User[] | []> = this.userService.users$;
 
-  displayedColumns: string[] = ['username', 'email', 'isAdmin', 'delete'];
+  displayedColumns: string[] = ['username', 'email', 'isAdmin', 'action'];
 
   constructor(private userService: UserService) {}
 
@@ -22,7 +22,11 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  delete(id: number) {
+  editUser(id: number) {
+    this.userService.selectUser(id);
+  }
+
+  deleteUser(id: number) {
     this.userService.delete(id);
   }
 }
