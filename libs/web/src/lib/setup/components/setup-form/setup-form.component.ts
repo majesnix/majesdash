@@ -1,10 +1,14 @@
 import {
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
+  ElementRef,
   EventEmitter,
   HostListener,
   Input,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateUserDto } from '@majesdash/data';
@@ -14,10 +18,11 @@ import { CreateUserDto } from '@majesdash/data';
   templateUrl: './setup-form.component.html',
   styleUrls: ['./setup-form.component.scss'],
 })
-export class SetupFormComponent implements OnInit {
+export class SetupFormComponent implements OnInit, AfterViewInit {
   @Output() setupEvent = new EventEmitter<CreateUserDto>();
   @Input() hasError!: boolean;
   @Output() hasErrorChange = new EventEmitter<boolean>();
+  @ViewChild('username') usernameInputField!: ElementRef;
   hide = true;
 
   setupForm = new FormGroup({
@@ -35,12 +40,19 @@ export class SetupFormComponent implements OnInit {
     }),
   });
 
+  constructor(private cdRef: ChangeDetectorRef) {}
+
   ngOnInit(): void {
     this.setupForm.valueChanges.subscribe(() => {
       if (this.hasError) {
         this.hasErrorChange.emit(false);
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.usernameInputField.nativeElement.focus();
+    this.cdRef.detectChanges();
   }
 
   @HostListener('document:keydown.enter') setup() {

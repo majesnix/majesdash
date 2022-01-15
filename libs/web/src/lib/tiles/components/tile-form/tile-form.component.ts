@@ -1,6 +1,7 @@
 import { MaxSizeValidator } from '@angular-material-components/file-input';
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -23,11 +24,11 @@ export class TileFormComponent implements OnInit, AfterViewInit {
   @Output() tileAddEvent = new EventEmitter<Partial<CreateTileDto>>();
   @Output() tileUpdateEvent = new EventEmitter<Partial<Tile>>();
   @Input() public tile?: Tile | null;
-  @ViewChild('tileNameInput') tileNameInputField!: ElementRef;
+  @ViewChild('tileName') tileNameInputField!: ElementRef;
 
   public color: ThemePalette = 'primary';
 
-  constructor(public window: Window) {}
+  constructor(public window: Window, private cdRef: ChangeDetectorRef) {}
 
   createTileForm = new FormGroup({
     name: new FormControl(this.tile?.title ?? '', {
@@ -62,6 +63,7 @@ export class TileFormComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.tileNameInputField.nativeElement.focus();
+    this.cdRef.detectChanges();
   }
 
   @HostListener('document:keydown.enter') addTile() {

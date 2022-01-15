@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -35,6 +36,8 @@ export class LoginFormComponent implements OnInit, AfterViewInit {
     }),
   });
 
+  constructor(private cdRef: ChangeDetectorRef) {}
+
   ngOnInit(): void {
     this.loginForm.valueChanges.subscribe(() => {
       if (this.hasError) {
@@ -45,6 +48,7 @@ export class LoginFormComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.usernameInputField.nativeElement.focus();
+    this.cdRef.detectChanges();
   }
 
   @HostListener('document:keydown.enter') login() {
