@@ -10,7 +10,7 @@ import { TileService } from '../../services/tile.service';
   styleUrls: ['./tile-create.component.scss'],
 })
 export class TileCreateComponent {
-  currentTile$: Observable<Tile | undefined> = this.tileService.currentTile$;
+  selectedTile$: Observable<Tile | undefined> = this.tileService.selectedTile$;
 
   constructor(private tileService: TileService, private router: Router) {}
 

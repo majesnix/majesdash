@@ -11,10 +11,10 @@ export class TileService {
   private tilesSubject$ = new BehaviorSubject<Tile[]>([]);
   readonly tiles$ = this.tilesSubject$.asObservable();
 
-  private currentTileSubject$ = new BehaviorSubject<Tile | undefined>(
+  private selectedTileSubject$ = new BehaviorSubject<Tile | undefined>(
     undefined
   );
-  readonly currentTile$ = this.currentTileSubject$.asObservable();
+  readonly selectedTile$ = this.selectedTileSubject$.asObservable();
 
   constructor(
     private httpClient: HttpClient,
@@ -34,14 +34,14 @@ export class TileService {
   }
 
   selectTile(id: number) {
-    this.currentTileSubject$.next(
+    this.selectedTileSubject$.next(
       this.tilesSubject$.value.find((tile) => tile.id === id)
     );
     this.router.navigate(['/tiles/create']);
   }
 
   deselectTile() {
-    this.currentTileSubject$.next(undefined);
+    this.selectedTileSubject$.next(undefined);
     this.router.navigate(['/tiles/create']);
   }
 
