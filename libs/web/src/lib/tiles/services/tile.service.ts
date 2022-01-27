@@ -40,11 +40,6 @@ export class TileService {
     this.router.navigate(['/tiles/create']);
   }
 
-  deselectTile() {
-    this.selectedTileSubject$.next(undefined);
-    this.router.navigate(['/tiles/create']);
-  }
-
   addTile(tile: Partial<CreateTileDto>) {
     const formData = new FormData();
     if (tile.icon) {
@@ -81,6 +76,7 @@ export class TileService {
             (t) => t.id === tile.id
           );
           this.tilesSubject$.value.splice(index, 1, tile);
+          this.selectedTileSubject$.next(undefined);
           this.router.navigate(['/']);
         },
       });

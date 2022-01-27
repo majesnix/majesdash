@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { CreateTileDto, Tile } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { TileService } from '../../services/tile.service';
@@ -12,7 +11,7 @@ import { TileService } from '../../services/tile.service';
 export class TileCreateComponent {
   selectedTile$: Observable<Tile | undefined> = this.tileService.selectedTile$;
 
-  constructor(private tileService: TileService, private router: Router) {}
+  constructor(private tileService: TileService) {}
 
   addTile(tile: Partial<CreateTileDto>) {
     this.tileService.addTile(tile);

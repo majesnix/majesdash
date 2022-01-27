@@ -13,13 +13,7 @@ export class TileListComponent {
   tiles$: Observable<Tile[]> = this.tileService.tiles$;
   currentUser$: Observable<User | undefined> = this.userService.user$;
 
-  displayedColumns = [
-    'title',
-    'type',
-    'url',
-    'icon',
-    'action',
-  ];
+  displayedColumns = ['title', 'type', 'url', 'icon', 'action'];
 
   constructor(
     private tileService: TileService,
@@ -29,10 +23,6 @@ export class TileListComponent {
 
   editTile(id: number) {
     this.tileService.selectTile(id);
-  }
-
-  deselectTile() {
-    this.tileService.deselectTile();
   }
 
   delete(id: number) {
