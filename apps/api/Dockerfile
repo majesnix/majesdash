@@ -9,7 +9,7 @@ RUN apk add -q --update \
   && apk add -q --no-cache ca-certificates \
   && apk add -q --no-cache --virtual .build-deps curl make gcc g++ python3 \
   && yarn global add nx \
-  && yarn --immutable --immutable-cache --check-cache
+  && yarn --frozen-lockfile
 
 
 RUN yarn build:all
@@ -31,7 +31,7 @@ RUN apk add -q --update \
   && apk add -q --no-cache ca-certificates \
   && apk add -q --no-cache --virtual .build-deps curl make gcc g++ python3 \
   && yarn global add @angular/compiler-cli \
-  && yarn install --immutable --immutable-cache --check-cache \
+  && yarn --frozen-lockfile --production \
   && apk del .build-deps
 
 EXPOSE 3333
