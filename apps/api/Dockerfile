@@ -31,7 +31,8 @@ RUN apk add -q --update \
   && apk add -q --no-cache ca-certificates \
   && apk add -q --no-cache --virtual .build-deps curl make gcc g++ python3 \
   && yarn global add @angular/compiler-cli \
-  && yarn --frozen-lockfile --production \
+  && yarn --frozen-lockfile \
+  && yarn cache clean \
   && apk del .build-deps
 
 EXPOSE 3333
