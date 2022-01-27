@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreateUserDto,User,UserUpdate } from '@majesdash/data';
-import { BehaviorSubject,tap } from 'rxjs';
+import { CreateUserDto, User, UserUpdate } from '@majesdash/data';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +19,11 @@ export class UserService {
   );
   readonly selectedUser$ = this.selectedUserSubject$.asObservable();
 
-  constructor(private httpClient: HttpClient, private window: Window, private router: Router) {}
+  constructor(
+    private httpClient: HttpClient,
+    private window: Window,
+    private router: Router
+  ) {}
 
   create(user: CreateUserDto) {
     return this.httpClient.post(`${this.window.location.origin}/api/users`, {
@@ -81,12 +85,7 @@ export class UserService {
     this.selectedUserSubject$.next(
       this.usersSubject$.value.find((user) => user.id === id)
     );
-    this.router.navigate(['/user/create']);
-  }
-
-  deselectUser() {
-    this.selectedUserSubject$.next(undefined);
-    this.router.navigate(['/user/create']);
+    this.router.navigate(['/users/create']);
   }
 
   reset() {

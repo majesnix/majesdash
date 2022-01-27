@@ -1,0 +1,33 @@
+<mat-card style="padding: 24px">
+  <mat-card-title>User</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="userForm" fxLayout="column" fxLayoutAlign="center none">
+      <mat-form-field style="margin-bottom: 8px">
+        <input matInput placeholder="Username" formControlName="username" />
+        <mat-error>
+          <span
+            *ngIf="
+              userForm.get('username')!.hasError('required') && userForm.touched
+            "
+            >Required Field</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field style="margin-bottom: 8px">
+        <input matInput placeholder="Email" formControlName="email" />
+        <mat-error>
+          <span
+            *ngIf="
+              userForm.get('email')!.hasError('required') && userForm.touched
+            "
+            >Required Field</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-checkbox formControlName="isAdmin" style="margin-bottom: 8px"
+        >Admin</mat-checkbox
+      >
+    </form>
+    <button mat-raised-button (click)="update()">Update</button>
+  </mat-card-content>
+</mat-card>

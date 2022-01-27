@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User, UserUpdate } from '@majesdash/data';
+import { Router } from '@angular/router';
+import { CreateUserDto, User } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { UserService } from '../../services/user.service';
 
@@ -10,7 +11,7 @@ import { UserService } from '../../services/user.service';
 })
 export class UserComponent implements OnInit {
   user$: Observable<User | undefined> = this.userService.user$;
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
@@ -18,7 +19,11 @@ export class UserComponent implements OnInit {
     }
   }
 
-  update(user: UserUpdate) {
-    this.userService.updateCurrent(user);
+  create(user: CreateUserDto) {
+    this.userService.create(user).subscribe({
+      next: () => {
+        this.router.navigate(['/users']);
+      },
+    });
   }
 }

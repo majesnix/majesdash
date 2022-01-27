@@ -10,12 +10,19 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserComponent } from './containers/user/user.component';
 import { UsersComponent } from './containers/users/users.component';
+import { UserEditFormComponent } from './components/user-edit-form/user-edit-form.component';
 
 const userRoutes: Routes = [
   {
     path: 'users',
-    component: UsersComponent,
     canActivate: [AdminGuard],
+    children: [
+      { path: '', component: UsersComponent },
+      {
+        path: 'create',
+        component: UserComponent,
+      },
+    ],
   },
 ];
 
@@ -25,6 +32,7 @@ const userRoutes: Routes = [
     UserFormComponent,
     UsersComponent,
     UserListComponent,
+    UserEditFormComponent,
   ],
   imports: [
     RouterModule.forChild(userRoutes),

@@ -1,7 +1,6 @@
-import { MaxSizeValidator } from '@angular-material-components/file-input';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { UserUpdate } from '@majesdash/data';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CreateUserDto } from '@majesdash/data';
 
 @Component({
   selector: 'majesdash-user-form',
@@ -9,22 +8,32 @@ import { UserUpdate } from '@majesdash/data';
   styleUrls: ['./user-form.component.scss'],
 })
 export class UserFormComponent {
-  @Output() userUpdateEvent = new EventEmitter<UserUpdate>();
+  @Output() userCreateEvent = new EventEmitter<CreateUserDto>();
   hide = true;
 
   userForm = new FormGroup({
-    profilePic: new FormControl(undefined, {
-      validators: [MaxSizeValidator(16 * 1024)],
+    username: new FormControl(undefined, {
+      validators: [Validators.required],
     }),
-    password: new FormControl(undefined),
-    passwordRepeat: new FormControl(undefined),
+    email: new FormControl(undefined, {
+      validators: [Validators.required, Validators.email],
+    }),
+    password: new FormControl(undefined, {
+      validators: [Validators.required],
+    }),
+    passwordRepeat: new FormControl(undefined, {
+      validators: [Validators.required],
+    }),
+    isAdmin: new FormControl(false),
   });
 
-  update() {
-    this.userUpdateEvent.emit({
-      profilePic: this.userForm.value.profilePic,
+  create() {
+    this.userCreateEvent.emit({
+      username: this.userForm.value.username,
+      email: this.userForm.value.email,
       password: this.userForm.value.password,
       passwordRepeat: this.userForm.value.passwordRepeat,
+      isAdmin: this.userForm.value.isAdmin,
     });
   }
 }

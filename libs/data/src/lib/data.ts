@@ -37,6 +37,9 @@ export interface UserUpdate {
   profilePic?: Blob;
   password?: string;
   passwordRepeat?: string;
+  username?: string;
+  email?: string;
+  isAdmin?: boolean;
 }
 
 export interface Authenticate {
