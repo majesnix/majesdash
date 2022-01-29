@@ -1,3 +1,4 @@
+import { UserUpdateAdmin } from '@majesdash/data';
 import {
   Body,
   Controller,
@@ -74,6 +75,41 @@ export class UserController {
   @Post('users')
   async create(@Body('user') userData: CreateUserDto) {
     return this.userService.create(userData);
+  }
+
+  @Post('users/update')
+  @UseInterceptors(
+    FileInterceptor('profilePic', {
+      storage: diskStorage({
+        destination: async (req: CustomRequest, file, cb) => {
+          try {
+            await access(`./config/web/images/${req.user.id}`);
+            await unlink(
+              `./config/web/images/${req.user.id}/${req.user.image}`
+            );
+          } catch (error) {
+            await mkdir(`./config/web/images/${req.user.id}`, {
+              recursive: true,
+            });
+          }
+          return cb(null, `./config/web/images/${req.user.id}`);
+        },
+        filename: (req, file, cb) => {
+          return cb(null, `${nanoid(5)}${extname(file.originalname)}`);
+        },
+      }),
+    })
+  )
+  async updateUser(
+    @UploadedFile() file: Express.Multer.File,
+    @Body('user') userData: string
+  ) {
+    return {
+      user: await this.userService.updateAsAdmin(
+        JSON.parse(userData) as UserUpdateAdmin,
+        file?.filename
+      ),
+    };
   }
 
   @Delete('users/:id')

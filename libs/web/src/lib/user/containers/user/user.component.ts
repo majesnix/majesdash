@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreateUserDto, User } from '@majesdash/data';
+import { CreateUserDto,User,UserUpdate } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { UserService } from '../../services/user.service';
 
@@ -11,6 +11,7 @@ import { UserService } from '../../services/user.service';
 })
 export class UserComponent implements OnInit {
   user$: Observable<User | undefined> = this.userService.user$;
+  selectedUser$: Observable<User | undefined> = this.userService.selectedUser$;
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
@@ -25,5 +26,9 @@ export class UserComponent implements OnInit {
         this.router.navigate(['/users']);
       },
     });
+  }
+
+  update(user: Partial<UserUpdate>) {
+    this.userService.update(user);
   }
 }

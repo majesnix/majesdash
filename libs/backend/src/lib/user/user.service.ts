@@ -1,9 +1,11 @@
+import { UserUpdateAdmin, UserUpdateAdminResponse } from '@majesdash/data';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { validate } from 'class-validator';
+import { randomBytes } from 'crypto';
 import * as jwt from 'jsonwebtoken';
 import { DeleteResult, getRepository, Repository } from 'typeorm';
 import { SystemSettingsEntity } from '../system-settings/system-settings.entity';
@@ -137,6 +139,37 @@ export class UserService {
     }
 
     return user;
+  }
+
+  async updateAsAdmin(
+    dto: UserUpdateAdmin,
+    profilePic?: string
+  ): Promise<UserUpdateAdminResponse> {
+    const user = await this.userRepository.findOne(dto.id);
+
+    if (!user)
+      new HttpException({ message: 'User not found' }, HttpStatus.NOT_FOUND);
+
+    if (profilePic) {
+      user.image = profilePic;
+    }
+
+    let tempPassword = '';
+    if (dto.resetPassword) {
+      tempPassword = randomBytes(21).toString('base64').slice(0, 21);
+
+      user.passwordHash = await bcrypt.hash(tempPassword, 10);
+    }
+
+    await this.userRepository.save(user);
+
+    if (user.passwordHash) {
+      delete user.passwordHash;
+    }
+    return {
+      user,
+      tempPassword: tempPassword,
+    };
   }
 
   async delete(id: number): Promise<DeleteResult> {

@@ -42,6 +42,19 @@ export interface UserUpdate {
   isAdmin?: boolean;
 }
 
+export interface UserUpdateAdmin {
+  id: number;
+  profilePic?: Blob;
+  resetPassword?: boolean;
+  email?: string;
+  isAdmin?: boolean;
+}
+
+export interface UserUpdateAdminResponse {
+  user: User;
+  tempPassword?: string;
+}
+
 export interface Authenticate {
   emailOrUsername: string;
   password: string;
