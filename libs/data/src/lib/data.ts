@@ -51,7 +51,7 @@ export interface UserUpdateAdmin {
 }
 
 export interface UserUpdateAdminResponse {
-  user: User;
+  user: Partial<User>;
   tempPassword?: string;
 }
 

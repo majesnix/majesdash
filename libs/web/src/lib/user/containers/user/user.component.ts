@@ -1,6 +1,6 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreateUserDto,User,UserUpdate } from '@majesdash/data';
+import { CreateUserDto, User, UserUpdateAdmin } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { UserService } from '../../services/user.service';
 
@@ -28,7 +28,7 @@ export class UserComponent implements OnInit {
     });
   }
 
-  update(user: Partial<UserUpdate>) {
+  update(user: UserUpdateAdmin) {
     this.userService.update(user);
   }
 }

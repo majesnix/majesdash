@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User, UserUpdate } from '@majesdash/data';
+import { User, UserUpdateAdmin } from '@majesdash/data';
 
 @Component({
   selector: 'majesdash-user-edit-form',
@@ -8,7 +8,7 @@ import { User, UserUpdate } from '@majesdash/data';
   styleUrls: ['./user-edit-form.component.scss'],
 })
 export class UserEditFormComponent {
-  @Output() userUpdateEvent = new EventEmitter<Partial<UserUpdate>>();
+  @Output() userUpdateEvent = new EventEmitter<UserUpdateAdmin>();
   @Input() user?: User | null;
   hide = true;
 
@@ -23,10 +23,12 @@ export class UserEditFormComponent {
   });
 
   update() {
-    this.userUpdateEvent.emit({
-      username: this.userForm.value.username,
-      email: this.userForm.value.email,
-      isAdmin: this.userForm.value.isAdmin,
-    });
+    if (this.user) {
+      this.userUpdateEvent.emit({
+        id: this.user.id,
+        email: this.userForm.value.email,
+        isAdmin: this.userForm.value.isAdmin,
+      });
+    }
   }
 }
