@@ -3,5 +3,10 @@
     <majesdash-user-form
       (userCreateEvent)="create($event)"
     ></majesdash-user-form>
+    <majesdash-user-edit-form
+      *ngIf="selectedUser$ | async"
+      [user]="selectedUser$ | async"
+      (userUpdateEvent)="update($event)"
+    ></majesdash-user-edit-form>
   </div>
 </div>

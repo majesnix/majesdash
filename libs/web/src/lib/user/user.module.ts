@@ -22,6 +22,10 @@ const userRoutes: Routes = [
         path: 'create',
         component: UserComponent,
       },
+      {
+        path: "edit",
+        component: UserEditFormComponent
+      }
     ],
   },
 ];

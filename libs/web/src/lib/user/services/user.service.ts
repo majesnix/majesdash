@@ -58,6 +58,23 @@ export class UserService {
       .subscribe();
   }
 
+  update(user: UserUpdate) {
+    const formData = new FormData();
+    if (user.profilePic) {
+      formData.append('profilePic', user.profilePic);
+    }
+    formData.append('user', JSON.stringify(user));
+    return this.httpClient
+      .post<{ user: User }>(`${this.window.location.origin}/api/user`, formData)
+      .pipe(
+        tap(({ user }) => {
+          this.selectedUserSubject$.next(user);
+          this.router.navigate(['/users']);
+        })
+      )
+      .subscribe();
+  }
+
   delete(id: number) {
     return this.httpClient
       .delete(`${this.window.location.origin}/api/users/${id}`)
@@ -85,7 +102,7 @@ export class UserService {
     this.selectedUserSubject$.next(
       this.usersSubject$.value.find((user) => user.id === id)
     );
-    this.router.navigate(['/users/create']);
+    this.router.navigate(['/users/edit']);
   }
 
   reset() {
