@@ -48,11 +48,8 @@ export class TileService {
     }
     formData.append('tile', JSON.stringify(tile));
     return this.httpClient
-      .post<{ tile: Tile }>(
-        `${this.window.location.origin}/api/tiles`,
-        formData
-      )
-      .subscribe(({ tile }) => {
+      .post<Tile>(`${this.window.location.origin}/api/tiles`, formData)
+      .subscribe((tile) => {
         this.tilesSubject$.next([...this.tilesSubject$.value, tile]);
         this.router.navigate(['/']);
       });
