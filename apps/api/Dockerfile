@@ -7,8 +7,8 @@ COPY . .
 
 RUN apk add -q --update \
   && apk add -q --no-cache ca-certificates \
-  && apk add -q --no-cache --virtual .build-deps curl bash make gcc g++ python3 \
-  && curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash -s -- -b /usr/local/bin \
+  && apk add -q --no-cache --virtual .build-deps curl make gcc g++ python3 \
+  && curl -sf https://gobinaries.com/tj/node-prune | sh \
   && yarn global add nx \
   && yarn --frozen-lockfile
 
