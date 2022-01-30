@@ -17,7 +17,7 @@ RUN yarn build:all \
   && /usr/local/bin/node-prune
 
 # stage 2 - build final image
-FROM node:lts-alpine
+FROM mhart/alpine-node:slim-16
 
 LABEL maintainer="majesnix <majesnix@majesnix.org>"
 
