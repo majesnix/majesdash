@@ -1,10 +1,8 @@
 name: Test, Build and Publish
-# Only trigger, when version bump succeeded
 on:
-  workflow_run:
-    workflows: ['Bump Version']
-    types:
-      - completed
+  push:
+    branches:
+      - 'main'
 
 jobs:
   test:
@@ -27,9 +25,29 @@ jobs:
         with:
           command: yarn e2e:ci
 
+  bump-version:
+    needs: test
+    name: bump version
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout source code'
+        uses: 'actions/checkout@v2'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 'Automated Version Bump'
+        id: version-bump
+        uses: 'phips28/gh-action-bump-version@master'
+        with:
+          major-wording: 'BREAKING CHANGE,major'
+          minor-wording: 'feat'
+          patch-wording: 'patch,fix,fixes,chore,ci'
+          skip-tag: 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   build:
     if: ${{ !github.event.act }}
-    needs: test
+    needs: [test, bump-version]
     name: Docker build
     runs-on: ubuntu-latest
     steps:
