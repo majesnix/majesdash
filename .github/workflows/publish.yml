@@ -22,7 +22,7 @@ jobs:
         run: yarn e2e:ci
 
   build:
-    if: ${{ !env.ACT }}
+    if: ${{ !github.event.act }}
     needs: test
     name: Docker build
     runs-on: ubuntu-latest
