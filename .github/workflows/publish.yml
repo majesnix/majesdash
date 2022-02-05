@@ -21,7 +21,13 @@ jobs:
 
       - name: Install dependencies
         run: yarn global add nx --silent && yarn --frozen-lockfile --silent
-
+      - run: apt-get update && apt-get install -y fonts-liberation libappindicator3-1 xdg-utils
+      - run: |
+          wget -O /usr/src/google-chrome-stable_current_amd64.deb "http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_97.0.4692.71-1_amd64.deb" && \
+          dpkg -i /usr/src/google-chrome-stable_current_amd64.deb ; \
+          apt-get install -f -y && \
+          rm -f /usr/src/google-chrome-stable_current_amd64.deb
+      - run: ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
       - name: Run tests
         run: yarn e2e:ci
 
