@@ -1,4 +1,4 @@
-name: Build and Publish
+name: Test, Build and Publish
 # Only trigger, when version bump succeeded
 on:
   workflow_run:
@@ -7,6 +7,19 @@ on:
       - completed
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: cypress/included
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v1
+
+      - name: Install dependencies
+        run: yarn global add nx && yarn
+
+      - name: Run tests
+        run: yarn e2e:ci
+
   build:
     name: Docker build
     runs-on: ubuntu-latest
@@ -25,9 +38,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
 
       - name: Build majesdash
         uses: docker/build-push-action@v2
