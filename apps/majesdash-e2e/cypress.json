@@ -5,8 +5,9 @@
   "modifyObstructiveCode": false,
   "supportFile": "./src/support/index.ts",
   "pluginsFile": false,
-  "video": true,
+  "video": false,
   "videosFolder": "../../dist/cypress/apps/majesdash-e2e/videos",
   "screenshotsFolder": "../../dist/cypress/apps/majesdash-e2e/screenshots",
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "baseUrl": "http://localhost:4200"
 }

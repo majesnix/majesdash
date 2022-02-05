@@ -61,6 +61,7 @@
           accept=".png,.jpg,.jpeg"
           formControlName="icon"
           placeholder="Select Tile Icon"
+          data-cy="tile-create-or-update"
         >
           <mat-icon ngxMatFileInputIcon>folder</mat-icon>
         </ngx-mat-file-input>
@@ -94,7 +95,11 @@
         >
       </mat-error>
     </form>
-    <button mat-raised-button (click)="tile ? updateTile() : addTile()">
+    <button
+      mat-raised-button
+      (click)="tile ? updateTile() : addTile()"
+      data-cy="tile-create-or-update"
+    >
       {{ tile ? 'Update' : 'Add' }}
     </button>
   </mat-card-content>

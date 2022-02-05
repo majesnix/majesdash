@@ -19,7 +19,7 @@ import { UserModule } from './user/user.module';
     }),
     TypeOrmModule.forRoot({
       type: 'better-sqlite3',
-      database: './config/db.sql',
+      database: process.env.CITEST ? ':memory:' : './config/db.sql',
       entities: [
         UserSettingsEntity,
         SystemSettingsEntity,
