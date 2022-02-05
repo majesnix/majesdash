@@ -20,13 +20,12 @@ jobs:
           node-version: '16'
 
       - name: Install dependencies
-        run: yarn global add nx --silent
+        run: yarn global add nx --silent && echo "SECRET=abc" > .env
 
       - name: Cypress tests 🧪
         uses: cypress-io/github-action@v2
         with:
           command: yarn e2e:ci
-          env: SECRET=abc
 
   build:
     if: ${{ !github.event.act }}
