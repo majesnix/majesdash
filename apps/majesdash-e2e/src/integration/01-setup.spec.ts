@@ -6,18 +6,18 @@ describe('Setup', () => {
       'Setup'
     );
 
-    cy.get('[data-cy="setup-form"').as('setup-form');
+    cy.get('[data-cy="setup-form"]').as('setup-form');
     cy.get('@setup-form')
-      .get('input[formcontrolname="username"')
+      .get('input[formcontrolname="username"]')
       .type('testuser');
     cy.get('@setup-form')
-      .get('input[formcontrolname="email"')
+      .get('input[formcontrolname="email"]')
       .type('test@test.de');
     cy.get('@setup-form')
-      .get('input[formcontrolname="password"')
+      .get('input[formcontrolname="password"]')
       .type('testuser');
     cy.get('@setup-form')
-      .get('input[formcontrolname="passwordRepeat"')
+      .get('input[formcontrolname="passwordRepeat"]')
       .type('testuser');
     cy.get('@setup-form').get('button').eq(1).click();
   });
