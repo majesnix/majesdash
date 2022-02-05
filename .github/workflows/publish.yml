@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: cypress/included
+    container: cypress/included:9.4.1
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v1
@@ -21,6 +21,7 @@ jobs:
         run: yarn e2e:ci
 
   build:
+    needs: test
     name: Docker build
     runs-on: ubuntu-latest
     steps:
