@@ -6,17 +6,18 @@
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
     "start": "nx serve",
-    "build": "genversion --es6 --semi ./libs/web/src/lib/settings/version.ts && nx build",
-    "build:all": "genversion --es6 --semi ./libs/web/src/lib/settings/version.ts && nx run-many --target=build --projects=api,majesdash --parallel=2",
+    "build": "yarn genversion && nx build",
+    "build:all": "yarn genversion && nx run-many --target=build --projects=api,majesdash --parallel",
     "test": "nx test",
-    "start:all": "genversion --es6 --semi ./libs/web/src/lib/settings/version.ts && nx run-many --target=serve --projects=api,majesdash",
+    "start:all": "yarn genversion && nx run-many --target=serve --projects=api,majesdash --skip-nx-cache",
     "_e2e:ci": "nx e2e majesdash-e2e",
     "e2e:ci": "CITEST=true start-server-and-test start:all http://localhost:4200 _e2e:ci",
     "_e2e": "nx e2e majesdash-e2e --watch",
     "e2e": "yarn clearDB && start-server-and-test \"nx run-many --target=serve --projects=api,majesdash\" http://localhost:4200 _e2e",
     "clearDB": "cd config && rm -f *.sql*",
     "docker:build": "docker build -f ./apps/api/Dockerfile . -t majesdash",
-    "dev:all": "yarn clearDB && yarn start:all"
+    "dev:all": "yarn clearDB && yarn start:all",
+    "genversion": "genversion --es6 --semi ./libs/web/src/lib/settings/version.ts"
   },
   "repository": {
     "type": "git",
