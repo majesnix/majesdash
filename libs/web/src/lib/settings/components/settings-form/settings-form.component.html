@@ -5,6 +5,7 @@
       [formGroup]="settingsForm"
       fxLayout="column"
       fxLayoutAlign="center none"
+      data-cy="user-settings-form"
     >
       <mat-form-field style="margin-bottom: 8px" title="Background">
         <ngx-mat-file-input
@@ -49,6 +50,12 @@
         </mat-select>
       </mat-form-field>
     </form>
-    <button mat-raised-button (click)="update()">Save</button>
+    <button
+      mat-raised-button
+      (click)="update()"
+      data-cy="save-user-background-button"
+    >
+      Save
+    </button>
   </mat-card-content>
 </mat-card>
