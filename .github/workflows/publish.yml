@@ -20,7 +20,7 @@ jobs:
           node-version: '16'
 
       - name: Install dependencies
-        run: yarn global add nx --silent && yarn --frozen-lockfile --silent
+        run: yarn global add nx --silent && yarn --frozen-lockfile --silent && echo "SECRET=abc" > .env
 
       - name: Cypress tests 🧪
         uses: cypress-io/github-action@v2
