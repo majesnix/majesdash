@@ -15,6 +15,12 @@ describe('Profile', () => {
     cy.get('button[data-cy="update-save-button"]').click();
   });
 
+  it('should not be able to navigate to profile, when not logged in', () => {
+    cy.clearLocalStorage();
+    cy.visit('/profile');
+    cy.url().should('include', '/login');
+  });
+
   it('should change the password', () => {
     cy.get('button').eq(0).click();
     cy.get('button[ng-reflect-router-link="/profile"]').click();

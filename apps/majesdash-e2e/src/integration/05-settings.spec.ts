@@ -29,4 +29,10 @@ describe('Admin Settings', () => {
       .attachFile('user-background.jpg');
     cy.get('button[data-cy="save-user-background-button"]').click();
   });
+
+  it('should not be able to navigate to settings, when not logged in', () => {
+    cy.clearLocalStorage();
+    cy.visit('/settings');
+    cy.url().should('include', '/login');
+  });
 });
