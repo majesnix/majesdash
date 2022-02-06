@@ -5,8 +5,8 @@ on:
       - 'main'
 
 jobs:
-  test:
-    name: e2e tests
+  chrome:
+    name: e2e chrome
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎
@@ -24,9 +24,32 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           command: yarn e2e:ci
+          browser: chrome
+  firefox:
+    name: e2e firefox
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node12.16.1-chrome80-ff73
+      options: --user 1001
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: yarn global add nx --silent && echo "SECRET=abc" > .env
+
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v2
+        with:
+          browser: firefox
 
   bump-version:
-    needs: test
+    needs: [chrome, firefox]
     name: bump version
     runs-on: ubuntu-latest
     steps:
@@ -47,7 +70,7 @@ jobs:
 
   build:
     if: ${{ !github.event.act }}
-    needs: [test, bump-version]
+    needs: [chrome, firefox, bump-version]
     name: Docker build
     runs-on: ubuntu-latest
     steps:
