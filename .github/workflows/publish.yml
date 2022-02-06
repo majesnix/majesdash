@@ -29,7 +29,7 @@ jobs:
     name: e2e firefox
     runs-on: ubuntu-latest
     container:
-      image: cypress/browsers:node12.16.1-chrome80-ff73
+      image: cypress/browsers:node16.13.0-chrome95-ff94
       options: --user 1001
     steps:
       - name: Checkout 🛎
