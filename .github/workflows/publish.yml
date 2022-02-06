@@ -10,14 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:node16.13.0-chrome95-ff94
+      options: --user 1001
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v2
-
-      - name: Set up Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
 
       - name: Install dependencies
         run: yarn global add nx --silent && echo "SECRET=abc" > .env
@@ -35,11 +31,6 @@ jobs:
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v2
-
-      - name: Set up Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
 
       - name: Install dependencies
         run: yarn global add nx --silent && echo "SECRET=abc" > .env
