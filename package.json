@@ -1,6 +1,6 @@
 {
   "name": "majesdash",
-  "version": "0.9.29",
+  "version": "0.9.30",
   "license": "MIT",
   "scripts": {
     "ng": "nx",
