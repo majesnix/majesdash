@@ -4,7 +4,12 @@
     "sourceMap": false,
     "outDir": "../../dist/out-tsc",
     "allowJs": true,
-    "types": ["cypress", "node", "cypress-file-upload"],
+    "types": [
+      "cypress",
+      "node",
+      "cypress-file-upload",
+      "cypress-localstorage-commands"
+    ],
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,

@@ -1,11 +1,14 @@
 describe('Admin Settings', () => {
   beforeEach(() => {
-    cy.clearLocalStorage();
-    cy.visit('/login');
-    cy.get('input[formcontrolname="emailOrUsername"]').type('test@test.de');
-    cy.get('input[formcontrolname="password"]').type('testuser1');
-    cy.get('[data-cy="login-form-submit-button"]').click();
-    cy.get('mat-toolbar').should('contain', 'testuser');
+    cy.request('POST', '/api/users/login', {
+      user: {
+        username: 'testuser',
+        password: 'testuser1',
+      },
+    }).then((res) => {
+      cy.setLocalStorage('token', res.body.user.token);
+    });
+    cy.visit('/');
   });
 
   it('should navigate to settings screen and upload a system background picture', () => {

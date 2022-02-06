@@ -17,6 +17,7 @@ describe('Login with username or email and can logout', () => {
     cy.get('input[formcontrolname="password"]').type('testuser');
     cy.get('[data-cy="login-form-submit-button"]').click();
     cy.get('mat-toolbar').should('contain', 'testuser');
+    cy.saveLocalStorage();
   });
 
   it('should login and logout', () => {
