@@ -8,6 +8,8 @@ jobs:
   chrome:
     name: e2e chrome
     runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node16.13.0-chrome95-ff94
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v2
@@ -23,8 +25,7 @@ jobs:
       - name: Cypress tests 🧪
         uses: cypress-io/github-action@v2
         with:
-          command: yarn e2e:ci
-          browser: chrome
+          command: yarn e2e:ci-chrome
   firefox:
     name: e2e firefox
     runs-on: ubuntu-latest
@@ -46,8 +47,7 @@ jobs:
       - name: Cypress tests 🧪
         uses: cypress-io/github-action@v2
         with:
-          command: yarn e2e:ci
-          browser: firefox
+          command: yarn e2e:ci-firefox
 
   bump-version:
     needs: [chrome, firefox]

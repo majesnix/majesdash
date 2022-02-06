@@ -205,7 +205,54 @@
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/majesdash-e2e/cypress.json"
+            "cypressConfig": "apps/majesdash-e2e/cypress.json",
+            "browser": "chrome"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/majesdash-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["majesdash"]
+    },
+    "majesdash-e2e-chrome": {
+      "root": "apps/majesdash-e2e",
+      "sourceRoot": "apps/majesdash-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/majesdash-e2e/cypress.json",
+            "browser": "chrome"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/majesdash-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["majesdash"]
+    },
+    "majesdash-e2e-firefox": {
+      "root": "apps/majesdash-e2e",
+      "sourceRoot": "apps/majesdash-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/majesdash-e2e/cypress.json",
+            "browser": "firefox"
           }
         },
         "lint": {
