@@ -19,6 +19,6 @@ describe('Setup', () => {
     cy.get('@setup-form')
       .get('input[formcontrolname="passwordRepeat"]')
       .type('testuser');
-    cy.get('@setup-form').get('button').eq(1).click();
+    cy.get('@setup-form').get('[data-cy="setup-form-submit-button"]').click();
   });
 });

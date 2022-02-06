@@ -8,6 +8,7 @@
         mat-button
         style="color: darkgrey; font-size: 0.75rem"
         [matMenuTriggerFor]="menu"
+        data-cy="user-menu"
       >
         <mat-icon *ngIf="!user.image" class="user-pic">account_circle</mat-icon>
         <img

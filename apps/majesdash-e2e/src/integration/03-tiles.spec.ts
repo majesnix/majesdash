@@ -4,12 +4,12 @@ describe('Tiles', () => {
     cy.visit('/login');
     cy.get('input[formcontrolname="emailOrUsername"]').type('test@test.de');
     cy.get('input[formcontrolname="password"]').type('testuser');
-    cy.get('button').eq(1).click();
+    cy.get('[data-cy="login-form-submit-button"]').click();
     cy.get('mat-toolbar').should('contain', 'testuser');
   });
 
   it('should navigate to the tile creation screen and create a tile', () => {
-    cy.get('button').eq(0).click();
+    cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/tiles"]').click();
     cy.get('button[ng-reflect-router-link="/tiles/create"]').click();
     cy.get('input[formcontrolname="name"]').type('testtile');
@@ -20,7 +20,7 @@ describe('Tiles', () => {
   });
 
   it('should navigate to the tile creation screen and create a second tile with an icon', () => {
-    cy.get('button').eq(0).click();
+    cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/tiles"]').click();
     cy.get('button[ng-reflect-router-link="/tiles/create"]').click();
     cy.get('input[formcontrolname="name"]').type('testtile2');
@@ -37,7 +37,7 @@ describe('Tiles', () => {
   });
 
   it('should navigate to the tile list and delete the first tile', () => {
-    cy.get('button').eq(0).click();
+    cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/tiles"]').click();
     cy.get('button[color=red]').eq(0).click();
     cy.visit('/');
