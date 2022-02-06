@@ -43,9 +43,10 @@ jobs:
       - name: Install dependencies
         run: yarn global add nx --silent && echo "SECRET=abc" > .env
 
-      - uses: actions/checkout@v2
-      - uses: cypress-io/github-action@v2
+      - name: Cypress tests 🧪
+        uses: cypress-io/github-action@v2
         with:
+          command: yarn e2e:ci
           browser: firefox
 
   bump-version:
