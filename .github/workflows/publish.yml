@@ -22,6 +22,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           command: yarn e2e:ci-chrome
+
   firefox:
     name: e2e firefox
     runs-on: ubuntu-latest
