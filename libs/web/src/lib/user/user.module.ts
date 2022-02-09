@@ -6,11 +6,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from '../auth/guards/admin.guard';
 import { MaterialModule } from '../material/material.module';
 import { PipesModule } from '../pipes/pipes.module';
+import { UserEditFormComponent } from './components/user-edit-form/user-edit-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
-import { UserListComponent } from './components/user-list/user-list.component';
 import { UserComponent } from './containers/user/user.component';
 import { UsersComponent } from './containers/users/users.component';
-import { UserEditFormComponent } from './components/user-edit-form/user-edit-form.component';
 
 const userRoutes: Routes = [
   {
@@ -23,9 +22,9 @@ const userRoutes: Routes = [
         component: UserComponent,
       },
       {
-        path: "edit",
-        component: UserEditFormComponent
-      }
+        path: 'edit',
+        component: UserComponent,
+      },
     ],
   },
 ];
@@ -35,7 +34,6 @@ const userRoutes: Routes = [
     UserComponent,
     UserFormComponent,
     UsersComponent,
-    UserListComponent,
     UserEditFormComponent,
   ],
   imports: [

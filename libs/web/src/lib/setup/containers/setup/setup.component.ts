@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreateUserDto } from '@majesdash/data';
+import { first } from 'rxjs';
 import { SettingsService } from '../../../settings/services/settings.service';
 import { UserService } from '../../../user/services/user.service';
 
@@ -30,14 +31,17 @@ export class SetupComponent implements OnInit {
   }
 
   createUser(user: CreateUserDto) {
-    this.userService.create(user).subscribe({
-      next: () => {
-        this.router.navigate(['/login']);
-      },
-      error: () => {
-        this.error = true;
-        this.cdRef.detectChanges();
-      },
-    });
+    this.userService
+      .create(user)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/login']);
+        },
+        error: () => {
+          this.error = true;
+          this.cdRef.detectChanges();
+        },
+      });
   }
 }

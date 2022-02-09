@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Authenticate, SystemSettings, UserSettings } from '@majesdash/data';
-import { Observable } from 'rxjs';
+import { first, Observable } from 'rxjs';
 import { SettingsService } from '../../../settings/services/settings.service';
 import { UserService } from '../../../user/services/user.service';
 import { AuthService } from '../../services/auth.service';
@@ -32,17 +32,20 @@ export class LoginComponent {
   ) {}
 
   login(authenticate: Authenticate) {
-    this.authService.login(authenticate).subscribe({
-      next: (data) => {
-        localStorage.setItem('token', data.user.token);
-        this.userService.getCurrent();
-        this.settingsService.getUserSettings();
-        this.router.navigate(['/']);
-      },
-      error: () => {
-        this.error = true;
-        this.cdRef.detectChanges();
-      },
-    });
+    this.authService
+      .login(authenticate)
+      .pipe(first())
+      .subscribe({
+        next: (data) => {
+          localStorage.setItem('token', data.user.token);
+          this.userService.getCurrent();
+          this.settingsService.getUserSettings();
+          this.router.navigate(['/']);
+        },
+        error: () => {
+          this.error = true;
+          this.cdRef.detectChanges();
+        },
+      });
   }
 }

@@ -19,6 +19,7 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.userService.getAll();
+      this.userService.deselectUser();
     }
   }
 

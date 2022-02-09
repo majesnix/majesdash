@@ -2,11 +2,14 @@
   <div style="width: 20rem">
     <majesdash-user-form
       (userCreateEvent)="create($event)"
+      *ngIf="(selectedUser$ | async) === undefined"
     ></majesdash-user-form>
     <majesdash-user-edit-form
       *ngIf="selectedUser$ | async"
       [user]="selectedUser$ | async"
       (userUpdateEvent)="update($event)"
+      (userPasswordResetEvent)="resetPassword($event)"
+      (userDeleteEvent)="delete($event)"
     ></majesdash-user-edit-form>
   </div>
 </div>

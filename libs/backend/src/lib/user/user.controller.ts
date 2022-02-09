@@ -4,8 +4,10 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
+  Put,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -77,39 +79,16 @@ export class UserController {
     return this.userService.create(userData);
   }
 
-  @Post('users/update')
-  @UseInterceptors(
-    FileInterceptor('profilePic', {
-      storage: diskStorage({
-        destination: async (req: CustomRequest, file, cb) => {
-          try {
-            await access(`./config/web/images/${req.user.id}`);
-            await unlink(
-              `./config/web/images/${req.user.id}/${req.user.image}`
-            );
-          } catch (error) {
-            await mkdir(`./config/web/images/${req.user.id}`, {
-              recursive: true,
-            });
-          }
-          return cb(null, `./config/web/images/${req.user.id}`);
-        },
-        filename: (req, file, cb) => {
-          return cb(null, `${nanoid(5)}${extname(file.originalname)}`);
-        },
-      }),
-    })
-  )
-  async updateUser(
-    @UploadedFile() file: Express.Multer.File,
-    @Body('user') userData: string
-  ) {
+  @Put('users')
+  async updateUser(@Body('user') userData: UserUpdateAdmin) {
     return {
-      user: await this.userService.updateAsAdmin(
-        JSON.parse(userData) as UserUpdateAdmin,
-        file?.filename
-      ),
+      user: await this.userService.updateAsAdmin(userData),
     };
+  }
+
+  @Put('users/resetPassword')
+  async resetPassword(@Body('id') id: number) {
+    return await this.userService.resetPassword(id);
   }
 
   @Delete('users/:id')
@@ -118,6 +97,7 @@ export class UserController {
   }
 
   @Post('users/login')
+  @HttpCode(200)
   async login(@Body('user') loginUserDto: LoginUserDto): Promise<UserRO> {
     const _user = await this.userService.findOne(loginUserDto);
 

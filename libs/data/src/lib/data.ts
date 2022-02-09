@@ -44,15 +44,17 @@ export interface UserUpdate {
 
 export interface UserUpdateAdmin {
   id: number;
-  profilePic?: Blob;
-  resetPassword?: boolean;
+  username?: string;
   email?: string;
   isAdmin?: boolean;
 }
 
 export interface UserUpdateAdminResponse {
   user: Partial<User>;
-  tempPassword?: string;
+}
+
+export interface UserResetPasswordAdminResponse {
+  password: string;
 }
 
 export interface Authenticate {
@@ -94,4 +96,12 @@ export interface CreateUserDto {
   password: string;
   passwordRepeat: string;
   isAdmin?: boolean;
+}
+
+export interface UserResetPasswordAdmin {
+  id: number;
+}
+
+export interface UserDeleteAdmin {
+  id: number;
 }

@@ -1,4 +1,8 @@
-import { UserUpdateAdmin, UserUpdateAdminResponse } from '@majesdash/data';
+import {
+  UserResetPasswordAdminResponse,
+  UserUpdateAdmin,
+  UserUpdateAdminResponse,
+} from '@majesdash/data';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { ConfigService } from '@nestjs/config';
@@ -141,24 +145,22 @@ export class UserService {
     return user;
   }
 
-  async updateAsAdmin(
-    dto: UserUpdateAdmin,
-    profilePic?: string
-  ): Promise<UserUpdateAdminResponse> {
+  async updateAsAdmin(dto: UserUpdateAdmin): Promise<UserUpdateAdminResponse> {
     const user = await this.userRepository.findOne(dto.id);
 
     if (!user)
       new HttpException({ message: 'User not found' }, HttpStatus.NOT_FOUND);
 
-    if (profilePic) {
-      user.image = profilePic;
+    if (dto.isAdmin) {
+      user.isAdmin = dto.isAdmin;
     }
 
-    let tempPassword = '';
-    if (dto.resetPassword) {
-      tempPassword = randomBytes(21).toString('base64').slice(0, 21);
+    if (dto.username) {
+      user.username = dto.username;
+    }
 
-      user.passwordHash = await bcrypt.hash(tempPassword, 10);
+    if (dto.email) {
+      user.email = dto.email;
     }
 
     await this.userRepository.save(user);
@@ -166,9 +168,26 @@ export class UserService {
     if (user.passwordHash) {
       delete user.passwordHash;
     }
+
     return {
       user,
-      tempPassword: tempPassword,
+    };
+  }
+
+  async resetPassword(id: number): Promise<UserResetPasswordAdminResponse> {
+    const user = await this.userRepository.findOne(id);
+
+    if (!user)
+      new HttpException({ message: 'User not found' }, HttpStatus.NOT_FOUND);
+
+    const tempPassword = randomBytes(21).toString('base64').slice(0, 21);
+
+    user.passwordHash = await bcrypt.hash(tempPassword, 10);
+
+    await this.userRepository.save(user);
+
+    return {
+      password: tempPassword,
     };
   }
 

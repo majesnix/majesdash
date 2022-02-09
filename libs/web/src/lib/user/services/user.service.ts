@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import {
   CreateUserDto,
   User,
+  UserResetPasswordAdminResponse,
   UserUpdate,
   UserUpdateAdmin,
   UserUpdateAdminResponse,
@@ -65,15 +66,12 @@ export class UserService {
   }
 
   update(user: UserUpdateAdmin) {
-    const formData = new FormData();
-    if (user.profilePic) {
-      formData.append('profilePic', user.profilePic);
-    }
-    formData.append('user', JSON.stringify(user));
     return this.httpClient
-      .post<UserUpdateAdminResponse>(
-        `${this.window.location.origin}/api/user`,
-        formData
+      .put<UserUpdateAdminResponse>(
+        `${this.window.location.origin}/api/users`,
+        {
+          user,
+        }
       )
       .pipe(
         tap(() => {
@@ -81,6 +79,19 @@ export class UserService {
         })
       )
       .subscribe();
+  }
+
+  resetPassword(id: number) {
+    return this.httpClient
+      .put<UserResetPasswordAdminResponse>(
+        `${this.window.location.origin}/api/users/resetPassword`,
+        {
+          id,
+        }
+      )
+      .subscribe((data) => {
+        this.window.alert(`New password: ${data.password}`);
+      });
   }
 
   delete(id: number) {
@@ -111,6 +122,10 @@ export class UserService {
       this.usersSubject$.value.find((user) => user.id === id)
     );
     this.router.navigate(['/users/edit']);
+  }
+
+  deselectUser() {
+    this.selectedUserSubject$.next(undefined);
   }
 
   reset() {

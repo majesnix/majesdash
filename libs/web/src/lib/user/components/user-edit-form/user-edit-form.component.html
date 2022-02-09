@@ -1,7 +1,12 @@
 <mat-card style="padding: 24px">
   <mat-card-title>User</mat-card-title>
   <mat-card-content>
-    <form [formGroup]="userForm" fxLayout="column" fxLayoutAlign="center none">
+    <form
+      [formGroup]="userForm"
+      fxLayout="column"
+      fxLayoutAlign="center none"
+      data-cy="user-edit-form"
+    >
       <mat-form-field style="margin-bottom: 8px">
         <input matInput placeholder="Username" formControlName="username" />
         <mat-error>
@@ -28,6 +33,27 @@
         >Admin</mat-checkbox
       >
     </form>
-    <button mat-raised-button (click)="update()">Update</button>
+    <button
+      mat-raised-button
+      (click)="resetPassword()"
+      data-cy="user-edit-form-reset-password"
+    >
+      Reset Password
+    </button>
+    <button
+      mat-raised-button
+      (click)="update()"
+      data-cy="user-edit-form-update"
+    >
+      Update
+    </button>
+    <button
+      mat-raised-button
+      (click)="delete()"
+      color="warn"
+      data-cy="user-edit-form-delete"
+    >
+      Delete
+    </button>
   </mat-card-content>
 </mat-card>

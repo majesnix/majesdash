@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreateUserDto, User, UserUpdateAdmin } from '@majesdash/data';
+import {
+  CreateUserDto,
+  User,
+  UserDeleteAdmin,
+  UserResetPasswordAdmin,
+  UserUpdateAdmin,
+} from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { UserService } from '../../services/user.service';
 
@@ -30,5 +36,13 @@ export class UserComponent implements OnInit {
 
   update(user: UserUpdateAdmin) {
     this.userService.update(user);
+  }
+
+  resetPassword(event: UserResetPasswordAdmin) {
+    this.userService.resetPassword(event.id);
+  }
+
+  delete(event: UserDeleteAdmin) {
+    this.userService.delete(event.id);
   }
 }
