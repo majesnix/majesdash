@@ -89,12 +89,7 @@ describe('Admin user list', () => {
   it('reset a users password', () => {
     cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/users"]').click();
-    cy.get('[data-cy="user-list"]')
-      .find('tr')
-      .eq(2)
-      .get('button')
-      .eq(1)
-      .click();
+    cy.get('[data-cy="user-list-edit"]').eq(1).click();
     const stub = cy.stub();
     cy.on('window:alert', stub);
     cy.get('[data-cy="user-edit-form-reset-password"]')
@@ -111,5 +106,11 @@ describe('Admin user list', () => {
     cy.get('[data-cy="user-list-delete"]').click();
     cy.get('[data-cy="user-list"]').find('tr').should('have.length', 2);
     cy.get('[data-cy="user-list"]').should('contain', 'testuser');
+  });
+
+  it('should not be able to navigate to settings, when not logged in', () => {
+    cy.clearLocalStorage();
+    cy.visit('/users');
+    cy.url().should('include', '/login');
   });
 });
