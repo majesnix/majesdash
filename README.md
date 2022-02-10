@@ -1,4 +1,4 @@
-# MajesDash [WIP]
+# MajesDash
 
 <p>
   <img src="https://img.shields.io/docker/v/codingbros/majesdash.svg">
@@ -8,6 +8,10 @@
     <img src="https://github.com/majesnix/majesdash/actions/workflows/publish.yml/badge.svg">
   </a>
 </p>
+
+Todo:
+
+- Smart tiles (stats/online check)
 
 ## Build
 
