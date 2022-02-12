@@ -46,13 +46,13 @@ jobs:
     name: bump version
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout source code'
-        uses: 'actions/checkout@v2'
+      - name: Checkout
+        uses: actions/checkout@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Automated Version Bump'
+      - name: Automated Version Bump
         id: version-bump
-        uses: 'phips28/gh-action-bump-version@master'
+        uses: phips28/gh-action-bump-version@master
         with:
           major-wording: 'BREAKING CHANGE,major'
           minor-wording: 'feat'
@@ -69,6 +69,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: 'main'
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
