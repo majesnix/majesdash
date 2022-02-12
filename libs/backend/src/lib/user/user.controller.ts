@@ -34,7 +34,7 @@ export class UserController {
 
   @Post('user')
   @UseInterceptors(
-    FileInterceptor('profilePic', {
+    FileInterceptor('avatar', {
       storage: diskStorage({
         destination: async (req: CustomRequest, file, cb) => {
           try {
@@ -89,6 +89,11 @@ export class UserController {
   @Put('users/resetPassword')
   async resetPassword(@Body('id') id: number) {
     return await this.userService.resetPassword(id);
+  }
+
+  @Put('users/deleteAvatar')
+  async deleteAvatar(@Body('id') id: number) {
+    return await this.userService.deleteAvatar(id);
   }
 
   @Delete('users/:id')

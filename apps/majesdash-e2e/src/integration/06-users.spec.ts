@@ -66,6 +66,15 @@ describe('Admin user list', () => {
     cy.get('[data-cy="user-list"]').should('not.contain', 'testuser3');
   });
 
+  it('should navigate to user list screen and remove a users avatar', () => {
+    cy.get('[data-cy="user-menu"]').click();
+    cy.get('button[ng-reflect-router-link="/users"]').click();
+    cy.get('[data-cy="user-list"]').find('tr').eq(0);
+    cy.get('[data-cy="user-list-edit"]').eq(0).click();
+    cy.get('[data-cy="user-edit-form-delete-avatar"]').click();
+    cy.get('[data-cy="profile-pic"]').should('not.exist');
+  });
+
   it('should navigate to user list screen and update a user', () => {
     cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/users"]').click();

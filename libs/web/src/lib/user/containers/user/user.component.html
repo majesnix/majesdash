@@ -9,6 +9,7 @@
       [user]="selectedUser$ | async"
       (userUpdateEvent)="update($event)"
       (userPasswordResetEvent)="resetPassword($event)"
+      (userDeleteAvatarEvent)="deleteAvatar($event)"
       (userDeleteEvent)="delete($event)"
     ></majesdash-user-edit-form>
   </div>

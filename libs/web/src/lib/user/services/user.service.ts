@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import {
   CreateUserDto,
   User,
+  UserDeleteAvatarAdminResponse,
   UserResetPasswordAdminResponse,
   UserUpdate,
   UserUpdateAdmin,
@@ -51,8 +52,8 @@ export class UserService {
 
   updateCurrent(user: UserUpdate) {
     const formData = new FormData();
-    if (user.profilePic) {
-      formData.append('profilePic', user.profilePic);
+    if (user.avatar) {
+      formData.append('avatar', user.avatar);
     }
     formData.append('user', JSON.stringify(user));
     return this.httpClient
@@ -91,6 +92,22 @@ export class UserService {
       )
       .subscribe((data) => {
         this.window.alert(`New password: ${data.password}`);
+      });
+  }
+
+  deleteAvatar(id: number) {
+    return this.httpClient
+      .put<UserDeleteAvatarAdminResponse>(
+        `${this.window.location.origin}/api/users/deleteAvatar`,
+        {
+          id,
+        }
+      )
+      .subscribe(({ user }) => {
+        this.selectedUserSubject$.next({ ...user, image: undefined });
+        if (this.userSubject$.value?.id === id) {
+          this.userSubject$.next({ ...user, image: undefined });
+        }
       });
   }
 

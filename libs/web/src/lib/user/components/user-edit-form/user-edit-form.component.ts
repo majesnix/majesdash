@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   User,
   UserDeleteAdmin,
+  UserDeleteAvatarAdmin,
   UserResetPasswordAdmin,
   UserUpdateAdmin,
 } from '@majesdash/data';
@@ -16,6 +17,7 @@ export class UserEditFormComponent implements OnInit {
   @Output() userUpdateEvent = new EventEmitter<UserUpdateAdmin>();
   @Output() userPasswordResetEvent = new EventEmitter<UserResetPasswordAdmin>();
   @Output() userDeleteEvent = new EventEmitter<UserDeleteAdmin>();
+  @Output() userDeleteAvatarEvent = new EventEmitter<UserDeleteAvatarAdmin>();
   @Input() user?: User | null;
   hide = true;
 
@@ -49,6 +51,14 @@ export class UserEditFormComponent implements OnInit {
   resetPassword() {
     if (this.user) {
       this.userPasswordResetEvent.emit({
+        id: this.user.id,
+      });
+    }
+  }
+
+  deleteAvatar() {
+    if (this.user) {
+      this.userDeleteAvatarEvent.emit({
         id: this.user.id,
       });
     }

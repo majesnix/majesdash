@@ -34,7 +34,7 @@ export interface User {
 }
 
 export interface UserUpdate {
-  profilePic?: Blob;
+  avatar?: Blob;
   password?: string;
   passwordRepeat?: string;
   username?: string;
@@ -51,6 +51,14 @@ export interface UserUpdateAdmin {
 
 export interface UserUpdateAdminResponse {
   user: Partial<User>;
+}
+
+export interface UserDeleteAvatarAdmin {
+  id: number;
+}
+
+export interface UserDeleteAvatarAdminResponse {
+  user: User;
 }
 
 export interface UserResetPasswordAdminResponse {

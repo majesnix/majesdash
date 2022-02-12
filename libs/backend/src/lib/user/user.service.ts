@@ -1,4 +1,5 @@
 import {
+  UserDeleteAvatarAdminResponse,
   UserResetPasswordAdminResponse,
   UserUpdateAdmin,
   UserUpdateAdminResponse,
@@ -10,6 +11,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { validate } from 'class-validator';
 import { randomBytes } from 'crypto';
+import { unlink } from 'fs-extra';
 import * as jwt from 'jsonwebtoken';
 import { DeleteResult, getRepository, Repository } from 'typeorm';
 import { SystemSettingsEntity } from '../system-settings/system-settings.entity';
@@ -122,15 +124,15 @@ export class UserService {
   async update(
     id: number,
     dto: UpdateUserDto,
-    profilePic?: string
+    avatar?: string
   ): Promise<UserEntity> {
     const user = await this.userRepository.findOne(id);
 
     if (!user)
       new HttpException({ message: 'User not found' }, HttpStatus.NOT_FOUND);
 
-    if (profilePic) {
-      user.image = profilePic;
+    if (avatar) {
+      user.image = avatar;
     }
     if (dto.password && dto.passwordRepeat && dto.password === dto.password) {
       user.passwordHash = await bcrypt.hash(dto.password, 10);
@@ -189,6 +191,20 @@ export class UserService {
     return {
       password: tempPassword,
     };
+  }
+
+  async deleteAvatar(id: number): Promise<UserDeleteAvatarAdminResponse> {
+    const user = await this.userRepository.findOne(id);
+
+    if (!user)
+      new HttpException({ message: 'User not found' }, HttpStatus.NOT_FOUND);
+
+    await unlink(`./config/web/images/${user.id}/${user.image}`);
+    user.image = null;
+
+    await this.userRepository.save(user);
+
+    return this.buildUserRO(user);
   }
 
   async delete(id: number): Promise<DeleteResult> {

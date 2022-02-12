@@ -4,6 +4,7 @@ import {
   CreateUserDto,
   User,
   UserDeleteAdmin,
+  UserDeleteAvatarAdmin,
   UserResetPasswordAdmin,
   UserUpdateAdmin,
 } from '@majesdash/data';
@@ -40,6 +41,10 @@ export class UserComponent implements OnInit {
 
   resetPassword(event: UserResetPasswordAdmin) {
     this.userService.resetPassword(event.id);
+  }
+
+  deleteAvatar(event: UserDeleteAvatarAdmin) {
+    this.userService.deleteAvatar(event.id);
   }
 
   delete(event: UserDeleteAdmin) {

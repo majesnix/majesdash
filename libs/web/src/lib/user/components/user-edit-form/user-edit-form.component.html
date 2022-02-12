@@ -33,27 +33,36 @@
         >Admin</mat-checkbox
       >
     </form>
-    <button
-      mat-raised-button
-      (click)="resetPassword()"
-      data-cy="user-edit-form-reset-password"
-    >
-      Reset Password
-    </button>
-    <button
-      mat-raised-button
-      (click)="update()"
-      data-cy="user-edit-form-update"
-    >
-      Update
-    </button>
-    <button
-      mat-raised-button
-      (click)="delete()"
-      color="warn"
-      data-cy="user-edit-form-delete"
-    >
-      Delete
-    </button>
+    <div class="button-container">
+      <button
+        mat-raised-button
+        (click)="resetPassword()"
+        data-cy="user-edit-form-reset-password"
+      >
+        Reset Password
+      </button>
+      <button
+        mat-raised-button
+        (click)="deleteAvatar()"
+        data-cy="user-edit-form-delete-avatar"
+      >
+        Delete Avatar
+      </button>
+      <button
+        mat-raised-button
+        (click)="update()"
+        data-cy="user-edit-form-update"
+      >
+        Update
+      </button>
+      <button
+        mat-raised-button
+        (click)="delete()"
+        color="warn"
+        data-cy="user-edit-form-delete"
+      >
+        Delete
+      </button>
+    </div>
   </mat-card-content>
 </mat-card>
