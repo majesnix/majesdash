@@ -19,11 +19,11 @@ Todo:
 
 ## Deploy
 
-A simple deploy could be achieved with `docker run -p 8888:3333 --env-file ./.env majesdash`.
+A simple deploy could be achieved with a prebuild version `docker run -p 8888:3333 --env-file ./.env codingbros/majesdash`.
 
-This would deploy the dashboard to port 8888.
+This would deploy the dashboard on port 8888.
 
-To persist the dashboard state, the `/app/config` path needs to be mapped somewhere. This directory will contain the sql lite database, images for tiles and user profiles/backgrounds.
+To persist the dashboard state, the `/app/config` path needs to be mapped somewhere. This directory will contain the sql lite database and all uploaded icons/backgrounds/avatars.
 
 ## Environment
 
