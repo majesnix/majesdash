@@ -42,3 +42,6 @@ LICENSE
 .git
 .gitattributes
 .gitignore
+
+# images/db after test
+config
