@@ -1,6 +1,6 @@
 import { MaxSizeValidator } from '@angular-material-components/file-input';
-import { Component,EventEmitter,Output } from '@angular/core';
-import { FormBuilder,FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserUpdate } from '@majesdash/data';
 
 @Component({
@@ -16,7 +16,7 @@ export class ProfileFormComponent {
 
   constructor(private fb: FormBuilder) {
     this.profileForm = this.fb.group({
-      profilePic: [undefined, [MaxSizeValidator(16 * 2 ** 20)]],
+      avatar: [undefined, [MaxSizeValidator(16 * 2 ** 20)]],
       password: [''],
       passwordRepeat: [''],
     });
@@ -24,7 +24,7 @@ export class ProfileFormComponent {
 
   update() {
     this.userUpdateEvent.emit({
-      profilePic: this.profileForm.value.profilePic,
+      avatar: this.profileForm.value.avatar,
       password: this.profileForm.value.password,
       passwordRepeat: this.profileForm.value.passwordRepeat,
     });

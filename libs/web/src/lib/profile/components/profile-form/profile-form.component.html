@@ -10,24 +10,25 @@
       <mat-form-field style="margin-bottom: 8px" title="Profile Image">
         <ngx-mat-file-input
           accept=".png,.jpg,.jpeg,.gif"
-          formControlName="profilePic"
+          formControlName="avatar"
           placeholder="Select Profile Image"
         >
           <mat-icon ngxMatFileInputIcon>folder</mat-icon>
         </ngx-mat-file-input>
         <mat-error
-          *ngIf="profileForm.get('profilePic')?.hasError('maxContentSize')"
+          *ngIf="profileForm.get('avatar')?.hasError('maxContentSize')"
         >
           The total size must not exceed
           {{
-            profileForm.get('profilePic')?.getError('maxContentSize').maxSize
+            profileForm.get('avatar')?.getError('maxContentSize').maxSize
               | byteFormat
           }}
           ({{
-            profileForm.get('profilePic')?.getError('maxContentSize').actualSize
+            profileForm.get('avatar')?.getError('maxContentSize').actualSize
               | byteFormat
           }}).
         </mat-error>
+        <mat-hint>Max 16MB</mat-hint>
       </mat-form-field>
       <div>Change Password</div>
       <mat-form-field style="margin-bottom: 8px">
