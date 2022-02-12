@@ -23,6 +23,10 @@ LABEL maintainer="majesnix <majesnix@majesnix.org>"
 
 WORKDIR /app
 
+RUN apk upgrade --update-cache --available && \
+    apk add openssl apk-tools busybox && \
+    rm -rf /var/cache/apk/*
+
 COPY --from=builder /app/dist/apps/api .
 COPY --from=builder /app/dist/apps/majesdash ./client
 COPY --from=builder /app/node_modules ./node_modules
