@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreateUserDto } from '@majesdash/data';
 
 @Component({
@@ -11,21 +11,17 @@ export class UserFormComponent {
   @Output() userCreateEvent = new EventEmitter<CreateUserDto>();
   hide = true;
 
-  userForm = new FormGroup({
-    username: new FormControl(undefined, {
-      validators: [Validators.required],
-    }),
-    email: new FormControl(undefined, {
-      validators: [Validators.required, Validators.email],
-    }),
-    password: new FormControl(undefined, {
-      validators: [Validators.required],
-    }),
-    passwordRepeat: new FormControl(undefined, {
-      validators: [Validators.required],
-    }),
-    isAdmin: new FormControl(false),
-  });
+  userForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.userForm = this.fb.group({
+      username: [undefined, [Validators.required]],
+      email: [undefined, [Validators.required]],
+      password: [undefined, [Validators.required]],
+      passwordRepeat: [undefined, [Validators.required]],
+      isAdmin: [false],
+    });
+  }
 
   create() {
     this.userCreateEvent.emit({

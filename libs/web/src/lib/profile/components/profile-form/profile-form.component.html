@@ -2,7 +2,7 @@
   <mat-card-title>Profile</mat-card-title>
   <mat-card-content>
     <form
-      [formGroup]="userForm"
+      [formGroup]="profileForm"
       fxLayout="column"
       fxLayoutAlign="center none"
       data-cy="profile-form"
@@ -16,15 +16,15 @@
           <mat-icon ngxMatFileInputIcon>folder</mat-icon>
         </ngx-mat-file-input>
         <mat-error
-          *ngIf="userForm.get('profilePic')?.hasError('maxContentSize')"
+          *ngIf="profileForm.get('profilePic')?.hasError('maxContentSize')"
         >
           The total size must not exceed
           {{
-            userForm.get('profilePic')?.getError('maxContentSize').maxSize
+            profileForm.get('profilePic')?.getError('maxContentSize').maxSize
               | byteFormat
           }}
           ({{
-            userForm.get('profilePic')?.getError('maxContentSize').actualSize
+            profileForm.get('profilePic')?.getError('maxContentSize').actualSize
               | byteFormat
           }}).
         </mat-error>
@@ -43,7 +43,8 @@
         <mat-error>
           <span
             *ngIf="
-              userForm.get('password')!.hasError('required') && userForm.touched
+              profileForm.get('password')!.hasError('required') &&
+              profileForm.touched
             "
             >Required Field</span
           >
@@ -62,14 +63,21 @@
         <mat-error>
           <span
             *ngIf="
-              userForm.get('passwordRepeat')!.hasError('required') &&
-              userForm.touched
+              profileForm.get('passwordRepeat')!.hasError('required') &&
+              profileForm.touched
             "
             >Required Field</span
           >
         </mat-error>
       </mat-form-field>
     </form>
-    <button mat-raised-button (click)="update()" data-cy="update-save-button">Save</button>
+    <button
+      mat-raised-button
+      (click)="update()"
+      data-cy="update-save-button"
+      [disabled]="profileForm.invalid"
+    >
+      Save
+    </button>
   </mat-card-content>
 </mat-card>

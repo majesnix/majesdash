@@ -1,19 +1,19 @@
 import { MaxSizeValidator } from '@angular-material-components/file-input';
 import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
+AfterViewInit,
+ChangeDetectorRef,
+Component,
+ElementRef,
+EventEmitter,
+HostListener,
+Input,
+OnInit,
+Output,
+ViewChild
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
-import { CreateTileDto, Tile } from '@majesdash/data';
+import { CreateTileDto,Tile } from '@majesdash/data';
 
 @Component({
   selector: 'majesdash-tile-form',
@@ -27,28 +27,22 @@ export class TileFormComponent implements OnInit, AfterViewInit {
   @ViewChild('tileName') tileNameInputField!: ElementRef;
 
   public color: ThemePalette = 'primary';
+  createTileForm: FormGroup;
 
-  constructor(public window: Window, private cdRef: ChangeDetectorRef) {}
-
-  createTileForm = new FormGroup({
-    name: new FormControl(this.tile?.title ?? '', {
-      validators: [Validators.required],
-      updateOn: 'change',
-    }),
-    type: new FormControl(this.tile?.type ?? '', {
-      validators: [Validators.required],
-      updateOn: 'change',
-    }),
-    url: new FormControl(this.tile?.url ?? '', {
-      validators: [Validators.required],
-      updateOn: 'change',
-    }),
-    color: new FormControl(this.tile?.color ?? ''),
-    icon: new FormControl(undefined, {
-      validators: [MaxSizeValidator(16 * 1024)],
-    }),
-    settings: new FormControl(this.tile?.config ?? {}),
-  });
+  constructor(
+    public window: Window,
+    private cdRef: ChangeDetectorRef,
+    private fb: FormBuilder
+  ) {
+    this.createTileForm = this.fb.group({
+      name: [this.tile?.title ?? '', [Validators.required]],
+      type: [this.tile?.type ?? '', [Validators.required]],
+      url: [this.tile?.url ?? '', [Validators.required]],
+      color: [this.tile?.color ?? ''],
+      icon: [undefined, [MaxSizeValidator(16 * 2 ** 20)]],
+      settings: [this.tile?.config ?? {}],
+    });
+  }
 
   ngOnInit(): void {
     this.createTileForm.setValue({

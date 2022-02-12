@@ -52,6 +52,7 @@
     </form>
     <button
       mat-raised-button
+      [disabled]="settingsForm.invalid"
       (click)="update()"
       data-cy="save-user-background-button"
     >

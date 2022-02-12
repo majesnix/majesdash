@@ -10,7 +10,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Authenticate } from '@majesdash/data';
 
 @Component({
@@ -25,18 +25,14 @@ export class LoginFormComponent implements OnInit, AfterViewInit {
   @ViewChild('username') usernameInputField!: ElementRef;
   hide = true;
 
-  loginForm = new FormGroup({
-    emailOrUsername: new FormControl('', {
-      validators: [Validators.required],
-      updateOn: 'change',
-    }),
-    password: new FormControl('', {
-      validators: [Validators.required],
-      updateOn: 'change',
-    }),
-  });
+  loginForm: FormGroup;
 
-  constructor(private cdRef: ChangeDetectorRef) {}
+  constructor(private cdRef: ChangeDetectorRef, private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+      emailOrUsername: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    });
+  }
 
   ngOnInit(): void {
     this.loginForm.valueChanges.subscribe(() => {

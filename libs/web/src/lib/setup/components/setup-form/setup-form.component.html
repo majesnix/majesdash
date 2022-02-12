@@ -82,6 +82,13 @@
         </mat-error>
       </mat-form-field>
     </form>
-    <button mat-raised-button (click)="setup()" data-cy="setup-form-submit-button">Create</button>
+    <button
+      mat-raised-button
+      data-cy="setup-form-submit-button"
+      (click)="setup()"
+      [disabled]="setupForm.invalid"
+    >
+      Create
+    </button>
   </mat-card-content>
 </mat-card>

@@ -98,6 +98,7 @@
     <button
       mat-raised-button
       (click)="tile ? updateTile() : addTile()"
+      [disabled]="createTileForm.invalid"
       data-cy="tile-create-or-update"
     >
       {{ tile ? 'Update' : 'Add' }}

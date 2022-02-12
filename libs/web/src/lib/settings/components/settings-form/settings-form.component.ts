@@ -1,6 +1,6 @@
 import { MaxSizeValidator } from '@angular-material-components/file-input';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { SettingsUpdate } from '@majesdash/data';
 
 interface TabOptions {
@@ -21,17 +21,17 @@ export class SettingsFormComponent {
     { value: '_self', viewValue: 'Same Tab' },
   ];
 
-  settingsForm = new FormGroup({
-    background: new FormControl(undefined, {
-      validators: [MaxSizeValidator(16 * 1024)],
-    }),
-    tabOption: new FormControl('_blank', {
-      validators: [],
-    }),
-  });
+  settingsForm: FormGroup;
 
-  changeTabOption(id: string) {
-    this.settingsForm.get('tabOption')?.setValue(id);
+  constructor(private fb: FormBuilder) {
+    this.settingsForm = this.fb.group({
+      background: [undefined, [MaxSizeValidator(16 * 2 ** 20)]],
+      tabOption: ['_blank'],
+    });
+  }
+
+  changeTabOption(value: string) {
+    this.settingsForm.get('tabOption')?.setValue(value);
   }
 
   update() {

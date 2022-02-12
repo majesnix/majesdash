@@ -1,6 +1,6 @@
 import { MaxSizeValidator } from '@angular-material-components/file-input';
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component,EventEmitter,Output } from '@angular/core';
+import { FormBuilder,FormGroup } from '@angular/forms';
 import { SystemSettingsUpdate } from '@majesdash/data';
 
 @Component({
@@ -12,11 +12,13 @@ export class SystemSettingsFormComponent {
   @Output() systemSettingsUpdateEvent =
     new EventEmitter<SystemSettingsUpdate>();
 
-  systemSettingsForm = new FormGroup({
-    background: new FormControl(undefined, {
-      validators: [MaxSizeValidator(16 * 1024)],
-    }),
-  });
+  systemSettingsForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.systemSettingsForm = this.fb.group({
+      background: [undefined, [MaxSizeValidator(16 * 2 ** 20)]],
+    });
+  }
 
   update() {
     this.systemSettingsUpdateEvent.emit({

@@ -43,6 +43,7 @@
     </form>
     <button
       mat-raised-button
+      [disabled]="systemSettingsForm.invalid"
       (click)="update()"
       data-cy="save-system-background-button"
     >

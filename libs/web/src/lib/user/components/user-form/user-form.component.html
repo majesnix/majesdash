@@ -74,6 +74,7 @@
     </form>
     <button
       mat-raised-button
+      [disabled]="userForm.invalid"
       (click)="create()"
       data-cy="user-create-form-submit"
     >
