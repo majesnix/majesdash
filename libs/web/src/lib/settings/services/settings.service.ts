@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  SettingsUpdate,
-  SystemSettings,
-  SystemSettingsUpdate,
+  IUserSettings,
+  IUserSettingsUpdate,
+  ISystemSettings,
+  ISystemSettingsUpdate,
   TabTarget,
-  UserSettings,
 } from '@majesdash/data';
 import { BehaviorSubject, tap } from 'rxjs';
 
@@ -14,16 +14,16 @@ import { BehaviorSubject, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class SettingsService {
-  private userSettingSubject$ = new BehaviorSubject<UserSettings | undefined>({
-    customBackground: false,
+  private userSettingSubject$ = new BehaviorSubject<IUserSettings | undefined>({
     tabTarget: TabTarget.NEW_TAB,
     backgroundName: undefined,
   });
   readonly userSettings$ = this.userSettingSubject$.asObservable();
   private systemSettingsSubject$ = new BehaviorSubject<
-    SystemSettings | undefined
+    ISystemSettings | undefined
   >({
     background: 'background.png',
+    initialized: true,
   });
   readonly systemSettings$ = this.systemSettingsSubject$.asObservable();
 
@@ -35,29 +35,27 @@ export class SettingsService {
 
   getUserSettings() {
     return this.httpClient
-      .get<{ settings: UserSettings }>(
-        `${this.window.location.origin}/api/settings`
-      )
+      .get<IUserSettings>(`${this.window.location.origin}/api/settings`)
       .pipe(
-        tap(({ settings }) => {
-          this.userSettingSubject$.next(settings);
+        tap((userSettings) => {
+          this.userSettingSubject$.next(userSettings);
         })
       )
       .subscribe();
   }
 
-  updateUserSettings(settings: SettingsUpdate) {
+  updateUserSettings(settings: IUserSettingsUpdate) {
     const formData = new FormData();
     formData.append('background', settings.background);
-    formData.append('settings', JSON.stringify(settings.settings));
+    formData.append('tabTarget', settings.tabTarget);
     return this.httpClient
-      .post<{ settings: UserSettings }>(
+      .post<IUserSettings>(
         `${this.window.location.origin}/api/settings`,
         formData
       )
       .pipe(
-        tap(({ settings }) => {
-          this.userSettingSubject$.next(settings);
+        tap((userSettings) => {
+          this.userSettingSubject$.next(userSettings);
         })
       )
       .subscribe();
@@ -65,13 +63,11 @@ export class SettingsService {
 
   getSystemSettings() {
     return this.httpClient
-      .get<{ settings: SystemSettings }>(
-        `${this.window.location.origin}/api/system-settings`
-      )
+      .get<ISystemSettings>(`${this.window.location.origin}/api/system-settings`)
       .pipe(
-        tap(({ settings }) => {
-          this.systemSettingsSubject$.next(settings);
-          if (!settings.initialized) {
+        tap((systemSettings) => {
+          this.systemSettingsSubject$.next(systemSettings);
+          if (!systemSettings.initialized) {
             this.router.navigate(['/setup']);
           } else if (this.router.url === '/setup') {
             this.router.navigate(['/login']);
@@ -81,17 +77,17 @@ export class SettingsService {
       .subscribe();
   }
 
-  updateSystemSettings(settings: SystemSettingsUpdate) {
+  updateSystemSettings(settings: ISystemSettingsUpdate) {
     const formData = new FormData();
     formData.append('background', settings.background);
     return this.httpClient
-      .post<{ settings: SystemSettings }>(
+      .post<ISystemSettings>(
         `${this.window.location.origin}/api/system-settings`,
         formData
       )
       .pipe(
-        tap(({ settings }) => {
-          this.systemSettingsSubject$.next(settings);
+        tap((systemSettings) => {
+          this.systemSettingsSubject$.next(systemSettings);
         })
       )
       .subscribe();

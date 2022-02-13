@@ -1,4 +1,3 @@
-import { UserSettings } from '@majesdash/data';
 import {
   Body,
   Controller,
@@ -9,28 +8,33 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { access, mkdir, unlink } from 'fs-extra';
 import { diskStorage } from 'multer';
 import { nanoid } from 'nanoid';
 import { extname } from 'path';
 import { CustomRequest } from '../auth.middleware';
+import { UserSettingsDto } from './dto';
 import { UserSettingsEntity } from './user-settings.entity';
-import { UserSettingsRO } from './user-settings.interface';
 import { UserSettingsService } from './user-settings.service';
 
 @Controller('settings')
+@ApiTags('settings')
 export class UserSettingsController {
   constructor(private readonly userSettingsService: UserSettingsService) {}
 
   @Get()
-  async findMe(@Request() req: CustomRequest): Promise<UserSettingsRO> {
+  @ApiBearerAuth()
+  async findUserSettings(
+    @Request() req: CustomRequest
+  ): Promise<UserSettingsEntity> {
     const settings = await this.userSettingsService.findOne(req.user.id);
-    return {
-      settings,
-    };
+    return settings;
   }
 
   @Post()
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
   @UseInterceptors(
     FileInterceptor('background', {
       storage: diskStorage({
@@ -54,26 +58,14 @@ export class UserSettingsController {
     })
   )
   async updateSettings(
-    @UploadedFile() file: Express.Multer.File,
     @Request() req: CustomRequest,
-    @Body('settings') userSettings: string
+    @Body() userSettings: UserSettingsDto,
+    @UploadedFile() file?: Express.Multer.File
   ) {
-    let settings: UserSettingsEntity;
-    if (!file) {
-      settings = await this.userSettingsService.createOrUpdate(
-        req.user.id,
-        JSON.parse(userSettings) as UserSettings
-      );
-    } else {
-      settings = await this.userSettingsService.createOrUpdate(
-        req.user.id,
-        JSON.parse(userSettings) as UserSettings,
-        file.filename
-      );
-    }
-
-    return {
-      settings,
-    };
+    return await this.userSettingsService.createOrUpdate(
+      req.user.id,
+      userSettings,
+      file?.filename
+    );
   }
 }

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CreateUserDto } from '@majesdash/data';
+import { ICreateUserDto } from '@majesdash/data';
 
 @Component({
   selector: 'majesdash-user-form',
@@ -8,7 +8,7 @@ import { CreateUserDto } from '@majesdash/data';
   styleUrls: ['./user-form.component.scss'],
 })
 export class UserFormComponent {
-  @Output() userCreateEvent = new EventEmitter<CreateUserDto>();
+  @Output() userCreateEvent = new EventEmitter<ICreateUserDto>();
   hide = true;
 
   userForm: FormGroup;

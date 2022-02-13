@@ -1,7 +1,7 @@
 import { MaxSizeValidator } from '@angular-material-components/file-input';
 import { Component,EventEmitter,Output } from '@angular/core';
 import { FormBuilder,FormGroup } from '@angular/forms';
-import { SystemSettingsUpdate } from '@majesdash/data';
+import { ISystemSettingsUpdate } from '@majesdash/data';
 
 @Component({
   selector: 'majesdash-system-settings-form',
@@ -10,7 +10,7 @@ import { SystemSettingsUpdate } from '@majesdash/data';
 })
 export class SystemSettingsFormComponent {
   @Output() systemSettingsUpdateEvent =
-    new EventEmitter<SystemSettingsUpdate>();
+    new EventEmitter<ISystemSettingsUpdate>();
 
   systemSettingsForm: FormGroup;
 

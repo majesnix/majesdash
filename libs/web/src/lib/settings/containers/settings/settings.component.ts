@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import {
-  SettingsUpdate,
-  SystemSettings,
-  SystemSettingsUpdate,
-  User,
-  UserSettings,
+  IUserSettings,
+  IUserSettingsUpdate,
+  ISystemSettings,
+  ISystemSettingsUpdate,
+  IUser,
 } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { UserService } from '../../../user/services/user.service';
@@ -16,22 +16,22 @@ import { SettingsService } from '../../services/settings.service';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent {
-  userSettings$: Observable<UserSettings | undefined> =
+  userSettings$: Observable<IUserSettings | undefined> =
     this.settingsService.userSettings$;
-  systemSettings$: Observable<SystemSettings | undefined> =
+  systemSettings$: Observable<ISystemSettings | undefined> =
     this.settingsService.systemSettings$;
-  user$: Observable<User | undefined> = this.userService.user$;
+  user$: Observable<IUser | undefined> = this.userService.user$;
 
   constructor(
     private settingsService: SettingsService,
     private userService: UserService
   ) {}
 
-  update(settings: SettingsUpdate) {
+  update(settings: IUserSettingsUpdate) {
     this.settingsService.updateUserSettings(settings);
   }
 
-  updateSystemSettings(settings: SystemSettingsUpdate) {
+  updateSystemSettings(settings: ISystemSettingsUpdate) {
     this.settingsService.updateSystemSettings(settings);
   }
 }

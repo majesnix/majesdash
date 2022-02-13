@@ -1,1 +1,1 @@
-export { CreateTileDto } from './create-tile.dto';
+export { TileDto } from './tile.dto';

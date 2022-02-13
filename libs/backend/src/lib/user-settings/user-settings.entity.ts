@@ -6,9 +6,6 @@ export class UserSettingsEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ default: false })
-  customBackground!: boolean;
-
   @Column({ nullable: true })
   backgroundName!: string;
 

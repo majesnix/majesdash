@@ -11,29 +11,39 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import {
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiNotFoundResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { access, mkdir } from 'fs-extra';
 import { diskStorage } from 'multer';
 import { nanoid } from 'nanoid';
 import { extname } from 'path';
 import { CustomRequest } from '../admin-auth.middleware';
-import { TileRO, TilesRO } from './tile.interface';
+import { TileDto } from './dto';
+import { TileEntity } from './tile.entity';
 import { TileService } from './tile.service';
 
+@ApiTags('tiles')
 @Controller('tiles')
 export class TileController {
   constructor(private readonly tileService: TileService) {}
 
   @Get()
-  async findAll(@Query() tags: string[]): Promise<TilesRO> {
+  async findAll(@Query() tags: string[]): Promise<TileEntity[]> {
     return await this.tileService.findAll(tags);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<TileRO> {
+  async findOne(@Param('id') id: string): Promise<TileEntity> {
     return await this.tileService.findOne(id);
   }
 
   @Post()
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
   @UseInterceptors(
     FileInterceptor('icon', {
       storage: diskStorage({
@@ -56,12 +66,15 @@ export class TileController {
   )
   async create(
     @UploadedFile() file: Express.Multer.File,
-    @Body('tile') tileData: string
-  ) {
-    return this.tileService.create(JSON.parse(tileData), file?.filename);
+    @Body() tile: TileDto
+  ): Promise<TileEntity> {
+    return this.tileService.create(tile, file?.filename);
   }
 
   @Put(':id')
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiNotFoundResponse({ description: 'Tile not found' })
   @UseInterceptors(
     FileInterceptor('icon', {
       storage: diskStorage({
@@ -84,16 +97,17 @@ export class TileController {
   )
   async update(
     @Param('id') id: number,
-    @Body('tile') tileData: string,
+    @Body() tile: TileDto,
     @UploadedFile() file: Express.Multer.File
   ) {
     return this.tileService.update(id, {
-      ...JSON.parse(tileData),
+      ...tile,
       icon: file.filename,
     });
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   async delete(@Param('id') id: number) {
     return this.tileService.delete(id);
   }

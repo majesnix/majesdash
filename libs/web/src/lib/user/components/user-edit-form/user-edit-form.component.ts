@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
-  User,
-  UserDeleteAdmin,
-  UserDeleteAvatarAdmin,
-  UserResetPasswordAdmin,
-  UserUpdateAdmin,
+  IUser,
+  IUserDeleteAdmin,
+  IUserDeleteAvatarAdmin,
+  IUserResetPasswordAdmin,
+  IUserUpdateAdmin,
 } from '@majesdash/data';
 
 @Component({
@@ -14,11 +14,11 @@ import {
   styleUrls: ['./user-edit-form.component.scss'],
 })
 export class UserEditFormComponent implements OnInit {
-  @Output() userUpdateEvent = new EventEmitter<UserUpdateAdmin>();
-  @Output() userPasswordResetEvent = new EventEmitter<UserResetPasswordAdmin>();
-  @Output() userDeleteEvent = new EventEmitter<UserDeleteAdmin>();
-  @Output() userDeleteAvatarEvent = new EventEmitter<UserDeleteAvatarAdmin>();
-  @Input() user?: User | null;
+  @Output() userUpdateEvent = new EventEmitter<IUserUpdateAdmin>();
+  @Output() userPasswordResetEvent = new EventEmitter<IUserResetPasswordAdmin>();
+  @Output() userDeleteEvent = new EventEmitter<IUserDeleteAdmin>();
+  @Output() userDeleteAvatarEvent = new EventEmitter<IUserDeleteAvatarAdmin>();
+  @Input() user?: IUser | null;
   hide = true;
 
   userForm = new FormGroup({

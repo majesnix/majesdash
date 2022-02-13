@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Tile, UserSettings } from '@majesdash/data';
+import { ITile, IUserSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../../../settings/services/settings.service';
 import { TileService } from '../../../tiles/services/tile.service';
@@ -10,8 +10,8 @@ import { TileService } from '../../../tiles/services/tile.service';
   styleUrls: ['./grid.component.scss'],
 })
 export class GridComponent {
-  tiles$: Observable<Tile[]> = this.tileService.tiles$;
-  userSettings$: Observable<UserSettings | undefined> =
+  tiles$: Observable<ITile[]> = this.tileService.tiles$;
+  userSettings$: Observable<IUserSettings | undefined> =
     this.settingsService.userSettings$;
 
   constructor(

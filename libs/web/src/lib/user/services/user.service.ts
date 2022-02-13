@@ -2,13 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  CreateUserDto,
-  User,
-  UserDeleteAvatarAdminResponse,
-  UserResetPasswordAdminResponse,
-  UserUpdate,
-  UserUpdateAdmin,
-  UserUpdateAdminResponse,
+  ICreateUserDto,
+  IUser,
+  IUserResetPasswordAdminResponse,
+  IUserUpdate,
+  IUserUpdateAdmin,
+  IUserUpdateAdminResponse,
 } from '@majesdash/data';
 import { BehaviorSubject, tap } from 'rxjs';
 
@@ -16,13 +15,13 @@ import { BehaviorSubject, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  private userSubject$ = new BehaviorSubject<User | undefined>(undefined);
+  private userSubject$ = new BehaviorSubject<IUser | undefined>(undefined);
   readonly user$ = this.userSubject$.asObservable();
 
-  private usersSubject$ = new BehaviorSubject<User[]>([]);
+  private usersSubject$ = new BehaviorSubject<IUser[]>([]);
   readonly users$ = this.usersSubject$.asObservable();
 
-  private selectedUserSubject$ = new BehaviorSubject<User | undefined>(
+  private selectedUserSubject$ = new BehaviorSubject<IUser | undefined>(
     undefined
   );
   readonly selectedUser$ = this.selectedUserSubject$.asObservable();
@@ -33,46 +32,43 @@ export class UserService {
     private router: Router
   ) {}
 
-  create(user: CreateUserDto) {
+  create(user: ICreateUserDto) {
     return this.httpClient.post(`${this.window.location.origin}/api/users`, {
-      user,
+      ...user,
     });
   }
 
   getCurrent() {
     return this.httpClient
-      .get<{ user: User }>(`${this.window.location.origin}/api/user`)
+      .get<IUser>(`${this.window.location.origin}/api/user`)
       .pipe(
-        tap(({ user }) => {
+        tap((user) => {
           this.userSubject$.next(user);
         })
       )
       .subscribe();
   }
 
-  updateCurrent(user: UserUpdate) {
+  updateCurrent(user: IUserUpdate) {
     const formData = new FormData();
-    if (user.avatar) {
-      formData.append('avatar', user.avatar);
-    }
-    formData.append('user', JSON.stringify(user));
+
+    user.avatar && formData.append('avatar', user.avatar);
+    user.password && formData.append('password', user.password);
+    user.passwordRepeat &&
+      formData.append('passwordRepeat', user.passwordRepeat);
+
     return this.httpClient
-      .post<{ user: User }>(`${this.window.location.origin}/api/user`, formData)
-      .pipe(
-        tap(({ user }) => {
-          this.userSubject$.next(user);
-        })
-      )
-      .subscribe();
+      .post<IUser>(`${this.window.location.origin}/api/user`, formData)
+      .subscribe((user) => {
+        this.userSubject$.next(user);
+      });
   }
 
-  update(user: UserUpdateAdmin) {
+  update(user: IUserUpdateAdmin) {
     return this.httpClient
-      .put<UserUpdateAdminResponse>(
+      .put<IUserUpdateAdminResponse>(
         `${this.window.location.origin}/api/users`,
-        {
-          user,
-        }
+        { ...user }
       )
       .pipe(
         tap(() => {
@@ -84,7 +80,7 @@ export class UserService {
 
   resetPassword(id: number) {
     return this.httpClient
-      .put<UserResetPasswordAdminResponse>(
+      .put<IUserResetPasswordAdminResponse>(
         `${this.window.location.origin}/api/users/resetPassword`,
         {
           id,
@@ -97,13 +93,10 @@ export class UserService {
 
   deleteAvatar(id: number) {
     return this.httpClient
-      .put<UserDeleteAvatarAdminResponse>(
-        `${this.window.location.origin}/api/users/deleteAvatar`,
-        {
-          id,
-        }
-      )
-      .subscribe(({ user }) => {
+      .put<IUser>(`${this.window.location.origin}/api/users/deleteAvatar`, {
+        id,
+      })
+      .subscribe((user) => {
         this.selectedUserSubject$.next({ ...user, image: undefined });
         if (this.userSubject$.value?.id === id) {
           this.userSubject$.next({ ...user, image: undefined });
@@ -125,7 +118,7 @@ export class UserService {
 
   getAll() {
     return this.httpClient
-      .get<User[]>(`${this.window.location.origin}/api/users`)
+      .get<IUser[]>(`${this.window.location.origin}/api/users`)
       .pipe(
         tap((users) => {
           this.usersSubject$.next(users);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Tile, User } from '@majesdash/data';
+import { ITile, IUser } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { UserService } from '../../../user/services/user.service';
 import { TileService } from '../../services/tile.service';
@@ -10,8 +10,8 @@ import { TileService } from '../../services/tile.service';
   styleUrls: ['./tile-list.component.scss'],
 })
 export class TileListComponent {
-  tiles$: Observable<Tile[]> = this.tileService.tiles$;
-  currentUser$: Observable<User | undefined> = this.userService.user$;
+  tiles$: Observable<ITile[]> = this.tileService.tiles$;
+  currentUser$: Observable<IUser | undefined> = this.userService.user$;
 
   displayedColumns = ['title', 'type', 'url', 'icon', 'action'];
 

@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreateUserDto } from '@majesdash/data';
+import { ICreateUserDto } from '@majesdash/data';
 import { first } from 'rxjs';
 import { SettingsService } from '../../../settings/services/settings.service';
 import { UserService } from '../../../user/services/user.service';
@@ -30,7 +30,7 @@ export class SetupComponent implements OnInit {
     this.settingsService.getSystemSettings();
   }
 
-  createUser(user: CreateUserDto) {
+  createUser(user: ICreateUserDto) {
     this.userService
       .create(user)
       .pipe(first())

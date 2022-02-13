@@ -1,13 +1,13 @@
+import { IUserWithToken } from '@majesdash/data';
 import { HttpStatus, Injectable, NestMiddleware } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { ConfigService } from '@nestjs/config';
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { UserData } from './user/user.interface';
 import { UserService } from './user/user.service';
 
 export interface CustomRequest extends Request {
-  user?: UserData;
+  user?: IUserWithToken;
 }
 
 @Injectable()
@@ -32,7 +32,7 @@ export class AuthMiddleware implements NestMiddleware {
         throw new HttpException('User not found.', HttpStatus.UNAUTHORIZED);
       }
 
-      req.user = user.user;
+      req.user = user;
       next();
     } else {
       throw new HttpException('Not authorized.', HttpStatus.UNAUTHORIZED);

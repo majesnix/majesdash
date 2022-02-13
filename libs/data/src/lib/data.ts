@@ -1,39 +1,41 @@
-export interface SettingsUpdate {
-  background: Blob;
-  settings: Partial<UserSettings>;
-}
-
-export interface SystemSettingsUpdate {
-  background: Blob;
-}
-
-export interface SystemSettings {
-  background: string;
-  initialized?: boolean;
-}
-
-export interface UserSettings {
-  customBackground: boolean;
-  backgroundName?: string;
-  tabTarget: TabTarget;
-}
-
 export enum TabTarget {
   NEW_TAB = '_blank',
   SAME_TAB = '_self',
 }
 
-export interface User {
+export interface IUserSettings {
+  backgroundName?: string;
+  tabTarget: TabTarget;
+}
+
+export interface IUserSettingsUpdate
+  extends Omit<IUserSettings, 'backgroundName'> {
+  background?: any;
+}
+
+export interface ISystemSettingsUpdate {
+  background: Blob;
+}
+
+export interface ISystemSettings {
+  background: string;
+  initialized: boolean;
+}
+
+export interface IUser {
   id: number;
   username: string;
   email: string;
-  token: string;
   image?: string;
   isAdmin: boolean;
-  settings?: UserSettings;
+  settings?: IUserSettings;
 }
 
-export interface UserUpdate {
+export interface IUserWithToken extends IUser {
+  token: string;
+}
+
+export interface IUserUpdate {
   avatar?: Blob;
   password?: string;
   passwordRepeat?: string;
@@ -42,63 +44,48 @@ export interface UserUpdate {
   isAdmin?: boolean;
 }
 
-export interface UserUpdateAdmin {
+export interface IUserUpdateAdmin {
   id: number;
   username?: string;
   email?: string;
   isAdmin?: boolean;
 }
 
-export interface UserUpdateAdminResponse {
-  user: Partial<User>;
+export interface IUserUpdateAdminResponse {
+  user: Partial<IUser>;
 }
 
-export interface UserDeleteAvatarAdmin {
+export interface IUserDeleteAvatarAdmin {
   id: number;
 }
 
-export interface UserDeleteAvatarAdminResponse {
-  user: User;
-}
-
-export interface UserResetPasswordAdminResponse {
+export interface IUserResetPasswordAdminResponse {
   password: string;
 }
 
-export interface Authenticate {
+export interface IAuthenticate {
   emailOrUsername: string;
   password: string;
 }
 
-export interface Tile {
+export interface ITile {
   id: number;
   title: string;
   type: string;
-  color: string;
+  color?: string;
   url: string;
-  icon: string;
-  tags?: Tag[];
-  order: number;
-  config: string;
+  icon?: string;
+  tags?: ITag[];
+  order?: number;
+  config?: string;
 }
 
-export interface CreateTileDto {
-  title: string;
-  type: string;
-  url: string;
-  color: string;
-  icon?: Blob;
-  tags?: Tag[];
-  order: number;
-  config: string;
-}
-
-export interface Tag {
+export interface ITag {
   id: string;
   name: string;
 }
 
-export interface CreateUserDto {
+export interface ICreateUserDto {
   username: string;
   email: string;
   password: string;
@@ -106,10 +93,10 @@ export interface CreateUserDto {
   isAdmin?: boolean;
 }
 
-export interface UserResetPasswordAdmin {
+export interface IUserResetPasswordAdmin {
   id: number;
 }
 
-export interface UserDeleteAdmin {
+export interface IUserDeleteAdmin {
   id: number;
 }

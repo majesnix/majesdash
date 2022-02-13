@@ -1,14 +1,14 @@
+import { IUserWithToken } from '@majesdash/data';
 import { HttpStatus, Injectable, NestMiddleware } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { ConfigService } from '@nestjs/config';
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { SystemSettingsService } from './system-settings/system-settings.service';
-import { UserData } from './user/user.interface';
 import { UserService } from './user/user.service';
 
 export interface CustomRequest extends Request {
-  user?: UserData;
+  user?: IUserWithToken;
 }
 
 @Injectable()
@@ -32,20 +32,20 @@ export class AdminAuthMiddleware implements NestMiddleware {
         token,
         this.configService.get<string>('SECRET')
       );
-      const { user } = await this.userService.findById(decoded.id);
+      const user = await this.userService.findById(decoded.id);
 
       if (!user) {
         throw new HttpException('User not found.', HttpStatus.UNAUTHORIZED);
       }
 
       if (!user.isAdmin) {
-        throw new HttpException('Not authorized.', HttpStatus.UNAUTHORIZED);
+        throw new HttpException('Not authorized.', HttpStatus.FORBIDDEN);
       }
 
       req.user = user;
       next();
     } else {
-      throw new HttpException('Not authorized.', HttpStatus.UNAUTHORIZED);
+      throw new HttpException('Not authorized.', HttpStatus.FORBIDDEN);
     }
   }
 }

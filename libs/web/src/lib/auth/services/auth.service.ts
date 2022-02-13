@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Authenticate, User } from '@majesdash/data';
+import { IAuthenticate, IUserWithToken } from '@majesdash/data';
 
 @Injectable({
   providedIn: 'root',
@@ -8,20 +8,18 @@ import { Authenticate, User } from '@majesdash/data';
 export class AuthService {
   constructor(private httpClient: HttpClient, private window: Window) {}
 
-  login(authenticate: Authenticate) {
-    return this.httpClient.post<{ user: User }>(
+  login(authenticate: IAuthenticate) {
+    return this.httpClient.post<IUserWithToken>(
       `${this.window.location.origin}/api/users/login`,
-      {
-        user: this.isEmail(authenticate.emailOrUsername)
-          ? {
-              email: authenticate.emailOrUsername,
-              password: authenticate.password,
-            }
-          : {
-              username: authenticate.emailOrUsername,
-              password: authenticate.password,
-            },
-      }
+      this.isEmail(authenticate.emailOrUsername)
+        ? {
+            email: authenticate.emailOrUsername,
+            password: authenticate.password,
+          }
+        : {
+            username: authenticate.emailOrUsername,
+            password: authenticate.password,
+          }
     );
   }
 

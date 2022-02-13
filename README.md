@@ -12,6 +12,7 @@
 Todo:
 
 - Smart tiles (stats/online check)
+- Tags (tile grouping)
 
 ## Build
 

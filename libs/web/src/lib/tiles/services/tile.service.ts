@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreateTileDto, Tile } from '@majesdash/data';
+import { ITile } from '@majesdash/data';
 import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TileService {
-  private tilesSubject$ = new BehaviorSubject<Tile[]>([]);
+  private tilesSubject$ = new BehaviorSubject<ITile[]>([]);
   readonly tiles$ = this.tilesSubject$.asObservable();
 
-  private selectedTileSubject$ = new BehaviorSubject<Tile | undefined>(
+  private selectedTileSubject$ = new BehaviorSubject<ITile | undefined>(
     undefined
   );
   readonly selectedTile$ = this.selectedTileSubject$.asObservable();
@@ -24,9 +24,9 @@ export class TileService {
 
   getTiles() {
     return this.httpClient
-      .get<{ tiles: Tile[] }>(`${this.window.location.origin}/api/tiles`)
+      .get<ITile[]>(`${this.window.location.origin}/api/tiles`)
       .pipe(
-        tap(({ tiles }) => {
+        tap((tiles) => {
           this.tilesSubject$.next(tiles);
         })
       )
@@ -40,35 +40,44 @@ export class TileService {
     this.router.navigate(['/tiles/create']);
   }
 
-  addTile(tile: Partial<CreateTileDto>) {
+  deselectTile() {
+    this.selectedTileSubject$.next(undefined);
+  }
+
+  addTile(tile: Omit<ITile, 'id'>) {
     const formData = new FormData();
-    if (tile.icon) {
-      formData.append('icon', tile.icon);
-      delete tile.icon;
-    }
-    formData.append('tile', JSON.stringify(tile));
+
+    formData.append('title', tile.title);
+    formData.append('type', tile.type);
+    formData.append('url', tile.url);
+    tile.icon && formData.append('icon', tile.icon);
+    tile.color && formData.append('color', tile.color);
+    tile.config && formData.append('config', tile.config);
+
     return this.httpClient
-      .post<Tile>(`${this.window.location.origin}/api/tiles`, formData)
+      .post<ITile>(`${this.window.location.origin}/api/tiles`, formData)
       .subscribe((tile) => {
         this.tilesSubject$.next([...this.tilesSubject$.value, tile]);
         this.router.navigate(['/']);
       });
   }
 
-  updateTile(tile: Partial<Tile>) {
+  updateTile(tile: ITile) {
     const formData = new FormData();
-    if (tile.icon) {
-      formData.append('icon', tile.icon);
-      delete tile.icon;
-    }
-    formData.append('tile', JSON.stringify(tile));
+
+    formData.append('title', tile.title);
+    formData.append('type', tile.type);
+    formData.append('url', tile.url);
+    tile.icon && formData.append('icon', tile.icon);
+    tile.color && formData.append('color', tile.color);
+
     return this.httpClient
-      .put<{ tile: Tile }>(
+      .put<ITile>(
         `${this.window.location.origin}/api/tiles/${tile.id}`,
         formData
       )
       .subscribe({
-        next: ({ tile }) => {
+        next: (tile) => {
           const index = this.tilesSubject$.value.findIndex(
             (t) => t.id === tile.id
           );

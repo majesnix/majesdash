@@ -1,7 +1,7 @@
 import { MaxSizeValidator } from '@angular-material-components/file-input';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { UserUpdate } from '@majesdash/data';
+import { IUserUpdate } from '@majesdash/data';
 
 @Component({
   selector: 'majesdash-profile-form',
@@ -9,7 +9,7 @@ import { UserUpdate } from '@majesdash/data';
   styleUrls: ['./profile-form.component.scss'],
 })
 export class ProfileFormComponent {
-  @Output() userUpdateEvent = new EventEmitter<UserUpdate>();
+  @Output() userUpdateEvent = new EventEmitter<IUserUpdate>();
   hide = true;
 
   profileForm: FormGroup;

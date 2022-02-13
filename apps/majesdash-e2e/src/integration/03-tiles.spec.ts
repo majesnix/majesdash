@@ -1,12 +1,10 @@
 describe('Tiles', () => {
   beforeEach(() => {
     cy.request('POST', '/api/users/login', {
-      user: {
-        username: 'testuser',
-        password: 'testuser',
-      },
+      username: 'testuser',
+      password: 'testuser',
     }).then((res) => {
-      cy.setLocalStorage('token', res.body.user.token);
+      cy.setLocalStorage('token', res.body.token);
     });
     cy.visit('/');
   });

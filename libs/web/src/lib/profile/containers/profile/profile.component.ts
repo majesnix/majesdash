@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User, UserUpdate } from '@majesdash/data';
+import { IUser, IUserUpdate } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { UserService } from '../../../user/services/user.service';
 
@@ -9,7 +9,7 @@ import { UserService } from '../../../user/services/user.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  user$: Observable<User | undefined> = this.userService.user$;
+  user$: Observable<IUser | undefined> = this.userService.user$;
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  update(user: UserUpdate) {
+  update(user: IUserUpdate) {
     this.userService.updateCurrent(user);
   }
 }

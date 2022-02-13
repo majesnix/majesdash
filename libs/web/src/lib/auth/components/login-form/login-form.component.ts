@@ -11,7 +11,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Authenticate } from '@majesdash/data';
+import { IAuthenticate } from '@majesdash/data';
 
 @Component({
   selector: 'majesdash-login-form',
@@ -19,7 +19,7 @@ import { Authenticate } from '@majesdash/data';
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit, AfterViewInit {
-  @Output() authenticateEvent = new EventEmitter<Authenticate>();
+  @Output() authenticateEvent = new EventEmitter<IAuthenticate>();
   @Input() hasError!: boolean;
   @Output() hasErrorChange = new EventEmitter<boolean>();
   @ViewChild('username') usernameInputField!: ElementRef;
@@ -52,7 +52,7 @@ export class LoginFormComponent implements OnInit, AfterViewInit {
       this.authenticateEvent.emit({
         emailOrUsername: this.loginForm.value.emailOrUsername,
         password: this.loginForm.value.password,
-      } as Authenticate);
+      });
     }
   }
 }

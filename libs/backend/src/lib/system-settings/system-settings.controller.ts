@@ -6,6 +6,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { access, mkdir, readdir, unlink } from 'fs-extra';
 import { diskStorage } from 'multer';
 import { nanoid } from 'nanoid';
@@ -14,15 +15,18 @@ import { CustomRequest } from '../auth.middleware';
 import { SystemSettingsService } from './system-settings.service';
 
 @Controller('system-settings')
+@ApiTags('system-settings')
 export class SystemSettingsController {
   constructor(private readonly systemSettingsService: SystemSettingsService) {}
 
   @Get()
   async getSystemSettings() {
-    return { settings: await this.systemSettingsService.findOne() };
+    return await this.systemSettingsService.findOne();
   }
 
   @Post()
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
   @UseInterceptors(
     FileInterceptor('background', {
       storage: diskStorage({
@@ -56,8 +60,6 @@ export class SystemSettingsController {
       background: file.filename,
     });
 
-    return {
-      settings: systemSettings,
-    };
+    return systemSettings;
   }
 }

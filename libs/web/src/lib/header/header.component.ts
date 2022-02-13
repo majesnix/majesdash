@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '@majesdash/data';
+import { IUser } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/services/auth.service';
 import { SettingsService } from '../settings/services/settings.service';
@@ -12,7 +12,7 @@ import { UserService } from '../user/services/user.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  user$: Observable<User | undefined>;
+  user$: Observable<IUser | undefined>;
 
   constructor(
     private userService: UserService,

@@ -1,7 +1,7 @@
 import { MaxSizeValidator } from '@angular-material-components/file-input';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { SettingsUpdate } from '@majesdash/data';
+import { IUserSettingsUpdate } from '@majesdash/data';
 
 interface TabOptions {
   value: string;
@@ -14,7 +14,7 @@ interface TabOptions {
   styleUrls: ['./settings-form.component.scss'],
 })
 export class SettingsFormComponent {
-  @Output() settingsUpdateEvent = new EventEmitter<SettingsUpdate>();
+  @Output() settingsUpdateEvent = new EventEmitter<IUserSettingsUpdate>();
 
   tabOptions: TabOptions[] = [
     { value: '_blank', viewValue: 'New Tab' },
@@ -37,9 +37,7 @@ export class SettingsFormComponent {
   update() {
     this.settingsUpdateEvent.emit({
       background: this.settingsForm.value.background,
-      settings: {
-        tabTarget: this.settingsForm.value.tabOption,
-      },
+      tabTarget: this.settingsForm.value.tabOption,
     });
   }
 }

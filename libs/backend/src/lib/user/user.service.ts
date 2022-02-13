@@ -1,8 +1,6 @@
 import {
-  UserDeleteAvatarAdminResponse,
-  UserResetPasswordAdminResponse,
-  UserUpdateAdmin,
-  UserUpdateAdminResponse,
+  IUserResetPasswordAdminResponse,
+  IUserWithToken,
 } from '@majesdash/data';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
@@ -16,9 +14,13 @@ import * as jwt from 'jsonwebtoken';
 import { DeleteResult, getRepository, Repository } from 'typeorm';
 import { SystemSettingsEntity } from '../system-settings/system-settings.entity';
 import { UserSettingsEntity } from '../user-settings/user-settings.entity';
-import { CreateUserDto, LoginUserDto, UpdateUserDto } from './dto';
+import {
+  AdminUserUpdateDto,
+  CreateUserDto,
+  LoginUserDto,
+  UpdateUserDto,
+} from './dto';
 import { UserEntity } from './user.entity';
-import { UserRO } from './user.interface';
 
 @Injectable()
 export class UserService {
@@ -61,7 +63,7 @@ export class UserService {
     return null;
   }
 
-  async create(dto: CreateUserDto): Promise<UserRO> {
+  async create(dto: CreateUserDto): Promise<IUserWithToken> {
     const systemSettings = await this.systemSetingsRepository.findOne();
 
     // check uniqueness of username/email
@@ -147,7 +149,7 @@ export class UserService {
     return user;
   }
 
-  async updateAsAdmin(dto: UserUpdateAdmin): Promise<UserUpdateAdminResponse> {
+  async updateAsAdmin(dto: AdminUserUpdateDto): Promise<UserEntity> {
     const user = await this.userRepository.findOne(dto.id);
 
     if (!user)
@@ -171,12 +173,10 @@ export class UserService {
       delete user.passwordHash;
     }
 
-    return {
-      user,
-    };
+    return user;
   }
 
-  async resetPassword(id: number): Promise<UserResetPasswordAdminResponse> {
+  async resetPassword(id: number): Promise<IUserResetPasswordAdminResponse> {
     const user = await this.userRepository.findOne(id);
 
     if (!user)
@@ -193,7 +193,7 @@ export class UserService {
     };
   }
 
-  async deleteAvatar(id: number): Promise<UserDeleteAvatarAdminResponse> {
+  async deleteAvatar(id: number) {
     const user = await this.userRepository.findOne(id);
 
     if (!user)
@@ -211,7 +211,7 @@ export class UserService {
     return await this.userRepository.delete({ id: id });
   }
 
-  async findById(id: number): Promise<UserRO> {
+  async findById(id: number): Promise<IUserWithToken> {
     const user = await this.userRepository.findOne(id, {
       relations: ['settings'],
     });
@@ -224,7 +224,7 @@ export class UserService {
     return this.buildUserRO(user);
   }
 
-  async findByEmail(email: string): Promise<UserRO> {
+  async findByEmail(email: string): Promise<IUserWithToken> {
     const user = await this.userRepository.findOne({ email: email });
     if (!user) {
       const errors = { User: ' not found' };
@@ -249,17 +249,15 @@ export class UserService {
     );
   }
 
-  private buildUserRO(user: UserEntity) {
+  private buildUserRO(user: UserEntity): IUserWithToken {
     return {
-      user: {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        token: this.generateJWT(user),
-        image: user.image,
-        isAdmin: user.isAdmin,
-        settings: user.settings,
-      },
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      token: this.generateJWT(user),
+      image: user.image,
+      isAdmin: user.isAdmin,
+      settings: user.settings,
     };
   }
 }

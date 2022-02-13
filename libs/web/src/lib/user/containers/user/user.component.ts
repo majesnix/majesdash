@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  CreateUserDto,
-  User,
-  UserDeleteAdmin,
-  UserDeleteAvatarAdmin,
-  UserResetPasswordAdmin,
-  UserUpdateAdmin,
+  ICreateUserDto,
+  IUser,
+  IUserDeleteAdmin,
+  IUserDeleteAvatarAdmin,
+  IUserResetPasswordAdmin,
+  IUserUpdateAdmin,
 } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { UserService } from '../../services/user.service';
@@ -17,8 +17,8 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
-  user$: Observable<User | undefined> = this.userService.user$;
-  selectedUser$: Observable<User | undefined> = this.userService.selectedUser$;
+  user$: Observable<IUser | undefined> = this.userService.user$;
+  selectedUser$: Observable<IUser | undefined> = this.userService.selectedUser$;
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
@@ -27,7 +27,7 @@ export class UserComponent implements OnInit {
     }
   }
 
-  create(user: CreateUserDto) {
+  create(user: ICreateUserDto) {
     this.userService.create(user).subscribe({
       next: () => {
         this.router.navigate(['/users']);
@@ -35,19 +35,19 @@ export class UserComponent implements OnInit {
     });
   }
 
-  update(user: UserUpdateAdmin) {
+  update(user: IUserUpdateAdmin) {
     this.userService.update(user);
   }
 
-  resetPassword(event: UserResetPasswordAdmin) {
+  resetPassword(event: IUserResetPasswordAdmin) {
     this.userService.resetPassword(event.id);
   }
 
-  deleteAvatar(event: UserDeleteAvatarAdmin) {
+  deleteAvatar(event: IUserDeleteAvatarAdmin) {
     this.userService.deleteAvatar(event.id);
   }
 
-  delete(event: UserDeleteAdmin) {
+  delete(event: IUserDeleteAdmin) {
     this.userService.delete(event.id);
   }
 }

@@ -4,7 +4,7 @@ import {
   Component,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { Authenticate, SystemSettings, UserSettings } from '@majesdash/data';
+import { IAuthenticate, IUserSettings, ISystemSettings } from '@majesdash/data';
 import { first, Observable } from 'rxjs';
 import { SettingsService } from '../../../settings/services/settings.service';
 import { UserService } from '../../../user/services/user.service';
@@ -17,9 +17,9 @@ import { AuthService } from '../../services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
-  userSettings$: Observable<UserSettings | undefined> =
+  userSettings$: Observable<IUserSettings | undefined> =
     this.settingsService.userSettings$;
-  systemSettings$: Observable<SystemSettings | undefined> =
+  systemSettings$: Observable<ISystemSettings | undefined> =
     this.settingsService.systemSettings$;
   error = false;
 
@@ -31,13 +31,13 @@ export class LoginComponent {
     private cdRef: ChangeDetectorRef
   ) {}
 
-  login(authenticate: Authenticate) {
+  login(authenticate: IAuthenticate) {
     this.authService
       .login(authenticate)
       .pipe(first())
       .subscribe({
-        next: (data) => {
-          localStorage.setItem('token', data.user.token);
+        next: (user) => {
+          localStorage.setItem('token', user.token);
           this.userService.getCurrent();
           this.settingsService.getUserSettings();
           this.router.navigate(['/']);

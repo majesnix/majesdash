@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '@majesdash/data';
+import { IUser } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { UserService } from '../../services/user.service';
 
@@ -9,8 +9,8 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
-  currentUser$: Observable<User | undefined> = this.userService.user$;
-  users$: Observable<User[] | []> = this.userService.users$;
+  currentUser$: Observable<IUser | undefined> = this.userService.user$;
+  users$: Observable<IUser[] | []> = this.userService.users$;
 
   displayedColumns: string[] = ['username', 'email', 'isAdmin', 'action'];
 

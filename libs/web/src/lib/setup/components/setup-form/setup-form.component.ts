@@ -10,7 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CreateUserDto } from '@majesdash/data';
+import { ICreateUserDto } from '@majesdash/data';
 
 @Component({
   selector: 'majesdash-setup-form',
@@ -18,7 +18,7 @@ import { CreateUserDto } from '@majesdash/data';
   styleUrls: ['./setup-form.component.scss'],
 })
 export class SetupFormComponent implements AfterViewInit {
-  @Output() setupEvent = new EventEmitter<CreateUserDto>();
+  @Output() setupEvent = new EventEmitter<ICreateUserDto>();
   @Input() hasError!: boolean;
   @ViewChild('username') usernameInputField!: ElementRef;
   hide = true;
@@ -45,7 +45,7 @@ export class SetupFormComponent implements AfterViewInit {
         email: this.setupForm.value.email,
         password: this.setupForm.value.password,
         passwordRepeat: this.setupForm.value.passwordRepeat,
-      } as CreateUserDto);
+      });
     }
   }
 }

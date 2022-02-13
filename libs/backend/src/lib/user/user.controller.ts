@@ -1,4 +1,4 @@
-import { UserUpdateAdmin } from '@majesdash/data';
+import { IUserWithToken } from '@majesdash/data';
 import {
   Body,
   Controller,
@@ -13,26 +13,35 @@ import {
 } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { access, mkdir, unlink } from 'fs-extra';
 import { diskStorage } from 'multer';
 import { nanoid } from 'nanoid';
 import { extname } from 'path';
 import { CustomRequest } from '../auth.middleware';
-import { CreateUserDto, LoginUserDto } from './dto';
+import {
+  AdminUserUpdateDto,
+  CreateUserDto,
+  LoginUserDto,
+  UpdateUserDto,
+} from './dto';
 import { User } from './user.decorator';
-import { UserRO } from './user.interface';
 import { UserService } from './user.service';
 
 @Controller()
+@ApiTags('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('user')
-  async findMe(@User('email') email: string): Promise<UserRO> {
+  @ApiBearerAuth()
+  async findMe(@User('email') email: string): Promise<IUserWithToken> {
     return await this.userService.findByEmail(email);
   }
 
   @Post('user')
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
   @UseInterceptors(
     FileInterceptor('avatar', {
       storage: diskStorage({
@@ -58,52 +67,50 @@ export class UserController {
   async update(
     @UploadedFile() file: Express.Multer.File,
     @User('id') userId: number,
-    @Body('user') userData: string
+    @Body() userData: UpdateUserDto
   ) {
-    return {
-      user: await this.userService.update(
-        userId,
-        JSON.parse(userData),
-        file?.filename
-      ),
-    };
+    return await this.userService.update(userId, userData, file?.filename);
   }
 
   @Get('users')
+  @ApiBearerAuth()
   async getUsers() {
     return this.userService.findAll();
   }
 
   @Post('users')
-  async create(@Body('user') userData: CreateUserDto) {
-    return this.userService.create(userData);
+  @ApiBearerAuth()
+  async create(@Body() userDto: CreateUserDto) {
+    return this.userService.create(userDto);
   }
 
   @Put('users')
-  async updateUser(@Body('user') userData: UserUpdateAdmin) {
-    return {
-      user: await this.userService.updateAsAdmin(userData),
-    };
+  @ApiBearerAuth()
+  async updateUser(@Body() userData: AdminUserUpdateDto) {
+    return await this.userService.updateAsAdmin(userData);
   }
 
   @Put('users/resetPassword')
-  async resetPassword(@Body('id') id: number) {
+  @ApiBearerAuth()
+  async resetPassword(@Body() id: number) {
     return await this.userService.resetPassword(id);
   }
 
   @Put('users/deleteAvatar')
-  async deleteAvatar(@Body('id') id: number) {
+  @ApiBearerAuth()
+  async deleteAvatar(@Body() id: number) {
     return await this.userService.deleteAvatar(id);
   }
 
   @Delete('users/:id')
+  @ApiBearerAuth()
   async delete(@Param('id') id: number) {
     return await this.userService.delete(id);
   }
 
   @Post('users/login')
   @HttpCode(200)
-  async login(@Body('user') loginUserDto: LoginUserDto): Promise<UserRO> {
+  async login(@Body() loginUserDto: LoginUserDto): Promise<IUserWithToken> {
     const _user = await this.userService.findOne(loginUserDto);
 
     const errors = { User: ' not found' };
@@ -112,6 +119,6 @@ export class UserController {
     const token = this.userService.generateJWT(_user);
     const { id, email, username, image, isAdmin } = _user;
     const user = { id, email, token, username, image, isAdmin };
-    return { user };
+    return user;
   }
 }

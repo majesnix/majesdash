@@ -7,35 +7,40 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateTagDto } from './dto/create-tag.dto';
-import { TagRO, TagsRO } from './tag.interface';
+import { TagEntity } from './tag.entity';
 import { TagService } from './tag.service';
 
 @Controller('tags')
+@ApiTags('tags')
 export class TagController {
   constructor(private readonly tagService: TagService) {}
 
   @Get()
-  async findAll(): Promise<TagsRO> {
+  async findAll(): Promise<TagEntity[]> {
     return await this.tagService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<TagRO> {
+  async findOne(@Param('id') id: string): Promise<TagEntity> {
     return await this.tagService.findOne(id);
   }
 
   @Post()
-  async create(@Body('tag') tagData: CreateTagDto) {
+  @ApiBearerAuth()
+  async create(@Body() tagData: CreateTagDto) {
     return this.tagService.create(tagData);
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body('tile') tileData: CreateTagDto) {
+  @ApiBearerAuth()
+  async update(@Param('id') id: number, @Body() tileData: CreateTagDto) {
     return this.tagService.update(id, tileData);
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   async delete(@Param('id') id: number) {
     return this.tagService.delete(id);
   }
