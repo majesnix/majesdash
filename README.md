@@ -4,6 +4,9 @@
   <img src="https://img.shields.io/docker/v/codingbros/majesdash.svg">
   <img src="https://img.shields.io/docker/image-size/codingbros/majesdash.svg">
   <img src="https://img.shields.io/docker/pulls/codingbros/majesdash.svg">
+  <a href="https://github.com/majesnix/majesdash/actions/workflows/test-and-bump.yml">
+    <img src="https://github.com/majesnix/majesdash/actions/workflows/test-and-bump.yml/badge.svg">
+  </a>
   <a href="https://github.com/majesnix/majesdash/actions/workflows/publish.yml">
     <img src="https://github.com/majesnix/majesdash/actions/workflows/publish.yml/badge.svg">
   </a>
