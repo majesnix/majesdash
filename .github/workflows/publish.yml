@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     if: ${{ !github.event.act }}
-    needs: [chrome, firefox, bump-version]
     name: Docker build
     runs-on: ubuntu-latest
     steps:
