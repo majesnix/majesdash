@@ -97,12 +97,12 @@ export class TileController {
   )
   async update(
     @Param('id') id: number,
-    @Body() tile: TileDto,
-    @UploadedFile() file: Express.Multer.File
+    @Body() tileDto: TileDto,
+    @UploadedFile() file?: Express.Multer.File
   ) {
     return this.tileService.update(id, {
-      ...tile,
-      icon: file.filename,
+      ...tileDto,
+      icon: file?.filename,
     });
   }
 

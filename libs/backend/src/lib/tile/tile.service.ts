@@ -59,7 +59,7 @@ export class TileService {
       new HttpException({ message: 'Tile not found' }, HttpStatus.NOT_FOUND);
 
     // unlink old icon
-    if (toUpdate.icon) {
+    if (tileDto.icon && toUpdate.icon) {
       await unlink(`./config/web/images/tiles/${toUpdate.icon}`);
     }
 

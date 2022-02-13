@@ -30,11 +30,19 @@ describe('Tiles', () => {
     cy.get('.input-file').attachFile('tileicon.png');
     cy.get('button[data-cy="tile-create-or-update"]').click();
     cy.get('majesdash-tile').eq(1).should('contain', 'testtile2');
-    cy.get('majesdash-tile')
-      .eq(1)
-      .should('contain', 'testtile2')
-      .find('img')
-      .should('be.visible');
+    cy.get('majesdash-tile').eq(1).find('img').should('be.visible');
+  });
+
+  it('should navigate to the tile creation screen and update the first tile', () => {
+    cy.get('[data-cy="user-menu"]').click();
+    cy.get('button[ng-reflect-router-link="/tiles"]').click();
+    cy.get('[data-cy="tile-list-edit-button"]').eq(0).click();
+    cy.get('input[formcontrolname="name"]').clear().type('testtileUpdate');
+    cy.get('input[formcontrolname="type"]').type('testtile');
+    cy.get('input[formcontrolname="url"]').clear().type('https://test.de');
+    cy.get('button[data-cy="tile-create-or-update"]').click();
+    cy.get('majesdash-tile').eq(1).should('contain', 'testtileUpdate');
+    cy.get('majesdash-tile').eq(1).find('img').should('be.visible');
   });
 
   it('should navigate to the tile list and delete the first tile', () => {
