@@ -7,9 +7,8 @@ import {
   IUserResetPasswordAdminResponse,
   IUserUpdate,
   IUserUpdateAdmin,
-  IUserUpdateAdminResponse,
 } from '@majesdash/data';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -41,12 +40,9 @@ export class UserService {
   getCurrent() {
     return this.httpClient
       .get<IUser>(`${this.window.location.origin}/api/user`)
-      .pipe(
-        tap((user) => {
-          this.userSubject$.next(user);
-        })
-      )
-      .subscribe();
+      .subscribe((user) => {
+        this.userSubject$.next(user);
+      });
   }
 
   updateCurrent(user: IUserUpdate) {
@@ -66,16 +62,10 @@ export class UserService {
 
   update(user: IUserUpdateAdmin) {
     return this.httpClient
-      .put<IUserUpdateAdminResponse>(
-        `${this.window.location.origin}/api/users`,
-        { ...user }
-      )
-      .pipe(
-        tap(() => {
-          this.router.navigate(['/users']);
-        })
-      )
-      .subscribe();
+      .put(`${this.window.location.origin}/api/users`, { ...user })
+      .subscribe(() => {
+        this.router.navigate(['/users']);
+      });
   }
 
   resetPassword(id: number) {
@@ -107,24 +97,19 @@ export class UserService {
   delete(id: number) {
     return this.httpClient
       .delete(`${this.window.location.origin}/api/users/${id}`)
-      .subscribe({
-        complete: () => {
-          this.usersSubject$.next(
-            this.usersSubject$.value.filter((user) => user.id !== id)
-          );
-        },
+      .subscribe(() => {
+        this.usersSubject$.next(
+          this.usersSubject$.value.filter((user) => user.id !== id)
+        );
       });
   }
 
   getAll() {
     return this.httpClient
       .get<IUser[]>(`${this.window.location.origin}/api/users`)
-      .pipe(
-        tap((users) => {
-          this.usersSubject$.next(users);
-        })
-      )
-      .subscribe();
+      .subscribe((users) => {
+        this.usersSubject$.next(users);
+      });
   }
 
   selectUser(id: number) {

@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  IUserSettings,
-  IUserSettingsUpdate,
   ISystemSettings,
   ISystemSettingsUpdate,
+  IUserSettings,
+  IUserSettingsUpdate,
   TabTarget,
 } from '@majesdash/data';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -36,12 +36,9 @@ export class SettingsService {
   getUserSettings() {
     return this.httpClient
       .get<IUserSettings>(`${this.window.location.origin}/api/settings`)
-      .pipe(
-        tap((userSettings) => {
-          this.userSettingSubject$.next(userSettings);
-        })
-      )
-      .subscribe();
+      .subscribe((userSettings) => {
+        this.userSettingSubject$.next(userSettings);
+      });
   }
 
   updateUserSettings(settings: IUserSettingsUpdate) {
@@ -53,28 +50,24 @@ export class SettingsService {
         `${this.window.location.origin}/api/settings`,
         formData
       )
-      .pipe(
-        tap((userSettings) => {
-          this.userSettingSubject$.next(userSettings);
-        })
-      )
-      .subscribe();
+      .subscribe((userSettings) => {
+        this.userSettingSubject$.next(userSettings);
+      });
   }
 
   getSystemSettings() {
     return this.httpClient
-      .get<ISystemSettings>(`${this.window.location.origin}/api/system-settings`)
-      .pipe(
-        tap((systemSettings) => {
-          this.systemSettingsSubject$.next(systemSettings);
-          if (!systemSettings.initialized) {
-            this.router.navigate(['/setup']);
-          } else if (this.router.url === '/setup') {
-            this.router.navigate(['/login']);
-          }
-        })
+      .get<ISystemSettings>(
+        `${this.window.location.origin}/api/system-settings`
       )
-      .subscribe();
+      .subscribe((systemSettings) => {
+        this.systemSettingsSubject$.next(systemSettings);
+        if (!systemSettings.initialized) {
+          this.router.navigate(['/setup']);
+        } else if (this.router.url === '/setup') {
+          this.router.navigate(['/login']);
+        }
+      });
   }
 
   updateSystemSettings(settings: ISystemSettingsUpdate) {
@@ -85,12 +78,9 @@ export class SettingsService {
         `${this.window.location.origin}/api/system-settings`,
         formData
       )
-      .pipe(
-        tap((systemSettings) => {
-          this.systemSettingsSubject$.next(systemSettings);
-        })
-      )
-      .subscribe();
+      .subscribe((systemSettings) => {
+        this.systemSettingsSubject$.next(systemSettings);
+      });
   }
 
   reset() {

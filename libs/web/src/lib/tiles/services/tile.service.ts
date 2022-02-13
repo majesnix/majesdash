@@ -76,27 +76,23 @@ export class TileService {
         `${this.window.location.origin}/api/tiles/${tile.id}`,
         formData
       )
-      .subscribe({
-        next: (tile) => {
-          const index = this.tilesSubject$.value.findIndex(
-            (t) => t.id === tile.id
-          );
-          this.tilesSubject$.value.splice(index, 1, tile);
-          this.selectedTileSubject$.next(undefined);
-          this.router.navigate(['/']);
-        },
+      .subscribe((tile) => {
+        const index = this.tilesSubject$.value.findIndex(
+          (t) => t.id === tile.id
+        );
+        this.tilesSubject$.value.splice(index, 1, tile);
+        this.selectedTileSubject$.next(undefined);
+        this.router.navigate(['/']);
       });
   }
 
   delete(id: number) {
     return this.httpClient
       .delete(`${this.window.location.origin}/api/tiles/${id}`)
-      .subscribe({
-        complete: () => {
-          this.tilesSubject$.next(
-            this.tilesSubject$.value.filter((tile) => tile.id !== id)
-          );
-        },
+      .subscribe(() => {
+        this.tilesSubject$.next(
+          this.tilesSubject$.value.filter((tile) => tile.id !== id)
+        );
       });
   }
 }

@@ -44,25 +44,6 @@ export interface IUserUpdate {
   isAdmin?: boolean;
 }
 
-export interface IUserUpdateAdmin {
-  id: number;
-  username?: string;
-  email?: string;
-  isAdmin?: boolean;
-}
-
-export interface IUserUpdateAdminResponse {
-  user: Partial<IUser>;
-}
-
-export interface IUserDeleteAvatarAdmin {
-  id: number;
-}
-
-export interface IUserResetPasswordAdminResponse {
-  password: string;
-}
-
 export interface IAuthenticate {
   emailOrUsername: string;
   password: string;
@@ -93,10 +74,25 @@ export interface ICreateUserDto {
   isAdmin?: boolean;
 }
 
+export interface IUserUpdateAdmin {
+  id: number;
+  username?: string;
+  email?: string;
+  isAdmin?: boolean;
+}
+
 export interface IUserResetPasswordAdmin {
   id: number;
 }
 
+export interface IUserResetPasswordAdminResponse {
+  password: string;
+}
+
 export interface IUserDeleteAdmin {
+  id: number;
+}
+
+export interface IUserDeleteAvatarAdmin {
   id: number;
 }
