@@ -41,7 +41,7 @@ export class TileFormComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.createTileForm = this.fb.group({
       name: [this.tile?.title ?? '', [Validators.required]],
-      type: [this.tile?.type ?? '', [Validators.required]],
+      type: [this.tile?.type ?? ''],
       url: [this.tile?.url ?? '', [Validators.required]],
       color: [this.tile?.color ?? ''],
       icon: [undefined, [MaxSizeValidator(16 * 2 ** 20)]],
@@ -50,6 +50,8 @@ export class TileFormComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    this.createTileForm.get('type')?.disable();
+    this.createTileForm.get('settings')?.disable();
     this.tileNameInputField.nativeElement.focus();
     this.cdRef.detectChanges();
   }

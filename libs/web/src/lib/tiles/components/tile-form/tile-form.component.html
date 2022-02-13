@@ -44,16 +44,6 @@
           >
         </mat-error>
       </mat-form-field>
-      <mat-form-field>
-        <input
-          matInput
-          [ngxMatColorPicker]="picker"
-          formControlName="color"
-          placeholder="color"
-        />
-        <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
-        <ngx-mat-color-picker #picker [color]="color"></ngx-mat-color-picker>
-      </mat-form-field>
       <mat-form-field
         [ngStyle]="{ 'margin-bottom': tile?.icon ? undefined : '8px' }"
       >
@@ -79,6 +69,16 @@
           }}).
         </mat-error>
       </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          [ngxMatColorPicker]="picker"
+          formControlName="color"
+          placeholder="color"
+        />
+        <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+        <ngx-mat-color-picker #picker [color]="color"></ngx-mat-color-picker>
+      </mat-form-field>
       <div *ngIf="tile?.icon">Current Icon</div>
       <img
         src="{{ window.location.origin + '/images/tiles/' + tile?.icon }}"
@@ -89,11 +89,11 @@
       <div>Settings</div>
       <majesdash-json-editor formControlName="settings" placeholder="Settings">
       </majesdash-json-editor>
-      <mat-error>
+      <!--<mat-error>
         <span *ngIf="!createTileForm.get('settings')!.valid"
           >Settings are not valid json</span
         >
-      </mat-error>
+      </mat-error> -->
     </form>
     <button
       mat-raised-button
