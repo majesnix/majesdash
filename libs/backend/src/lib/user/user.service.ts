@@ -241,8 +241,6 @@ export class UserService {
     return jwt.sign(
       {
         id: user.id,
-        username: user.username,
-        email: user.email,
         exp: exp.getTime() / 1000,
       },
       this.configService.get<string>('SECRET')
