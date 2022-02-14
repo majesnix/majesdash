@@ -28,19 +28,19 @@ export class TagController {
   }
 
   @Post()
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   async create(@Body() tagData: CreateTagDto) {
     return this.tagService.create(tagData);
   }
 
   @Put(':id')
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   async update(@Param('id') id: number, @Body() tileData: CreateTagDto) {
     return this.tagService.update(id, tileData);
   }
 
   @Delete(':id')
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   async delete(@Param('id') id: number) {
     return this.tagService.delete(id);
   }

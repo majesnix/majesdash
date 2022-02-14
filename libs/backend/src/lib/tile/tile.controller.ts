@@ -42,7 +42,7 @@ export class TileController {
   }
 
   @Post()
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(
     FileInterceptor('icon', {
@@ -72,7 +72,7 @@ export class TileController {
   }
 
   @Put(':id')
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   @ApiConsumes('multipart/form-data')
   @ApiNotFoundResponse({ description: 'Tile not found' })
   @UseInterceptors(
@@ -107,7 +107,7 @@ export class TileController {
   }
 
   @Delete(':id')
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   async delete(@Param('id') id: number) {
     return this.tileService.delete(id);
   }

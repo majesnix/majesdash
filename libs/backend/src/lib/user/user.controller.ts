@@ -34,13 +34,13 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('user')
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   async findMe(@User('email') email: string): Promise<IUserWithToken> {
     return await this.userService.findByEmail(email);
   }
 
   @Post('user')
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(
     FileInterceptor('avatar', {
@@ -73,37 +73,37 @@ export class UserController {
   }
 
   @Get('users')
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   async getUsers() {
     return this.userService.findAll();
   }
 
   @Post('users')
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   async create(@Body() userDto: CreateUserDto) {
     return this.userService.create(userDto);
   }
 
   @Put('users')
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   async updateUser(@Body() userData: AdminUserUpdateDto) {
     return await this.userService.updateAsAdmin(userData);
   }
 
   @Put('users/resetPassword')
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   async resetPassword(@Body() id: number) {
     return await this.userService.resetPassword(id);
   }
 
   @Put('users/deleteAvatar')
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   async deleteAvatar(@Body() id: number) {
     return await this.userService.deleteAvatar(id);
   }
 
   @Delete('users/:id')
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   async delete(@Param('id') id: number) {
     return await this.userService.delete(id);
   }

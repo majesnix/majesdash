@@ -25,7 +25,7 @@ export class SystemSettingsController {
   }
 
   @Post()
-  @ApiBearerAuth()
+  @ApiBearerAuth("Bearer")
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(
     FileInterceptor('background', {

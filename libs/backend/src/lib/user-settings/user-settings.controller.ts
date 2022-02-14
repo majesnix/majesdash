@@ -24,7 +24,7 @@ export class UserSettingsController {
   constructor(private readonly userSettingsService: UserSettingsService) {}
 
   @Get()
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   async findUserSettings(
     @Request() req: CustomRequest
   ): Promise<UserSettingsEntity> {
@@ -33,7 +33,7 @@ export class UserSettingsController {
   }
 
   @Post()
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(
     FileInterceptor('background', {
