@@ -8,13 +8,13 @@
 >
   <div
     [style.background-image]="
-      config.userSettings?.backgroundName
+      config.userSettings?.background
         ? 'url(' +
           window.location.origin +
           '/images/' +
           config.user?.id +
           '/' +
-          config.userSettings?.backgroundName +
+          config.userSettings?.background +
           ')'
         : config.systemSettings?.background
         ? 'url(' +

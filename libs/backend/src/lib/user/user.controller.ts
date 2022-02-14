@@ -49,7 +49,7 @@ export class UserController {
           try {
             await access(`./config/web/images/${req.user.id}`);
             await unlink(
-              `./config/web/images/${req.user.id}/${req.user.image}`
+              `./config/web/images/${req.user.id}/${req.user.avatar}`
             );
           } catch (error) {
             await mkdir(`./config/web/images/${req.user.id}`, {
@@ -117,8 +117,8 @@ export class UserController {
     if (!_user) throw new HttpException({ errors }, 401);
 
     const token = this.userService.generateJWT(_user);
-    const { id, email, username, image, isAdmin } = _user;
-    const user = { id, email, token, username, image, isAdmin };
+    const { id, email, username, avatar, isAdmin } = _user;
+    const user = { id, email, token, username, avatar, isAdmin };
     return user;
   }
 }

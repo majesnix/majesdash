@@ -10,14 +10,16 @@
         [matMenuTriggerFor]="menu"
         data-cy="user-menu"
       >
-        <mat-icon *ngIf="!user.image" class="user-pic">account_circle</mat-icon>
+        <mat-icon *ngIf="!user.avatar" class="user-avatar"
+          >account_circle</mat-icon
+        >
         <img
-          *ngIf="user.image"
+          *ngIf="user.avatar"
           src="{{ window.location.origin }}/images/{{ user.id }}/{{
-            user.image
+            user.avatar
           }}"
-          class="user-pic"
-          data-cy="profile-pic"
+          class="user-avatar"
+          data-cy="user-avatar"
         />
         {{ (user$ | async)?.username }}
       </button>

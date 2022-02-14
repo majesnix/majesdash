@@ -134,7 +134,7 @@ export class UserService {
       new HttpException({ message: 'User not found' }, HttpStatus.NOT_FOUND);
 
     if (avatar) {
-      user.image = avatar;
+      user.avatar = avatar;
     }
     if (dto.password && dto.passwordRepeat && dto.password === dto.password) {
       user.passwordHash = await bcrypt.hash(dto.password, 10);
@@ -199,8 +199,8 @@ export class UserService {
     if (!user)
       new HttpException({ message: 'User not found' }, HttpStatus.NOT_FOUND);
 
-    await unlink(`./config/web/images/${user.id}/${user.image}`);
-    user.image = null;
+    await unlink(`./config/web/images/${user.id}/${user.avatar}`);
+    user.avatar = null;
 
     await this.userRepository.save(user);
 
@@ -255,7 +255,7 @@ export class UserService {
       username: user.username,
       email: user.email,
       token: this.generateJWT(user),
-      image: user.image,
+      avatar: user.avatar,
       isAdmin: user.isAdmin,
       settings: user.settings,
     };

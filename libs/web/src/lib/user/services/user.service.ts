@@ -87,9 +87,9 @@ export class UserService {
         id,
       })
       .subscribe((user) => {
-        this.selectedUserSubject$.next({ ...user, image: undefined });
+        this.selectedUserSubject$.next({ ...user, avatar: undefined });
         if (this.userSubject$.value?.id === id) {
-          this.userSubject$.next({ ...user, image: undefined });
+          this.userSubject$.next({ ...user, avatar: undefined });
         }
       });
   }

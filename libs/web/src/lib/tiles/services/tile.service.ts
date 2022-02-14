@@ -48,8 +48,8 @@ export class TileService {
     const formData = new FormData();
 
     formData.append('title', tile.title);
-    formData.append('type', tile.type);
     formData.append('url', tile.url);
+    tile.type && formData.append('type', tile.type);
     tile.icon && formData.append('icon', tile.icon);
     tile.color && formData.append('color', tile.color);
     tile.config && formData.append('config', tile.config);
@@ -66,8 +66,8 @@ export class TileService {
     const formData = new FormData();
 
     formData.append('title', tile.title);
-    formData.append('type', tile.type);
     formData.append('url', tile.url);
+    tile.type && formData.append('type', tile.type);
     tile.icon && formData.append('icon', tile.icon);
     tile.color && formData.append('color', tile.color);
 

@@ -4,12 +4,11 @@ export enum TabTarget {
 }
 
 export interface IUserSettings {
-  backgroundName?: string;
+  background?: string;
   tabTarget: TabTarget;
 }
 
-export interface IUserSettingsUpdate
-  extends Omit<IUserSettings, 'backgroundName'> {
+export interface IUserSettingsUpdate extends IUserSettings {
   background?: any;
 }
 
@@ -26,7 +25,7 @@ export interface IUser {
   id: number;
   username: string;
   email: string;
-  image?: string;
+  avatar?: string;
   isAdmin: boolean;
   settings?: IUserSettings;
 }
@@ -36,11 +35,11 @@ export interface IUserWithToken extends IUser {
 }
 
 export interface IUserUpdate {
+  username?: string;
+  email?: string;
   avatar?: Blob;
   password?: string;
   passwordRepeat?: string;
-  username?: string;
-  email?: string;
   isAdmin?: boolean;
 }
 
@@ -52,9 +51,9 @@ export interface IAuthenticate {
 export interface ITile {
   id: number;
   title: string;
-  type: string;
-  color?: string;
   url: string;
+  type?: string;
+  color?: string;
   icon?: string;
   tags?: ITag[];
   order?: number;

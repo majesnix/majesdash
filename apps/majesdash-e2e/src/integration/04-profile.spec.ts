@@ -14,7 +14,7 @@ describe('Profile', () => {
     cy.get('button[ng-reflect-router-link="/profile"]').click();
     cy.get('.input-file').attachFile('tileicon.png');
     cy.get('button[data-cy="update-save-button"]').click();
-    cy.get('[data-cy="profile-pic"]').should('have.attr', 'src');
+    cy.get('[data-cy="user-avatar"]').should('have.attr', 'src');
   });
 
   it('should not be able to navigate to profile, when not logged in', () => {

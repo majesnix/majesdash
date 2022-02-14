@@ -7,7 +7,7 @@ export class UserSettingsEntity {
   id!: number;
 
   @Column({ nullable: true })
-  backgroundName!: string;
+  background!: string;
 
   @Column({
     type: 'simple-enum',

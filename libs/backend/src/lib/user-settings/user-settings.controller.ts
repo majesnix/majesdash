@@ -42,7 +42,7 @@ export class UserSettingsController {
           try {
             await access(`./config/web/images/${req.user.id}`);
             await unlink(
-              `./config/web/images/${req.user.id}/${req.user.settings.backgroundName}`
+              `./config/web/images/${req.user.id}/${req.user.settings.background}`
             );
           } catch (error) {
             await mkdir(`./config/web/images/${req.user.id}`, {

@@ -23,7 +23,7 @@ export class UserEntity {
   email: string;
 
   @Column({ default: null })
-  image: string;
+  avatar: string;
 
   @Column()
   passwordHash: string;

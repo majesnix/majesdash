@@ -29,7 +29,7 @@ export class UserSettingsService {
       relations: ['settings'],
     });
 
-    user.settings.backgroundName = filename;
+    user.settings.background = filename;
     user.settings.tabTarget = userSettings.tabTarget;
 
     await this.usersRepository.save(user);

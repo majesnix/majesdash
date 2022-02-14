@@ -16,7 +16,7 @@ import { BehaviorSubject } from 'rxjs';
 export class SettingsService {
   private userSettingSubject$ = new BehaviorSubject<IUserSettings | undefined>({
     tabTarget: TabTarget.NEW_TAB,
-    backgroundName: undefined,
+    background: undefined,
   });
   readonly userSettings$ = this.userSettingSubject$.asObservable();
   private systemSettingsSubject$ = new BehaviorSubject<
