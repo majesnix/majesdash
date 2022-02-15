@@ -17,7 +17,7 @@
     "_e2e": "nx e2e majesdash-e2e --watch",
     "e2e": "yarn clearDB && start-server-and-test \"nx run-many --target=serve --projects=api,majesdash\" http://localhost:4200 _e2e",
     "clearDB": "cd config && rm -f *.sql*",
-    "docker:build": "docker build -f ./apps/api/Dockerfile . -t majesdash",
+    "docker:build": "docker build -f ./apps/api/Dockerfile . -t majesdash:local",
     "dev:all": "yarn clearDB && yarn start:all",
     "genversion": "genversion --es6 --semi ./libs/web/src/lib/settings/version.ts"
   },
