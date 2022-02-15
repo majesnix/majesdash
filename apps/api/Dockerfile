@@ -25,17 +25,12 @@ WORKDIR /app
 
 # upgrade packages with known vulnerabilities
 RUN apk upgrade --update-cache --available && \
-  apk add openssl apk-tools busybox && \
+  apk add -q --no-cache openssl apk-tools busybox && \
   rm -rf /var/cache/apk/*
 
 COPY --from=builder /app/dist/apps/api .
 COPY --from=builder /app/dist/apps/majesdash ./client
 COPY --from=builder /app/node_modules ./node_modules
-
-# Create a group and user
-RUN addgroup -S majesdash && adduser -S majesdash -G majesdash && chown -R majesdash:majesdash /app
-# Change to non-root privilege
-USER majesdash
 
 EXPOSE 3333
 
