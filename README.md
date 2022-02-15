@@ -12,6 +12,9 @@
   </a>
 </p>
 
+![demo](./.github/demo.png)
+
+
 Todo:
 
 - Smart tiles (stats/online check)
