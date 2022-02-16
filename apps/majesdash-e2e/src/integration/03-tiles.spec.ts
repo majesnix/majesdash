@@ -25,7 +25,6 @@ describe('Tiles', () => {
     cy.get('button[ng-reflect-router-link="/tiles"]').click();
     cy.get('button[ng-reflect-router-link="/tiles/create"]').click();
     cy.get('input[formcontrolname="name"]').type('testtile2');
-    //cy.get('input[formcontrolname="type"]').type('testtile');
     cy.get('input[formcontrolname="url"]').type('https://google.de');
     cy.get('.input-file').attachFile('tileicon.png');
     cy.get('button[data-cy="tile-create-or-update"]').click();
@@ -38,7 +37,6 @@ describe('Tiles', () => {
     cy.get('button[ng-reflect-router-link="/tiles"]').click();
     cy.get('[data-cy="tile-list-edit-button"]').eq(0).click();
     cy.get('input[formcontrolname="name"]').clear().type('testtileUpdate');
-    //cy.get('input[formcontrolname="type"]').type('testtile');
     cy.get('input[formcontrolname="url"]').clear().type('https://test.de');
     cy.get('.input-file').attachFile('tileicon.png');
     cy.get('button[data-cy="tile-create-or-update"]').click();
