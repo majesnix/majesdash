@@ -9,7 +9,7 @@ describe('Tiles', () => {
     cy.visit('/');
   });
 
-  it('should navigate to the tile creation screen and create a tile', () => {
+  it('should create a tile', () => {
     cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/tiles"]').click();
     cy.get('button[ng-reflect-router-link="/tiles/create"]').click();
@@ -20,7 +20,7 @@ describe('Tiles', () => {
     cy.get('majesdash-tile').should('contain', 'testtile');
   });
 
-  it('should navigate to the tile creation screen and create a second tile with an icon', () => {
+  it('should create a second tile with an icon', () => {
     cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/tiles"]').click();
     cy.get('button[ng-reflect-router-link="/tiles/create"]').click();
@@ -33,7 +33,7 @@ describe('Tiles', () => {
     cy.get('majesdash-tile').eq(1).find('img').should('be.visible');
   });
 
-  it('should navigate to the tile creation screen and update the first tile', () => {
+  it('should update the first tile', () => {
     cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/tiles"]').click();
     cy.get('[data-cy="tile-list-edit-button"]').eq(0).click();
@@ -46,7 +46,7 @@ describe('Tiles', () => {
     cy.get('majesdash-tile').eq(0).find('img').should('be.visible');
   });
 
-  it('should navigate to the tile list and delete the first tile', () => {
+  it('should delete the first tile', () => {
     cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/tiles"]').click();
     cy.get('button[color=red]').eq(0).click();

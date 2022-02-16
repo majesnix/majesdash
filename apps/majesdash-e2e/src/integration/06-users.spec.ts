@@ -9,14 +9,14 @@ describe('Admin user list', () => {
     cy.visit('/');
   });
 
-  it('should navigate to user list and show one user which cant be deleted', () => {
+  it('should show one user which cant be deleted', () => {
     cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/users"]').click();
     cy.get('[data-cy="user-list"]').should('contain', 'testuser');
     cy.get('[data-cy="user-list-delete"]').should('have.length', 0);
   });
 
-  it('should navigate to user list screen and create a user', () => {
+  it('should create a user', () => {
     cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/users"]').click();
     cy.get('[data-cy="user-list-create"]').click();
@@ -39,7 +39,7 @@ describe('Admin user list', () => {
     cy.get('[data-cy="user-list"]').should('contain', 'testuser2');
   });
 
-  it('should navigate to user list screen and create and delete a user', () => {
+  it('should create and delete a user', () => {
     cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/users"]').click();
     cy.get('[data-cy="user-list-create"]').click();
@@ -64,7 +64,7 @@ describe('Admin user list', () => {
     cy.get('[data-cy="user-list"]').should('not.contain', 'testuser3');
   });
 
-  it('should navigate to user list screen and remove a users avatar', () => {
+  it('should remove a users avatar', () => {
     cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/users"]').click();
     cy.get('[data-cy="user-list"]').find('tr').eq(0);
@@ -73,7 +73,7 @@ describe('Admin user list', () => {
     cy.get('[data-cy="profile-pic"]').should('not.exist');
   });
 
-  it('should navigate to user list screen and update a user', () => {
+  it('should update a user', () => {
     cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/users"]').click();
     cy.get('[data-cy="user-list"]').find('tr').eq(2);
@@ -93,7 +93,7 @@ describe('Admin user list', () => {
     cy.get('[data-cy="user-list"]').should('contain', 'test@testupdate.de');
   });
 
-  it('reset a users password', () => {
+  it('should reset a users password', () => {
     cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/users"]').click();
     cy.get('[data-cy="user-list-edit"]').eq(1).click();

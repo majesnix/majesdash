@@ -9,7 +9,7 @@ describe('Profile', () => {
     cy.visit('/');
   });
 
-  it('should navigate to profile screen and upload a profile picture', () => {
+  it('should upload a profile picture', () => {
     cy.get('[data-cy="user-menu"]').click();
     cy.get('button[ng-reflect-router-link="/profile"]').click();
     cy.get('.input-file').attachFile('tileicon.png');
