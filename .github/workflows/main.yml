@@ -1,4 +1,4 @@
-name: Test and Bump
+name: Build
 on:
   push:
     branches:
