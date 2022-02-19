@@ -11,6 +11,7 @@ import { UserSettingsEntity } from './user-settings/user-settings.entity';
 import { SettingsModule } from './user-settings/user-settings.module';
 import { UserEntity } from './user/user.entity';
 import { UserModule } from './user/user.module';
+import { WeatherModule } from './weather/weather.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { UserModule } from './user/user.module';
     UserModule,
     SettingsModule,
     SystemSettingsModule,
+    WeatherModule,
   ],
   controllers: [],
   providers: [],

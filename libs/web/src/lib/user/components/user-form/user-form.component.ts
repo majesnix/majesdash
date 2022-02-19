@@ -19,7 +19,7 @@ export class UserFormComponent {
       email: [undefined, [Validators.required]],
       password: [undefined, [Validators.required]],
       passwordRepeat: [undefined, [Validators.required]],
-      isAdmin: [false],
+      isAdmin: false,
     });
   }
 

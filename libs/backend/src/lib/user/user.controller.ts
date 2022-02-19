@@ -1,6 +1,7 @@
 import { IUserWithToken } from '@majesdash/data';
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -39,6 +40,7 @@ export class UserController {
     return await this.userService.findByEmail(email);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post('user')
   @ApiBearerAuth('Bearer')
   @ApiConsumes('multipart/form-data')
@@ -84,6 +86,7 @@ export class UserController {
     return this.userService.create(userDto);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Put('users')
   @ApiBearerAuth('Bearer')
   async updateUser(@Body() userData: AdminUserUpdateDto) {

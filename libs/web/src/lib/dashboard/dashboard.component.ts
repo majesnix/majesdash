@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ITile, IUserSettings } from '@majesdash/data';
+import { ISystemSettings, ITile, IUserSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../settings/services/settings.service';
 import { TileService } from '../tiles/services/tile.service';
@@ -10,8 +10,9 @@ import { TileService } from '../tiles/services/tile.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-  userSettings$: Observable<IUserSettings | undefined> =
-    this.settingsService.userSettings$;
+  userSettings$: Observable<IUserSettings> = this.settingsService.userSettings$;
+  systemSettings$: Observable<ISystemSettings> =
+    this.settingsService.systemSettings$;
   tiles$: Observable<ITile[]> = this.tileService.tiles$;
 
   constructor(

@@ -2,11 +2,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ICreateUserDto } from '@majesdash/data';
-import { first } from 'rxjs';
+import { first, Subscription } from 'rxjs';
 import { SettingsService } from '../../../settings/services/settings.service';
 import { UserService } from '../../../user/services/user.service';
 
@@ -16,8 +17,10 @@ import { UserService } from '../../../user/services/user.service';
   styleUrls: ['./setup.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SetupComponent implements OnInit {
+export class SetupComponent implements OnInit, OnDestroy {
   error = false;
+
+  userServiceSubscription: Subscription | undefined;
 
   constructor(
     private router: Router,
@@ -31,7 +34,7 @@ export class SetupComponent implements OnInit {
   }
 
   createUser(user: ICreateUserDto) {
-    this.userService
+    this.userServiceSubscription = this.userService
       .create(user)
       .pipe(first())
       .subscribe({
@@ -43,5 +46,9 @@ export class SetupComponent implements OnInit {
           this.cdRef.detectChanges();
         },
       });
+  }
+
+  ngOnDestroy(): void {
+    this.userServiceSubscription?.unsubscribe();
   }
 }

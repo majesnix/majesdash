@@ -1,0 +1,4 @@
+<div *ngIf="weather$ | async as weather">
+  <i class="wi wi-owm-{{ weather.weather[0].id }} weather-icon-size"></i>
+  {{ weather.weather[0].main }}
+</div>

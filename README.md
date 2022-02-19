@@ -32,3 +32,5 @@ To persist the dashboard state, the `/app/config` path needs to be mapped somewh
 ## Environment
 
 The environment variables consist of one simple variable `SECRET`, which will be used to hash passwords. This can either be set through an .env file or directly in the docker run command e.g. like this `docker run -p 8888:3333 -e SECRET=123`
+
+Weather icons from <https://github.com/erikflowers/weather-icons>

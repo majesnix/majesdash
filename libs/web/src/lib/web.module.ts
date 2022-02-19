@@ -12,6 +12,7 @@ import { SettingsModule } from './settings/settings.module';
 import { SetupModule } from './setup/setup.module';
 import { TileModule } from './tiles/tile.module';
 import { UserModule } from './user/user.module';
+import { WeatherModule } from './weather/weather.module';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { UserModule } from './user/user.module';
     TileModule,
     JsonEditorModule,
     SetupModule,
+    WeatherModule,
     RouterModule.forRoot([], {
       scrollPositionRestoration: 'top',
       initialNavigation: 'enabledBlocking',

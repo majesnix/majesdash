@@ -140,13 +140,7 @@ export class UserService {
       user.passwordHash = await bcrypt.hash(dto.password, 10);
     }
 
-    await this.userRepository.save(user);
-
-    if (user?.passwordHash) {
-      delete user.passwordHash;
-    }
-
-    return user;
+    return await this.userRepository.save(user);
   }
 
   async updateAsAdmin(dto: AdminUserUpdateDto): Promise<UserEntity> {
@@ -167,13 +161,7 @@ export class UserService {
       user.email = dto.email;
     }
 
-    await this.userRepository.save(user);
-
-    if (user.passwordHash) {
-      delete user.passwordHash;
-    }
-
-    return user;
+    return await this.userRepository.save(user);
   }
 
   async resetPassword(id: number): Promise<IUserResetPasswordAdminResponse> {

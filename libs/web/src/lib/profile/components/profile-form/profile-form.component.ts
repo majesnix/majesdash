@@ -17,8 +17,8 @@ export class ProfileFormComponent {
   constructor(private fb: FormBuilder) {
     this.profileForm = this.fb.group({
       avatar: [undefined, [MaxSizeValidator(16 * 2 ** 20)]],
-      password: [''],
-      passwordRepeat: [''],
+      password: '',
+      passwordRepeat: '',
     });
   }
 

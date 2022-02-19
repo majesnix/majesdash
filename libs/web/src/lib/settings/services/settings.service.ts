@@ -14,16 +14,15 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class SettingsService {
-  private userSettingSubject$ = new BehaviorSubject<IUserSettings | undefined>({
+  private userSettingSubject$ = new BehaviorSubject<IUserSettings>({
     tabTarget: TabTarget.NEW_TAB,
     background: undefined,
   });
   readonly userSettings$ = this.userSettingSubject$.asObservable();
-  private systemSettingsSubject$ = new BehaviorSubject<
-    ISystemSettings | undefined
-  >({
+  private systemSettingsSubject$ = new BehaviorSubject<ISystemSettings>({
     background: 'background.png',
     initialized: true,
+    weatherWidget: false,
   });
   readonly systemSettings$ = this.systemSettingsSubject$.asObservable();
 
@@ -73,6 +72,12 @@ export class SettingsService {
   updateSystemSettings(settings: ISystemSettingsUpdate) {
     const formData = new FormData();
     formData.append('background', settings.background);
+    formData.append('weatherWidget', settings.weatherWidget.toString());
+    settings.weatherWidgetApiKey &&
+      formData.append('weatherWidgetApiKey', settings.weatherWidgetApiKey);
+    settings.weatherWidgetTown &&
+      formData.append('weatherWidgetTown', settings.weatherWidgetTown);
+
     return this.httpClient
       .post<ISystemSettings>(
         `${this.window.location.origin}/api/system-settings`,
@@ -84,6 +89,9 @@ export class SettingsService {
   }
 
   reset() {
-    this.userSettingSubject$.next(undefined);
+    this.userSettingSubject$.next({
+      tabTarget: TabTarget.NEW_TAB,
+      background: undefined,
+    });
   }
 }

@@ -6,19 +6,21 @@ import {
   EventEmitter,
   HostListener,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IAuthenticate } from '@majesdash/data';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'majesdash-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
 })
-export class LoginFormComponent implements OnInit, AfterViewInit {
+export class LoginFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() authenticateEvent = new EventEmitter<IAuthenticate>();
   @Input() hasError!: boolean;
   @Output() hasErrorChange = new EventEmitter<boolean>();
@@ -26,6 +28,7 @@ export class LoginFormComponent implements OnInit, AfterViewInit {
   hide = true;
 
   loginForm: FormGroup;
+  loginFormSubscription: Subscription | undefined;
 
   constructor(private cdRef: ChangeDetectorRef, private fb: FormBuilder) {
     this.loginForm = this.fb.group({
@@ -35,7 +38,7 @@ export class LoginFormComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.loginForm.valueChanges.subscribe(() => {
+    this.loginFormSubscription = this.loginForm.valueChanges.subscribe(() => {
       if (this.hasError) {
         this.hasErrorChange.emit(false);
       }
@@ -54,5 +57,9 @@ export class LoginFormComponent implements OnInit, AfterViewInit {
         password: this.loginForm.value.password,
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.loginFormSubscription?.unsubscribe();
   }
 }

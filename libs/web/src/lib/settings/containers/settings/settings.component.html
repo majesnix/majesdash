@@ -1,14 +1,13 @@
-<div *ngIf="userSettings$ | async as settings">
-  <div style="width: 20rem">
-    <majesdash-system-info></majesdash-system-info>
-    <div style="margin-bottom: 24px"></div>
-    <majesdash-settings-form
-      (settingsUpdateEvent)="update($event)"
-    ></majesdash-settings-form>
-    <div style="margin-bottom: 24px"></div>
-    <majesdash-system-settings-form
-      (systemSettingsUpdateEvent)="updateSystemSettings($event)"
-      *ngIf="(user$ | async)?.isAdmin"
-    ></majesdash-system-settings-form>
-  </div>
+<div style="width: 20rem">
+  <majesdash-system-info></majesdash-system-info>
+  <div style="margin-bottom: 24px"></div>
+  <majesdash-settings-form
+    (settingsUpdateEvent)="update($event)"
+  ></majesdash-settings-form>
+  <div style="margin-bottom: 24px"></div>
+  <majesdash-system-settings-form
+    [systemSettings]="(systemSettings$ | async)!"
+    (systemSettingsUpdateEvent)="updateSystemSettings($event)"
+    *ngIf="(user$ | async)?.isAdmin"
+  ></majesdash-system-settings-form>
 </div>

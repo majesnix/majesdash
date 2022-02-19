@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IUserSettings, ISystemSettings, IUser } from '@majesdash/data';
+import { ISystemSettings, IUser, IUserSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../settings/services/settings.service';
 import { TileService } from '../tiles/services/tile.service';
@@ -11,9 +11,8 @@ import { UserService } from '../user/services/user.service';
   styleUrls: ['./main-view.component.scss'],
 })
 export class MainViewComponent implements OnInit {
-  userSettings$: Observable<IUserSettings | undefined> =
-    this.settingsService.userSettings$;
-  systemSettings$: Observable<ISystemSettings | undefined> =
+  userSettings$: Observable<IUserSettings> = this.settingsService.userSettings$;
+  systemSettings$: Observable<ISystemSettings> =
     this.settingsService.systemSettings$;
   user$: Observable<IUser | undefined> = this.userService.user$;
 

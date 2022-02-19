@@ -1,0 +1,13 @@
+@import '../../../../sass/weather-icons.scss';
+
+div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.weather-icon-size {
+  font-size: 64px;
+}

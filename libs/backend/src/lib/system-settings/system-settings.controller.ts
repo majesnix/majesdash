@@ -1,4 +1,6 @@
 import {
+  Body,
+  ClassSerializerInterceptor,
   Controller,
   Get,
   Post,
@@ -12,6 +14,7 @@ import { diskStorage } from 'multer';
 import { nanoid } from 'nanoid';
 import { extname } from 'path';
 import { CustomRequest } from '../auth.middleware';
+import { SystemSettingsUpdateDto } from './dto/system-settings-update.dto';
 import { SystemSettingsService } from './system-settings.service';
 
 @Controller('system-settings')
@@ -19,13 +22,15 @@ import { SystemSettingsService } from './system-settings.service';
 export class SystemSettingsController {
   constructor(private readonly systemSettingsService: SystemSettingsService) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   async getSystemSettings() {
     return await this.systemSettingsService.findOne();
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post()
-  @ApiBearerAuth("Bearer")
+  @ApiBearerAuth('Bearer')
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(
     FileInterceptor('background', {
@@ -55,10 +60,14 @@ export class SystemSettingsController {
       }),
     })
   )
-  async updateSystemSettings(@UploadedFile() file: Express.Multer.File) {
-    const systemSettings = await this.systemSettingsService.update({
-      background: file.filename,
-    });
+  async updateSystemSettings(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() systemSettingsData: SystemSettingsUpdateDto
+  ) {
+    const systemSettings = await this.systemSettingsService.update(
+      systemSettingsData,
+      file?.filename
+    );
 
     return systemSettings;
   }

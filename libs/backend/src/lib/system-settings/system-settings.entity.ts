@@ -11,4 +11,13 @@ export class SystemSettingsEntity {
 
   @Column({ default: false })
   initialized!: boolean;
+
+  @Column({ default: false })
+  weatherWidget!: boolean;
+
+  @Column({ nullable: true })
+  weatherWidgetApiKey: string;
+
+  @Column({ nullable: true })
+  weatherWidgetTown: string;
 }

@@ -11,41 +11,44 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   imports: [
     FlexLayoutModule,
-    MatInputModule,
-    MatCardModule,
     MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatProgressSpinnerModule,
-    MatMenuModule,
-    MatTableModule,
-    MatSelectModule,
-    MatGridListModule,
+    MatCardModule,
     MatCheckboxModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSlideToggleModule,
+    MatTableModule,
+    MatToolbarModule,
   ],
   exports: [
     FlexLayoutModule,
-    MatInputModule,
-    MatCardModule,
     MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatProgressSpinnerModule,
-    MatMenuModule,
-    MatTableModule,
-    MatSelectModule,
-    MatGridListModule,
+    MatCardModule,
     MatCheckboxModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSlideToggleModule,
+    MatTableModule,
+    MatToolbarModule,
   ],
 })
 export class MaterialModule {}

@@ -7,11 +7,11 @@ describe('Profile', () => {
       cy.setLocalStorage('token', res.body.token);
     });
     cy.visit('/');
+    cy.get('[data-cy="user-menu"]').click();
+    cy.get('button[ng-reflect-router-link="/profile"]').click();
   });
 
   it('should upload a profile picture', () => {
-    cy.get('[data-cy="user-menu"]').click();
-    cy.get('button[ng-reflect-router-link="/profile"]').click();
     cy.get('.input-file').attachFile('tileicon.png');
     cy.get('button[data-cy="update-save-button"]').click();
     cy.get('[data-cy="user-avatar"]').should('have.attr', 'src');
@@ -24,8 +24,6 @@ describe('Profile', () => {
   });
 
   it('should change the password', () => {
-    cy.get('[data-cy="user-menu"]').click();
-    cy.get('button[ng-reflect-router-link="/profile"]').click();
     cy.get('input[type="password"]').eq(0).type('testuser1');
     cy.get('input[type="password"]').eq(1).type('testuser1');
     cy.get('button[data-cy="update-save-button"]').click();

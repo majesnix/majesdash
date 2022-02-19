@@ -1,4 +1,5 @@
 import * as bcrypt from 'bcrypt';
+import { Exclude } from 'class-transformer';
 import { IsEmail } from 'class-validator';
 import {
   BeforeInsert,
@@ -25,6 +26,7 @@ export class UserEntity {
   @Column({ default: null })
   avatar: string;
 
+  @Exclude()
   @Column()
   passwordHash: string;
 

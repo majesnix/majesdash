@@ -26,7 +26,7 @@ export class SettingsFormComponent {
   constructor(private fb: FormBuilder) {
     this.settingsForm = this.fb.group({
       background: [undefined, [MaxSizeValidator(16 * 2 ** 20)]],
-      tabOption: ['_blank'],
+      tabOption: '_blank',
     });
   }
 

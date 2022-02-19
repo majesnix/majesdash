@@ -7,18 +7,16 @@ describe('Admin user list', () => {
       cy.setLocalStorage('token', res.body.token);
     });
     cy.visit('/');
+    cy.get('[data-cy="user-menu"]').click();
+    cy.get('button[ng-reflect-router-link="/users"]').click();
   });
 
   it('should show one user which cant be deleted', () => {
-    cy.get('[data-cy="user-menu"]').click();
-    cy.get('button[ng-reflect-router-link="/users"]').click();
     cy.get('[data-cy="user-list"]').should('contain', 'testuser');
     cy.get('[data-cy="user-list-delete"]').should('have.length', 0);
   });
 
   it('should create a user', () => {
-    cy.get('[data-cy="user-menu"]').click();
-    cy.get('button[ng-reflect-router-link="/users"]').click();
     cy.get('[data-cy="user-list-create"]').click();
     cy.get('[data-cy="user-create-form"]').as('user-create-form');
     cy.get('@user-create-form')
@@ -40,8 +38,6 @@ describe('Admin user list', () => {
   });
 
   it('should create and delete a user', () => {
-    cy.get('[data-cy="user-menu"]').click();
-    cy.get('button[ng-reflect-router-link="/users"]').click();
     cy.get('[data-cy="user-list-create"]').click();
     cy.get('[data-cy="user-create-form"]').as('user-create-form');
     cy.get('@user-create-form')
@@ -65,8 +61,6 @@ describe('Admin user list', () => {
   });
 
   it('should remove a users avatar', () => {
-    cy.get('[data-cy="user-menu"]').click();
-    cy.get('button[ng-reflect-router-link="/users"]').click();
     cy.get('[data-cy="user-list"]').find('tr').eq(0);
     cy.get('[data-cy="user-list-edit"]').eq(0).click();
     cy.get('[data-cy="user-edit-form-delete-avatar"]').click();
@@ -74,8 +68,6 @@ describe('Admin user list', () => {
   });
 
   it('should update a user', () => {
-    cy.get('[data-cy="user-menu"]').click();
-    cy.get('button[ng-reflect-router-link="/users"]').click();
     cy.get('[data-cy="user-list"]').find('tr').eq(2);
     cy.get('[data-cy="user-list-edit"]').eq(1).click();
     cy.get('[data-cy="user-edit-form"]')
@@ -94,8 +86,6 @@ describe('Admin user list', () => {
   });
 
   it('should reset a users password', () => {
-    cy.get('[data-cy="user-menu"]').click();
-    cy.get('button[ng-reflect-router-link="/users"]').click();
     cy.get('[data-cy="user-list-edit"]').eq(1).click();
     const stub = cy.stub();
     cy.on('window:alert', stub);
@@ -108,8 +98,6 @@ describe('Admin user list', () => {
   });
 
   it('should navigate to user list screen and delete a user directly from user-list', () => {
-    cy.get('[data-cy="user-menu"]').click();
-    cy.get('button[ng-reflect-router-link="/users"]').click();
     cy.get('[data-cy="user-list-delete"]').click();
     cy.get('[data-cy="user-list"]').find('tr').should('have.length', 2);
     cy.get('[data-cy="user-list"]').should('contain', 'testuser');

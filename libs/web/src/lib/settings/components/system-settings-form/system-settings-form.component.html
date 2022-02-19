@@ -41,12 +41,44 @@
         </mat-error>
         <mat-hint>Max 16MB</mat-hint>
       </mat-form-field>
+      <mat-slide-toggle
+        formControlName="weatherWidget"
+        style="margin-bottom: 8px"
+        >Use Weather Widget?</mat-slide-toggle
+      >
+      <mat-form-field
+        style="margin-bottom: 8px"
+        *ngIf="systemSettingsForm.value.weatherWidget"
+        data-cy="system-weatherWidget-apiKey"
+      >
+        <input
+          matInput
+          placeholder="api key"
+          type="text"
+          formControlName="weatherWidgetApiKey"
+          data-cy="system-weatherWidget-apiKey-input"
+        />
+      </mat-form-field>
+      <mat-form-field
+        style="margin-bottom: 8px"
+        *ngIf="systemSettingsForm.value.weatherWidget"
+        data-cy="system-weatherWidget-town"
+      >
+        <input
+          matInput
+          placeholder="town,country"
+          type="text"
+          formControlName="weatherWidgetTown"
+          data-cy="system-weatherWidget-town-input"
+        />
+        <mat-hint>e.g. London,gb</mat-hint>
+      </mat-form-field>
     </form>
     <button
       mat-raised-button
       [disabled]="systemSettingsForm.invalid"
       (click)="update()"
-      data-cy="save-system-background-button"
+      data-cy="save-system-settings-button"
     >
       Save
     </button>
