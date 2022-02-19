@@ -19,14 +19,16 @@ export class SystemSettingsService {
     const systemSettings = (await this.systemSettingsRepository.find())[0];
 
     const useWeatherWidget = JSON.parse(systemSettingsData.weatherWidget);
-    systemSettings.background = filename;
+    if (filename) {
+      systemSettings.background = filename;
+    }
     systemSettings.weatherWidget = useWeatherWidget;
     if (useWeatherWidget) {
       systemSettings.weatherWidgetApiKey =
         systemSettingsData.weatherWidgetApiKey;
       systemSettings.weatherWidgetTown = systemSettingsData.weatherWidgetTown;
     } else {
-      systemSettings.weatherWidget = null;
+      systemSettings.weatherWidgetApiKey = null;
       systemSettings.weatherWidgetTown = null;
     }
 
