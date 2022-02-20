@@ -1,13 +1,13 @@
-<a href="{{ url }}" target="{{ target }}"
+<a href="{{ tile.url }}" target="{{ target }}"
   ><div
     class="box"
-    [style.background-color]="'#' + color"
+    [style.background-color]="'#' + tile.color"
     style="filter: brightness(85%)"
   >
     <img
-      *ngIf="icon"
-      src="{{ window.location.origin + '/images/tiles/' + icon }}"
+      *ngIf="tile.icon"
+      src="{{ window.location.origin + '/images/tiles/' + tile.icon }}"
     />
-    <div>{{ title }}</div>
+    <div>{{ tile.title }}</div>
   </div></a
 >

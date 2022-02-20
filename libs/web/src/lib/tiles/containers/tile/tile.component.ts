@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ITile } from '@majesdash/data';
 
 @Component({
   selector: 'majesdash-tile',
@@ -7,10 +8,6 @@ import { Component, Input } from '@angular/core';
 })
 export class TileComponent {
   constructor(public window: Window) {}
-  @Input() url!: string;
-  @Input() title!: string;
-  @Input() type!: string;
-  @Input() color?: string;
   @Input() target = '_blank';
-  @Input() icon?: string;
+  @Input() tile!: ITile;
 }
