@@ -10,9 +10,7 @@ import { UserService } from '../../services/user.service';
 })
 export class UsersComponent implements OnInit {
   currentUser$: Observable<IUser | undefined> = this.userService.user$;
-  users$: Observable<IUser[] | []> = this.userService.users$;
-
-  displayedColumns: string[] = ['username', 'email', 'isAdmin', 'action'];
+  users$: Observable<IUser[]> = this.userService.users$;
 
   constructor(private userService: UserService) {}
 
@@ -23,7 +21,7 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  editUser(id: number) {
+  selectUser(id: number) {
     this.userService.selectUser(id);
   }
 

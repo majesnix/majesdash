@@ -10,6 +10,7 @@ import { UserEditFormComponent } from './components/user-edit-form/user-edit-for
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { UserComponent } from './containers/user/user.component';
 import { UsersComponent } from './containers/users/users.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 const userRoutes: Routes = [
   {
@@ -35,6 +36,7 @@ const userRoutes: Routes = [
     UserFormComponent,
     UsersComponent,
     UserEditFormComponent,
+    UserListComponent,
   ],
   imports: [
     RouterModule.forChild(userRoutes),
