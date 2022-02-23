@@ -11,8 +11,7 @@ import { TileService } from '../../../tiles/services/tile.service';
 })
 export class GridComponent {
   tiles$: Observable<ITile[]> = this.tileService.tiles$;
-  userSettings$: Observable<IUserSettings | undefined> =
-    this.settingsService.userSettings$;
+  userSettings$: Observable<IUserSettings> = this.settingsService.userSettings$;
 
   constructor(
     private settingsService: SettingsService,

@@ -13,7 +13,7 @@ export class WeatherService {
   readonly weather$ = this.weatherSubject$.asObservable();
 
   constructor(private http: HttpClient, private window: Window) {
-    // get first data instant and then every 15 minutes
+    // get first data instant and update every 15 minutes
     timer(0, 15 * 60 * 1000)
       .pipe(
         mergeMap(() =>
