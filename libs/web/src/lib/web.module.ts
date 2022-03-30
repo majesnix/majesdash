@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { JsonEditorModule } from './json-editor/json-editor.module';
 import { MainViewComponent } from './main-view/main-view.component';
 import { MainViewModule } from './main-view/main-view.module';
@@ -20,7 +19,6 @@ import { WeatherModule } from './weather/weather.module';
     SettingsModule,
     AuthModule,
     LayoutModule,
-    DashboardModule,
     MainViewModule,
     UserModule,
     ProfileModule,
