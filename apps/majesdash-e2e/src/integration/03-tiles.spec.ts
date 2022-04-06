@@ -25,8 +25,10 @@ describe('Tiles', () => {
     cy.get('input[formcontrolname="url"]').type('https://google.de');
     cy.get('.input-file').attachFile('tileicon.png');
     cy.get('button[data-cy="tile-create-or-update"]').click();
-    cy.get('majesdash-tile').eq(1).should('contain', 'testtile2');
-    cy.get('majesdash-tile').eq(1).find('img').should('be.visible');
+    cy.contains('testtile2')
+      .parentsUntil('.box')
+      .find('img')
+      .should('be.visible');
   });
 
   it('should update the first tile', () => {
