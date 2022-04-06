@@ -5,7 +5,10 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AdminAuthMiddleware } from '../admin-auth.middleware';
 import { AuthMiddleware } from '../auth.middleware';
+import { SystemSettingsEntity } from '../system-settings/system-settings.entity';
+import { SystemSettingsService } from '../system-settings/system-settings.service';
 import { TagEntity } from '../tag/tag.entity';
 import { UserEntity } from '../user/user.entity';
 import { UserModule } from '../user/user.module';
@@ -15,10 +18,15 @@ import { TileService } from './tile.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([TileEntity, UserEntity, TagEntity]),
+    TypeOrmModule.forFeature([
+      TileEntity,
+      UserEntity,
+      TagEntity,
+      SystemSettingsEntity,
+    ]),
     UserModule,
   ],
-  providers: [TileService],
+  providers: [TileService, SystemSettingsService],
   controllers: [TileController],
 })
 export class TileModule implements NestModule {
@@ -30,5 +38,8 @@ export class TileModule implements NestModule {
         { path: 'tiles', method: RequestMethod.DELETE },
         { path: 'tiles', method: RequestMethod.PUT }
       );
+    consumer
+      .apply(AdminAuthMiddleware)
+      .forRoutes({ path: 'tiles/all', method: RequestMethod.GET });
   }
 }

@@ -1,0 +1,21 @@
+.box {
+  background-color: rgb(51, 55, 58);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 150%;
+  width: 200px;
+  height: 64px;
+  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.box:hover {
+  transform: scale(1.05);
+}
+
+img {
+  margin-right: 24px;
+  height: 64px;
+}

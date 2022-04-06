@@ -1,0 +1,12 @@
+<div
+  class="box"
+  [style.background-color]="'#' + tag.color"
+  style="filter: brightness(85%)"
+  routerLink="/tags/{{ tag.id }}"
+>
+  <img
+    *ngIf="tag.icon"
+    src="{{ window.location.origin + '/images/tags/' + tag.icon }}"
+  />
+  <div>{{ tag.name }}</div>
+</div>

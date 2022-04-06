@@ -97,7 +97,7 @@ describe('Admin user list', () => {
     });
   });
 
-  it('should navigate to user list screen and delete a user directly from user-list', () => {
+  it('should delete a user directly from user-list', () => {
     cy.get('[data-cy="user-list-delete"]').click();
     cy.get('[data-cy="user-list"]').find('tr').should('have.length', 2);
     cy.get('[data-cy="user-list"]').should('contain', 'testuser');

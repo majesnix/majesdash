@@ -15,6 +15,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { ITile } from '@majesdash/data';
+import { TagService } from '../../../tag/services/tag.service';
 import { TileService } from '../../services/tile.service';
 
 @Component({
@@ -30,12 +31,14 @@ export class TileFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public color: ThemePalette = 'primary';
   createTileForm!: FormGroup;
+  tags$ = this.tagService.tags$;
 
   constructor(
     public window: Window,
     private cdRef: ChangeDetectorRef,
     private fb: FormBuilder,
-    private tileService: TileService
+    private tileService: TileService,
+    private tagService: TagService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +49,7 @@ export class TileFormComponent implements OnInit, AfterViewInit, OnDestroy {
       color: [this.tile?.color ?? ''],
       icon: [undefined, [MaxSizeValidator(16 * 2 ** 20)]],
       settings: [this.tile?.config ?? {}],
+      tag: [this.tile?.tag ?? ''],
     });
   }
 
@@ -63,6 +67,7 @@ export class TileFormComponent implements OnInit, AfterViewInit, OnDestroy {
       url: this.createTileForm.value.url,
       color: this.createTileForm.value.color.hex,
       icon: this.createTileForm.value.icon,
+      tag: this.createTileForm.value.tag,
     });
   }
 
@@ -75,6 +80,7 @@ export class TileFormComponent implements OnInit, AfterViewInit, OnDestroy {
       color: this.createTileForm.value.color.hex,
       url: this.createTileForm.value.url,
       icon: this.createTileForm.value.icon,
+      tag: this.createTileForm.value.tag,
     });
   }
 

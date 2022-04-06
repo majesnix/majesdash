@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { unlink } from 'fs-extra';
-import { DeleteResult, getRepository, Repository } from 'typeorm';
+import { DeleteResult, IsNull, Repository } from 'typeorm';
 import { TagEntity } from '../tag/tag.entity';
 import { TileDto } from './dto';
 import { TileEntity } from './tile.entity';
@@ -15,17 +15,15 @@ export class TileService {
     private readonly tagRepository: Repository<TagEntity>
   ) {}
 
-  async findAll(tags?: string[]): Promise<TileEntity[]> {
-    const qb = getRepository(TileEntity).createQueryBuilder('tile');
+  async findAll(tag?: string): Promise<TileEntity[]> {
+    return await this.tileRepository.find({
+      where: {
+        tag: tag ?? IsNull(),
+      },
+    });
+  }
 
-    qb.where('1 = 1');
-
-    if (tags) {
-      qb.andWhere('tile.tags LIKE :tag', { tag: `%${tags}%` });
-    }
-
-    qb.orderBy('tile.created', 'DESC');
-
+  async findAllAdmin(): Promise<TileEntity[]> {
     return await this.tileRepository.find();
   }
 
@@ -34,9 +32,9 @@ export class TileService {
   }
 
   async create(tileDto: TileDto, filename?: string): Promise<TileEntity> {
-    let tags;
-    if (tileDto.tags?.length) {
-      tags = await this.tagRepository.find({ where: tileDto.tags });
+    let tag: TagEntity | undefined;
+    if (tileDto.tag) {
+      tag = await this.tagRepository.findOne({ where: { id: tileDto.tag } });
     }
 
     const tile = new TileEntity();
@@ -46,10 +44,22 @@ export class TileService {
     tile.icon = filename;
     tile.url = tileDto.url;
     tile.order = 0;
-    tile.tags = tags ?? [];
+    tile.tag = tag ?? undefined;
     tile.config = JSON.stringify(tileDto.config) ?? '{}';
 
-    return await this.tileRepository.save(tile);
+    const tileEntity = await this.tileRepository.save(tile);
+
+    if (tag) {
+      if (tag.tiles) {
+        tag.tiles = [...tag.tiles, tileEntity];
+      } else {
+        tag.tiles = [tileEntity];
+      }
+
+      await this.tagRepository.save(tag);
+    }
+
+    return tileEntity;
   }
 
   async update(id: number, tileDto: TileDto): Promise<TileEntity> {

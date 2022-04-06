@@ -61,14 +61,17 @@ export interface ITile {
   type?: string;
   color?: string;
   icon?: string;
-  tags?: ITag[];
+  tag?: number;
   order?: number;
   config?: string;
 }
 
 export interface ITag {
-  id: string;
+  id: number;
   name: string;
+  color?: string;
+  icon?: string;
+  order?: number;
 }
 
 export interface ICreateUserDto {
@@ -145,4 +148,9 @@ export interface OpenWeatherResponse {
   id: number;
   name: string;
   cod: number;
+}
+
+export interface IGetTileParams {
+  admin?: boolean;
+  tag?: number;
 }

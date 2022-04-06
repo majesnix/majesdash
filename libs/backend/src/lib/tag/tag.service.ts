@@ -19,9 +19,11 @@ export class TagService {
     return await this.tagRepository.findOne(id);
   }
 
-  async create(tagData: CreateTagDto): Promise<TagEntity> {
+  async create(tagData: CreateTagDto, filename?: string): Promise<TagEntity> {
     const tag = new TagEntity();
     tag.name = tagData.name;
+    tag.icon = filename;
+    tag.color = tagData.color;
 
     return await this.tagRepository.save(tag);
   }

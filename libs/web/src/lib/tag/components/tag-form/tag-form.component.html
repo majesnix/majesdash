@@ -1,0 +1,74 @@
+<mat-card style="padding: 24px">
+  <mat-card-title>Create Tag</mat-card-title>
+  <mat-card-content>
+    <form
+      [formGroup]="createTagForm"
+      fxLayout="column"
+      fxLayoutAlign="center none"
+      style="padding: 16px; width: 320px"
+    >
+      <mat-form-field style="margin-bottom: 8px">
+        <input matInput formControlName="name" #tagName />
+        <mat-label>Name</mat-label>
+        <mat-error>
+          <span
+            *ngIf="
+              createTagForm.get('name')!.hasError('required') &&
+              createTagForm.touched
+            "
+            >Required Field</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field
+        [ngStyle]="{ 'margin-bottom': tag?.icon ? undefined : '8px' }"
+      >
+        <ngx-mat-file-input
+          accept=".png,.jpg,.jpeg"
+          formControlName="icon"
+          placeholder="Select Tag Icon"
+          data-cy="tag-create-or-update"
+        >
+          <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+        </ngx-mat-file-input>
+        <mat-error
+          *ngIf="createTagForm.get('icon')?.hasError('maxContentSize')"
+        >
+          The total size must not exceed
+          {{
+            createTagForm.get('icon')?.getError('maxContentSize').maxSize
+              | byteFormat
+          }}
+          ({{
+            createTagForm.get('icon')?.getError('maxContentSize').actualSize
+              | byteFormat
+          }}).
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          [ngxMatColorPicker]="picker"
+          formControlName="color"
+          placeholder="color"
+        />
+        <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+        <ngx-mat-color-picker #picker [color]="color"></ngx-mat-color-picker>
+      </mat-form-field>
+      <div *ngIf="tag?.icon">Current Icon</div>
+      <img
+        src="{{ window.location.origin + '/images/tags/' + tag?.icon }}"
+        style="height: 42px; width: 42px; margin-bottom: 8px"
+        *ngIf="tag?.icon"
+      />
+    </form>
+    <button
+      mat-raised-button
+      (click)="tag ? updateTag() : addTag()"
+      [disabled]="createTagForm.invalid"
+      data-cy="tag-create-or-update"
+    >
+      {{ tag ? 'Update' : 'Add' }}
+    </button>
+  </mat-card-content>
+</mat-card>

@@ -19,7 +19,9 @@ export class TileListComponent {
     private tileService: TileService,
     private userService: UserService,
     public window: Window
-  ) {}
+  ) {
+    this.tileService.getTiles({ admin: true });
+  }
 
   editTile(id: number) {
     this.tileService.selectTile(id);

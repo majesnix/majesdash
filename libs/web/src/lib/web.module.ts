@@ -10,6 +10,7 @@ import { MainViewModule } from './main-view/main-view.module';
 import { ProfileModule } from './profile/profile.module';
 import { SettingsModule } from './settings/settings.module';
 import { SetupModule } from './setup/setup.module';
+import { TagModule } from './tag/tag.module';
 import { TileModule } from './tiles/tile.module';
 import { UserModule } from './user/user.module';
 import { WeatherModule } from './weather/weather.module';
@@ -25,6 +26,7 @@ import { WeatherModule } from './weather/weather.module';
     UserModule,
     ProfileModule,
     TileModule,
+    TagModule,
     JsonEditorModule,
     SetupModule,
     WeatherModule,
