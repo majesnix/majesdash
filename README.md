@@ -11,11 +11,10 @@
 
 ![demo](./.github/demo.png)
 
-
 Todo:
 
 - Smart tiles (stats/online check)
-- Tags (tile grouping)
+- ~~Tags (tile grouping)~~
 
 ## Build
 
