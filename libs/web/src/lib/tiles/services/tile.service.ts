@@ -82,6 +82,7 @@ export class TileService {
     tile.icon && formData.append('icon', tile.icon);
     tile.color && formData.append('color', tile.color);
     tile.order && formData.append('order', tile.order.toString());
+    tile.tag && formData.append('tag', tile.tag.toString());
 
     return this.httpClient
       .put<ITile>(

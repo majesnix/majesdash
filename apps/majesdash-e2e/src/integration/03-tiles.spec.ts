@@ -35,8 +35,10 @@ describe('Tiles', () => {
     cy.get('input[formcontrolname="url"]').clear().type('https://test.de');
     cy.get('.input-file').attachFile('tileicon.png');
     cy.get('button[data-cy="tile-create-or-update"]').click();
-    cy.get('majesdash-tile').eq(0).should('contain', 'testtileUpdate');
-    cy.get('majesdash-tile').eq(0).find('img').should('be.visible');
+    cy.contains('testtileUpdate')
+      .parentsUntil('.box')
+      .find('img')
+      .should('be.visible');
   });
 
   it('should delete the first tile', () => {

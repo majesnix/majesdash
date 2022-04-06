@@ -18,7 +18,7 @@ export class TileService {
   async findAll(tag?: string): Promise<TileEntity[]> {
     return await this.tileRepository.find({
       where: {
-        tag: tag ?? IsNull(),
+        tagId: tag ?? IsNull(),
       },
     });
   }
@@ -65,6 +65,18 @@ export class TileService {
   async update(id: number, tileDto: TileDto): Promise<TileEntity> {
     const toUpdate = await this.tileRepository.findOne(id);
 
+    let tag: TagEntity | undefined;
+    if (tileDto.tag) {
+      tag = await this.tagRepository.findOne({
+        where: { id: parseInt(tileDto.tag) },
+      });
+    }
+    if (tileDto.tagId) {
+      tag = await this.tagRepository.findOne({
+        where: { id: parseInt(tileDto.tagId) },
+      });
+    }
+
     if (!toUpdate)
       new HttpException({ message: 'Tile not found' }, HttpStatus.NOT_FOUND);
 
@@ -73,9 +85,16 @@ export class TileService {
       await unlink(`./config/web/images/tiles/${toUpdate.icon}`);
     }
 
-    const updated = Object.assign(toUpdate, tileDto);
+    toUpdate.title = tileDto.title;
+    toUpdate.type = tileDto.type;
+    toUpdate.color = tileDto.color;
+    toUpdate.icon = tileDto.icon;
+    toUpdate.url = tileDto.url;
+    toUpdate.order = tileDto.order ?? 0;
+    toUpdate.tag = tag ?? null;
+    toUpdate.config = JSON.stringify(tileDto.config) ?? '{}';
 
-    return await this.tileRepository.save(updated);
+    return await this.tileRepository.save(toUpdate);
   }
 
   async delete(id: number): Promise<DeleteResult> {

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
-import { CreateTagDto } from './dto/create-tag.dto';
+import { TagDto } from './dto/tag.dto';
 import { TagEntity } from './tag.entity';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class TagService {
     return await this.tagRepository.findOne(id);
   }
 
-  async create(tagData: CreateTagDto, filename?: string): Promise<TagEntity> {
+  async create(tagData: TagDto, filename?: string): Promise<TagEntity> {
     const tag = new TagEntity();
     tag.name = tagData.name;
     tag.icon = filename;
@@ -28,7 +28,7 @@ export class TagService {
     return await this.tagRepository.save(tag);
   }
 
-  async update(id: number, tagData: CreateTagDto): Promise<TagEntity> {
+  async update(id: number, tagData: TagDto): Promise<TagEntity> {
     const toUpdate = await this.tagRepository.findOne(id);
     const updated = Object.assign(toUpdate, tagData);
     return await this.tagRepository.save(updated);

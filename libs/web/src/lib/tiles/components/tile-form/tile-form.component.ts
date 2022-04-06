@@ -49,7 +49,7 @@ export class TileFormComponent implements OnInit, AfterViewInit, OnDestroy {
       color: [this.tile?.color ?? ''],
       icon: [undefined, [MaxSizeValidator(16 * 2 ** 20)]],
       settings: [this.tile?.config ?? {}],
-      tag: [this.tile?.tag ?? ''],
+      tag: [this.tile?.tagId ?? 0],
     });
   }
 
@@ -67,7 +67,10 @@ export class TileFormComponent implements OnInit, AfterViewInit, OnDestroy {
       url: this.createTileForm.value.url,
       color: this.createTileForm.value.color.hex,
       icon: this.createTileForm.value.icon,
-      tag: this.createTileForm.value.tag,
+      tag:
+        this.createTileForm.value.tag === 0
+          ? undefined
+          : this.createTileForm.value.tag,
     });
   }
 
@@ -80,7 +83,10 @@ export class TileFormComponent implements OnInit, AfterViewInit, OnDestroy {
       color: this.createTileForm.value.color.hex,
       url: this.createTileForm.value.url,
       icon: this.createTileForm.value.icon,
-      tag: this.createTileForm.value.tag,
+      tag:
+        this.createTileForm.value.tag === 0
+          ? undefined
+          : this.createTileForm.value.tag,
     });
   }
 

@@ -61,7 +61,8 @@ export interface ITile {
   type?: string;
   color?: string;
   icon?: string;
-  tag?: number;
+  tag?: string;
+  tagId?: string;
   order?: number;
   config?: string;
 }
@@ -152,5 +153,5 @@ export interface OpenWeatherResponse {
 
 export interface IGetTileParams {
   admin?: boolean;
-  tag?: number;
+  tag?: number | string;
 }

@@ -1,1 +1,1 @@
-export { CreateTagDto } from './create-tag.dto';
+export { TagDto } from './tag.dto';

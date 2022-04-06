@@ -97,6 +97,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Tag</mat-label>
         <mat-select formControlName="tag">
+          <mat-option [value]="0">None</mat-option>
           <mat-option *ngFor="let tag of tags$ | async" [value]="tag.id">
             {{ tag.name }}
           </mat-option>

@@ -22,7 +22,9 @@ export class GridComponent {
     private tileService: TileService
   ) {
     if (window.location.href !== window.location.origin + '/') {
-      this.tileService.getTiles({ tag: 1 });
+      this.tileService.getTiles({
+        tag: window.location.pathname.split('/')[2],
+      });
       this.tagService.clear();
     } else {
       this.tileService.getTiles();

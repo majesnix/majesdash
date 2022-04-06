@@ -112,4 +112,8 @@ export class TagService {
   clear() {
     this.tagsSubject$.next([]);
   }
+
+  getTagName(id: number) {
+    return this.tagsSubject$.value.find((tag) => tag.id === id)?.name;
+  }
 }
