@@ -54,6 +54,16 @@
         <span>Tiles</span>
       </button>
       <button
+        *ngIf="(user$ | async)?.isAdmin"
+        mat-menu-item
+        class="menu-item"
+        [routerLink]="['/tags']"
+        routerLinkActive="router-link-active"
+      >
+        <mat-icon>grid_view</mat-icon>
+        <span>Tags</span>
+      </button>
+      <button
         mat-menu-item
         class="menu-item"
         [routerLink]="['/profile']"

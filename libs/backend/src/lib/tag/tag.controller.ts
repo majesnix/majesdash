@@ -6,9 +6,22 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { CreateTagDto } from './dto/create-tag.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import {
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiNotFoundResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { access, mkdir } from 'fs-extra';
+import { diskStorage } from 'multer';
+import { nanoid } from 'nanoid';
+import { extname } from 'path';
+import { CustomRequest } from '../admin-auth.middleware';
+import { TagDto } from './dto';
 import { TagEntity } from './tag.entity';
 import { TagService } from './tag.service';
 
@@ -29,14 +42,64 @@ export class TagController {
 
   @Post()
   @ApiBearerAuth('Bearer')
-  async create(@Body() tagData: CreateTagDto) {
-    return this.tagService.create(tagData);
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(
+    FileInterceptor('icon', {
+      storage: diskStorage({
+        destination: async (req: CustomRequest, file, cb) => {
+          try {
+            await access(`./config/web/images/tags/`);
+          } catch (error) {
+            await mkdir(`./config/web/images/tags/`, {
+              recursive: true,
+            });
+          }
+
+          return cb(null, `./config/web/images/tags/`);
+        },
+        filename: (req, file, cb) => {
+          return cb(null, `${nanoid()}${extname(file.originalname)}`);
+        },
+      }),
+    })
+  )
+  async create(@UploadedFile() file: Express.Multer.File, @Body() tag: TagDto) {
+    return this.tagService.create(tag, file?.filename);
   }
 
   @Put(':id')
   @ApiBearerAuth('Bearer')
-  async update(@Param('id') id: number, @Body() tileData: CreateTagDto) {
-    return this.tagService.update(id, tileData);
+  @ApiConsumes('multipart/form-data')
+  @ApiNotFoundResponse({ description: 'Tag not found' })
+  @UseInterceptors(
+    FileInterceptor('icon', {
+      storage: diskStorage({
+        destination: async (req: CustomRequest, file, cb) => {
+          try {
+            await access(`./config/web/images/tags/`);
+          } catch (error) {
+            await mkdir(`./config/web/images/tags/`, {
+              recursive: true,
+            });
+          }
+
+          return cb(null, `./config/web/images/tags/`);
+        },
+        filename: (req, file, cb) => {
+          return cb(null, `${nanoid()}${extname(file.originalname)}`);
+        },
+      }),
+    })
+  )
+  async update(
+    @Param('id') id: number,
+    @Body() tag: TagDto,
+    @UploadedFile() file?: Express.Multer.File
+  ) {
+    return this.tagService.update(id, {
+      ...tag,
+      icon: file?.filename,
+    });
   }
 
   @Delete(':id')

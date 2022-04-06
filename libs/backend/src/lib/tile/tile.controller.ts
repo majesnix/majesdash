@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -31,9 +32,16 @@ import { TileService } from './tile.service';
 export class TileController {
   constructor(private readonly tileService: TileService) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get()
-  async findAll(@Query() tags: string[]): Promise<TileEntity[]> {
-    return await this.tileService.findAll(tags);
+  async findAll(@Query('tag') tag: string | undefined): Promise<TileEntity[]> {
+    return await this.tileService.findAll(tag);
+  }
+
+  @Get('all')
+  @ApiBearerAuth('Bearer')
+  async adminFindAll(): Promise<TileEntity[]> {
+    return await this.tileService.findAllAdmin();
   }
 
   @Get(':id')
@@ -41,6 +49,7 @@ export class TileController {
     return await this.tileService.findOne(id);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post()
   @ApiBearerAuth('Bearer')
   @ApiConsumes('multipart/form-data')

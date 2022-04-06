@@ -1,11 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Exclude } from 'class-transformer';
 import { IsUrl } from 'class-validator';
 import {
   Column,
+  CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { TagEntity } from '../tag/tag.entity';
 
@@ -40,12 +43,22 @@ export class TileEntity {
   @ApiProperty()
   order?: number;
 
-  @ManyToMany(() => TagEntity, { cascade: true })
-  @JoinTable()
+  @ManyToOne(() => TagEntity, (tag) => tag.tiles)
+  @JoinColumn({ name: 'tagId' })
+  @Exclude()
+  tag?: TagEntity;
+
+  @Column({ type: 'int', nullable: true })
   @ApiProperty()
-  tags!: TagEntity[];
+  tagId?: number;
 
   @Column()
   @ApiProperty()
   config!: string;
+
+  @CreateDateColumn({ name: 'created_at', select: false, update: false })
+  created_at!: Date;
+
+  @UpdateDateColumn({ name: 'updated_at', select: false })
+  updated_at!: Date;
 }

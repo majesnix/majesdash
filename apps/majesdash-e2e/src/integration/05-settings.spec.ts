@@ -41,7 +41,9 @@ describe('Admin Settings', () => {
     cy.get('[data-cy="system-weatherWidget-apiKey-input"]').type('abc');
     cy.get('[data-cy="system-weatherWidget-town-input"]').type('london,gb');
     cy.get('button[data-cy="save-system-settings-button"]').click();
-    cy.reload().get('mat-slide-toggle input').should('be.checked');
+    cy.visit('/');
+    cy.visit('/settings');
+    cy.get('mat-slide-toggle input').should('be.checked');
     cy.get('[data-cy="system-weatherWidget-apiKey-input"]').should(
       'have.value',
       'abc'

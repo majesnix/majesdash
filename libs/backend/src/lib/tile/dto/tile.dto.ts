@@ -1,4 +1,4 @@
-import { ITile, ITag } from '@majesdash/data';
+import { ITile } from '@majesdash/data';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsUrl } from 'class-validator';
 
@@ -14,7 +14,9 @@ export class TileDto implements Omit<ITile, 'id'> {
   @ApiProperty()
   readonly url!: string;
   @ApiProperty({ required: false })
-  readonly tags?: ITag[];
+  readonly tag?: string;
+  @ApiProperty({ required: false })
+  readonly tagId?: string;
   @ApiProperty({ required: false })
   readonly config?: string;
   @ApiProperty({ required: false })

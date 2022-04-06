@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { ITile, IUserSettings } from '@majesdash/data';
+import { ITag, ITile, IUserSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../../../settings/services/settings.service';
+import { TagService } from '../../../tag/services/tag.service';
 import { TileService } from '../../../tiles/services/tile.service';
 
 @Component({
@@ -11,10 +12,33 @@ import { TileService } from '../../../tiles/services/tile.service';
 })
 export class GridComponent {
   tiles$: Observable<ITile[]> = this.tileService.tiles$;
+  tags$: Observable<ITag[]> = this.tagService.tags$;
   userSettings$: Observable<IUserSettings> = this.settingsService.userSettings$;
 
   constructor(
+    private window: Window,
     private settingsService: SettingsService,
+    private tagService: TagService,
     private tileService: TileService
-  ) {}
+  ) {
+    if (window.location.href !== window.location.origin + '/') {
+      this.tileService.getTiles({
+        tag: window.location.pathname.split('/')[2],
+      });
+      this.tagService.clear();
+    } else {
+      this.tileService.getTiles();
+      this.tagService.getTags();
+    }
+  }
+
+  drop(event: any) {
+    //event.stopPropagation();
+    console.log('DROP', event);
+    this.tileService.moveTile(event.previousIndex, event.currentIndex);
+  }
+
+  disableClick() {
+    console.log('START');
+  }
 }

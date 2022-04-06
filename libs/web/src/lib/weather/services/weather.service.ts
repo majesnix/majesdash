@@ -22,6 +22,15 @@ export class WeatherService {
           )
         )
       )
-      .subscribe((weather) => this.weatherSubject$.next(weather));
+      .subscribe({
+        next: (weather) => {
+          if (weather.cod === 401) {
+            console.error('invalid api key');
+          } else {
+            this.weatherSubject$.next(weather);
+          }
+        },
+        error: (err) => console.error('invalid api key', err),
+      });
   }
 }
