@@ -1,4 +1,4 @@
-export { AdminUserUpdateDto } from './admin-user-update.dto';
+export { AdminUpdateUserDto } from './admin-update-user.dto';
 export { CreateUserDto } from './create-user.dto';
 export { LoginUserDto } from './login-user.dto';
 export { UpdateUserDto } from './update-user.dto';

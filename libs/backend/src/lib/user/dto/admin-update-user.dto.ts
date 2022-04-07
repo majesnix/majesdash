@@ -1,7 +1,7 @@
 import { IUserUpdateAdmin } from '@majesdash/data';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class AdminUserUpdateDto implements IUserUpdateAdmin {
+export class AdminUpdateUserDto implements IUserUpdateAdmin {
   @ApiProperty({ required: true })
   id!: number;
   @ApiProperty({ required: false })

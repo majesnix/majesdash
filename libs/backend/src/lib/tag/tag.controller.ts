@@ -93,11 +93,11 @@ export class TagController {
   )
   async update(
     @Param('id') id: number,
-    @Body() tag: TagDto,
+    @Body() tagDto: TagDto,
     @UploadedFile() file?: Express.Multer.File
   ) {
     return this.tagService.update(id, {
-      ...tag,
+      ...tagDto,
       icon: file?.filename,
     });
   }

@@ -15,7 +15,7 @@ import { DeleteResult, getRepository, Repository } from 'typeorm';
 import { SystemSettingsEntity } from '../system-settings/system-settings.entity';
 import { UserSettingsEntity } from '../user-settings/user-settings.entity';
 import {
-  AdminUserUpdateDto,
+  AdminUpdateUserDto,
   CreateUserDto,
   LoginUserDto,
   UpdateUserDto,
@@ -143,7 +143,7 @@ export class UserService {
     return await this.userRepository.save(user);
   }
 
-  async updateAsAdmin(dto: AdminUserUpdateDto): Promise<UserEntity> {
+  async updateAsAdmin(dto: AdminUpdateUserDto): Promise<UserEntity> {
     const user = await this.userRepository.findOne(dto.id);
 
     if (!user)

@@ -19,18 +19,18 @@ export class TagService {
     return await this.tagRepository.findOne(id);
   }
 
-  async create(tagData: TagDto, filename?: string): Promise<TagEntity> {
+  async create(tagDto: TagDto, filename?: string): Promise<TagEntity> {
     const tag = new TagEntity();
-    tag.name = tagData.name;
+    tag.name = tagDto.name;
     tag.icon = filename;
-    tag.color = tagData.color;
+    tag.color = tagDto.color;
 
     return await this.tagRepository.save(tag);
   }
 
-  async update(id: number, tagData: TagDto): Promise<TagEntity> {
+  async update(id: number, tagDto: TagDto): Promise<TagEntity> {
     const toUpdate = await this.tagRepository.findOne(id);
-    const updated = Object.assign(toUpdate, tagData);
+    const updated = Object.assign(toUpdate, tagDto);
     return await this.tagRepository.save(updated);
   }
 

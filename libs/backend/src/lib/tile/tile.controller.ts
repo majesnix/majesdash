@@ -75,9 +75,9 @@ export class TileController {
   )
   async create(
     @UploadedFile() file: Express.Multer.File,
-    @Body() tile: TileDto
+    @Body() tileDto: TileDto
   ): Promise<TileEntity> {
-    return this.tileService.create(tile, file?.filename);
+    return this.tileService.create(tileDto, file?.filename);
   }
 
   @Put(':id')

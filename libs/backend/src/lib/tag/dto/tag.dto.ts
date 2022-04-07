@@ -7,9 +7,8 @@ export class TagDto implements Omit<ITag, 'id'> {
   @ApiProperty({ required: true })
   readonly name: string;
 
-  @IsNotEmpty()
   @ApiProperty({ required: false })
-  readonly color: string;
+  readonly color?: string;
 
   @ApiProperty({ type: 'file', required: false })
   readonly icon?: any;

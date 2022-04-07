@@ -28,8 +28,7 @@ export class UserSettingsController {
   async findUserSettings(
     @Request() req: CustomRequest
   ): Promise<UserSettingsEntity> {
-    const settings = await this.userSettingsService.findOne(req.user.id);
-    return settings;
+    return await this.userSettingsService.findOne(req.user.id);
   }
 
   @Post()
@@ -59,12 +58,12 @@ export class UserSettingsController {
   )
   async updateSettings(
     @Request() req: CustomRequest,
-    @Body() userSettings: UserSettingsDto,
+    @Body() userSettingsDto: UserSettingsDto,
     @UploadedFile() file?: Express.Multer.File
   ) {
     return await this.userSettingsService.createOrUpdate(
       req.user.id,
-      userSettings,
+      userSettingsDto,
       file?.filename
     );
   }

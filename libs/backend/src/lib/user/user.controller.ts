@@ -21,7 +21,7 @@ import { nanoid } from 'nanoid';
 import { extname } from 'path';
 import { CustomRequest } from '../auth.middleware';
 import {
-  AdminUserUpdateDto,
+  AdminUpdateUserDto,
   CreateUserDto,
   LoginUserDto,
   UpdateUserDto,
@@ -69,9 +69,9 @@ export class UserController {
   async update(
     @UploadedFile() file: Express.Multer.File,
     @User('id') userId: number,
-    @Body() userData: UpdateUserDto
+    @Body() userDto: UpdateUserDto
   ) {
-    return await this.userService.update(userId, userData, file?.filename);
+    return await this.userService.update(userId, userDto, file?.filename);
   }
 
   @Get('users')
@@ -89,8 +89,8 @@ export class UserController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Put('users')
   @ApiBearerAuth('Bearer')
-  async updateUser(@Body() userData: AdminUserUpdateDto) {
-    return await this.userService.updateAsAdmin(userData);
+  async updateUser(@Body() userDto: AdminUpdateUserDto) {
+    return await this.userService.updateAsAdmin(userDto);
   }
 
   @Put('users/resetPassword')
