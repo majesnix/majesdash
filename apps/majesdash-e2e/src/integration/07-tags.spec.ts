@@ -23,10 +23,9 @@ describe('Tags', () => {
     cy.get('input[formcontrolname="name"]').type('testtag2');
     cy.get('.input-file').attachFile('tileicon.png');
     cy.get('button[data-cy="tag-create-or-update"]').click();
-    cy.contains('testtag2')
-      .parentsUntil('majesdash-tag')
-      .find('img')
-      .should('be.visible');
+    cy.get('.box')
+      .filter(':contains("testtag2")')
+      .should('contain.html', 'img');
   });
 
   it('should update the first tag', () => {
@@ -34,10 +33,9 @@ describe('Tags', () => {
     cy.get('input[formcontrolname="name"]').clear().type('testtagUpdate');
     cy.get('.input-file').attachFile('tileicon.png');
     cy.get('button[data-cy="tag-create-or-update"]').click();
-    cy.contains('testtagUpdate')
-      .parentsUntil('majesdash-tag')
-      .find('img')
-      .should('be.visible');
+    cy.get('.box')
+      .filter(':contains("testtagUpdate")')
+      .should('contain.html', 'img');
   });
 
   it('should assign a tag to a tile', () => {
@@ -46,9 +44,7 @@ describe('Tags', () => {
     cy.get('[formcontrolname="tag"]').click();
     cy.contains('testtagUpdate').click();
     cy.get('button[data-cy="tile-create-or-update"]').click();
-    cy.contains('testtagUpdate')
-      .parentsUntil('majesdash-tag')
-      .click({ force: true });
+    cy.get('.box').filter(':contains("testtagUpdate")').click({ force: true });
     cy.contains('testtile2');
   });
 
@@ -66,10 +62,9 @@ describe('Tags', () => {
     cy.get('button[color=red]').eq(1).click();
     cy.visit('/');
     cy.get('majesdash-tag').should('have.length', 1);
-    cy.contains('testtagUpdate')
-      .parentsUntil('majesdash-tag')
-      .find('img')
-      .should('be.visible');
+    cy.get('.box')
+      .filter(':contains("testtagUpdate")')
+      .should('contain.html', 'img');
   });
 
   it('should not be able to navigate to tags, when not logged in', () => {

@@ -25,10 +25,9 @@ describe('Tiles', () => {
     cy.get('input[formcontrolname="url"]').type('https://google.de');
     cy.get('.input-file').attachFile('tileicon.png');
     cy.get('button[data-cy="tile-create-or-update"]').click();
-    cy.contains('testtile2')
-      .parentsUntil('.box')
-      .find('img')
-      .should('be.visible');
+    cy.get('majesdash-tile')
+      .filter(':contains("testtile2")')
+      .should('contain.html', 'img');
   });
 
   it('should update the first tile', () => {
@@ -37,21 +36,16 @@ describe('Tiles', () => {
     cy.get('input[formcontrolname="url"]').clear().type('https://test.de');
     cy.get('.input-file').attachFile('tileicon.png');
     cy.get('button[data-cy="tile-create-or-update"]').click();
-    cy.contains('testtileUpdate')
-      .parentsUntil('.box')
-      .find('img')
-      .should('be.visible');
+    cy.get('majesdash-tile')
+      .filter(':contains("testtileUpdate")')
+      .should('contain.html', 'img');
   });
 
   it('should delete the first tile', () => {
     cy.get('button[color=red]').eq(0).click();
     cy.visit('/');
     cy.get('majesdash-tile').should('have.length', 1);
-    cy.get('majesdash-tile')
-      .eq(0)
-      .should('contain', 'testtile2')
-      .find('img')
-      .should('be.visible');
+    cy.get('majesdash-tile').eq(0).should('contain', 'testtile2');
   });
 
   it('should not be able to navigate to tiles, when not logged in', () => {
