@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { IGetTileParams, ITile } from '@majesdash/data';
 import { BehaviorSubject, tap } from 'rxjs';
+import { TagService } from '../../tag/services/tag.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +16,20 @@ export class TileService {
     undefined
   );
   readonly selectedTile$ = this.selectedTileSubject$.asObservable();
+  private tagService!: TagService;
 
   constructor(
     private httpClient: HttpClient,
     private window: Window,
-    private router: Router
-  ) {}
+    private router: Router,
+    private injector: Injector
+  ) {
+    setTimeout(() => this.tagService = injector.get(TagService));
+  }
+
+  get tileCount() {
+    return this.tilesSubject$.value.length;
+  }
 
   getTiles({ tag, admin }: IGetTileParams = {}) {
     const queryParamters = tag ? `?tag=${tag}` : ``;
@@ -54,6 +63,10 @@ export class TileService {
 
     formData.append('title', tile.title);
     formData.append('url', tile.url);
+    formData.append(
+      'order',
+      (this.tagService.tagCount + this.tileCount).toString()
+    );
     tile.type && formData.append('type', tile.type);
     tile.icon && formData.append('icon', tile.icon);
     tile.color && formData.append('color', tile.color);

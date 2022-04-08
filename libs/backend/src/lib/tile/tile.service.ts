@@ -43,7 +43,7 @@ export class TileService {
     tile.color = tileDto.color;
     tile.icon = filename;
     tile.url = tileDto.url;
-    tile.order = 0;
+    tile.order = tileDto.order;
     tile.tag = tag ?? undefined;
     tile.config = JSON.stringify(tileDto.config) ?? '{}';
 
@@ -90,7 +90,7 @@ export class TileService {
     toUpdate.color = tileDto.color;
     toUpdate.icon = tileDto.icon;
     toUpdate.url = tileDto.url;
-    toUpdate.order = tileDto.order ?? 0;
+    toUpdate.order = tileDto.order ?? toUpdate.order ?? 0;
     toUpdate.tag = tag ?? null;
     toUpdate.config = JSON.stringify(tileDto.config) ?? '{}';
 
