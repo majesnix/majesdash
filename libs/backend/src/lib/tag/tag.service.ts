@@ -24,6 +24,7 @@ export class TagService {
     tag.name = tagDto.name;
     tag.icon = filename;
     tag.color = tagDto.color;
+    tag.order = tagDto.order;
 
     return await this.tagRepository.save(tag);
   }

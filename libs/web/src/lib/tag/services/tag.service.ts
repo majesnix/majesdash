@@ -36,10 +36,7 @@ export class TagService {
       .get<ITag[]>(`${this.window.location.origin}/api/tags`)
       .pipe(
         tap((tags) => {
-          this.tagsSubject$.next(
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            tags.sort(({ order: a }, { order: b }) => a! - b!)
-          );
+          this.tagsSubject$.next(tags);
         })
       )
       .subscribe();
@@ -70,12 +67,7 @@ export class TagService {
     return this.httpClient
       .post<ITag>(`${this.window.location.origin}/api/tags`, formData)
       .subscribe((tag) => {
-        this.tagsSubject$.next(
-          [...this.tagsSubject$.value, tag].sort(
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            ({ order: a }, { order: b }) => a! - b!
-          )
-        );
+        this.tagsSubject$.next([...this.tagsSubject$.value, tag]);
         this.router.navigate(['/']);
       });
   }

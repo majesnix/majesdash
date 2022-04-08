@@ -12,4 +12,7 @@ export class TagDto implements Omit<ITag, 'id'> {
 
   @ApiProperty({ type: 'file', required: false })
   readonly icon?: any;
+
+  @ApiProperty({ required: false })
+  readonly order?: number;
 }

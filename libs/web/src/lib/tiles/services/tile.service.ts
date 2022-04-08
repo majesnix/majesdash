@@ -24,7 +24,7 @@ export class TileService {
     private router: Router,
     private injector: Injector
   ) {
-    setTimeout(() => this.tagService = injector.get(TagService));
+    setTimeout(() => (this.tagService = injector.get(TagService)));
   }
 
   get tileCount() {
@@ -38,10 +38,7 @@ export class TileService {
       .get<ITile[]>(`${this.window.location.origin}${path}`)
       .pipe(
         tap((tiles) => {
-          this.tilesSubject$.next(
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            tiles?.sort(({ order: a }, { order: b }) => a! - b!) ?? []
-          );
+          this.tilesSubject$.next(tiles ?? []);
         })
       )
       .subscribe();
@@ -76,12 +73,7 @@ export class TileService {
     return this.httpClient
       .post<ITile>(`${this.window.location.origin}/api/tiles`, formData)
       .subscribe((tile) => {
-        this.tilesSubject$.next(
-          [...this.tilesSubject$.value, tile].sort(
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            ({ order: a }, { order: b }) => a! - b!
-          )
-        );
+        this.tilesSubject$.next([...this.tilesSubject$.value, tile]);
         this.router.navigate(['/']);
       });
   }

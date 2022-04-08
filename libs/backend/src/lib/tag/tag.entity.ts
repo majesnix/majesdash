@@ -26,6 +26,10 @@ export class TagEntity {
   @ApiProperty()
   icon?: string;
 
+  @Column({ default: 0 })
+  @ApiProperty()
+  order?: number;
+
   @OneToMany(() => TileEntity, (tile) => tile.tag)
   tiles: TileEntity[];
 
