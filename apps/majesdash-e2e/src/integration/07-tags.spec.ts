@@ -48,6 +48,14 @@ describe('Tags', () => {
     cy.contains('testtile2');
   });
 
+  it('should be able to navigate back with backspace', () => {
+    cy.visit('/');
+    cy.contains('testtagUpdate').click();
+    cy.contains('testtile2');
+    cy.get('.box').trigger('keyup', { key: 'backspace' });
+    cy.contains('testtagUpdate');
+  });
+
   it('should unassign a tag', () => {
     cy.visit('/tiles');
     cy.get('[data-cy="tile-list-edit-button"]').eq(0).click();

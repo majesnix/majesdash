@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, HostListener } from '@angular/core';
 import { ITag, ITile, IUserSettings } from '@majesdash/data';
 import { Observable } from 'rxjs';
 import { SettingsService } from '../../../settings/services/settings.service';
@@ -19,7 +20,8 @@ export class GridComponent {
     private window: Window,
     private settingsService: SettingsService,
     private tagService: TagService,
-    private tileService: TileService
+    private tileService: TileService,
+    private location: Location
   ) {
     if (window.location.href !== window.location.origin + '/') {
       this.tileService.getTiles({
@@ -29,6 +31,12 @@ export class GridComponent {
     } else {
       this.tileService.getTiles();
       this.tagService.getTags();
+    }
+  }
+
+  @HostListener('document:keyup.backspace') navigateBack() {
+    if (window.location.href.includes('tags')) {
+      this.location.back();
     }
   }
 
