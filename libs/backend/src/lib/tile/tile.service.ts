@@ -67,6 +67,13 @@ export class TileService {
       });
     }
 
+    const tiles = await this.tileRepository.find({
+      where: {
+        tagId: tag?.id ?? IsNull(),
+      },
+    });
+    const tags = await this.tagRepository.find();
+
     if (!toUpdate)
       new HttpException({ message: 'Tile not found' }, HttpStatus.NOT_FOUND);
 
@@ -83,6 +90,20 @@ export class TileService {
     toUpdate.order = tileDto.order ?? toUpdate.order ?? 0;
     toUpdate.tag = tag ?? null;
     toUpdate.config = JSON.stringify(tileDto.config) ?? '{}';
+
+    // update order value of other tiles/tags
+    for (const tile of tiles) {
+      if (tile.order >= tileDto.order) {
+        tile.order = tile.order + 1;
+        await this.tileRepository.save(tile);
+      }
+    }
+    for (const tag of tags) {
+      if (tag.order >= tileDto.order) {
+        tag.order = tag.order + 1;
+        await this.tagRepository.save(tag);
+      }
+    }
 
     return await this.tileRepository.save(toUpdate);
   }

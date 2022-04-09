@@ -6,13 +6,14 @@ import {
 } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthMiddleware } from '../auth.middleware';
+import { TileEntity } from '../tile/tile.entity';
 import { UserModule } from '../user/user.module';
 import { TagController } from './tag.controller';
 import { TagEntity } from './tag.entity';
 import { TagService } from './tag.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TagEntity]), UserModule],
+  imports: [TypeOrmModule.forFeature([TagEntity, TileEntity]), UserModule],
   providers: [TagService],
   controllers: [TagController],
   exports: [],

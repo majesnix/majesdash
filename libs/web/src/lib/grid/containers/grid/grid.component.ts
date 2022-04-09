@@ -39,4 +39,14 @@ export class GridComponent {
       this.location.back();
     }
   }
+
+  drop(event: any) {
+    //event.stopPropagation();
+    console.log('DROP', event);
+    //this.tileService.moveTile(event.previousIndex, event.currentIndex);
+  }
+
+  disableClick() {
+    console.log('START');
+  }
 }
