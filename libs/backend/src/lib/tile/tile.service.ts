@@ -49,16 +49,6 @@ export class TileService {
 
     const tileEntity = await this.tileRepository.save(tile);
 
-    if (tag) {
-      if (tag.tiles) {
-        tag.tiles = [...tag.tiles, tileEntity];
-      } else {
-        tag.tiles = [tileEntity];
-      }
-
-      await this.tagRepository.save(tag);
-    }
-
     return tileEntity;
   }
 
