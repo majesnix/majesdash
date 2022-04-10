@@ -1,20 +1,13 @@
-<div
-  class="wrapper"
-  cdkDropList
-  (cdkDropListDropped)="drop($event)"
-  (dragstart)="disableClick()"
->
+<div class="wrapper">
   <majesdash-tile
     *ngFor="let tile of tiles$ | async"
     [target]="(userSettings$ | async)?.tabTarget ?? '_blank'"
     [tile]="tile"
     [ngStyle]="{ order: tile.order }"
-    cdkDrag
   ></majesdash-tile>
   <majesdash-tag
     *ngFor="let tag of tags$ | async"
     [tag]="tag"
     [ngStyle]="{ order: tag.order }"
-    cdkDrag
   ></majesdash-tag>
 </div>
