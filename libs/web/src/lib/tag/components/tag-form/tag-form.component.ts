@@ -51,7 +51,15 @@ export class TagFormComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cdRef.detectChanges();
   }
 
-  @HostListener('document:keydown.enter') addTag() {
+  @HostListener('document:keydown.enter') addOrUpdate() {
+    if (this.tag) {
+      this.updateTag();
+    } else {
+      this.addTag();
+    }
+  }
+
+  addTag() {
     this.tagAddEvent.emit({
       name: this.createTagForm.value.name,
       color: this.createTagForm.value.color.hex,
