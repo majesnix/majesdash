@@ -33,6 +33,7 @@ describe('Tags', () => {
     cy.get('input[formcontrolname="name"]').clear().type('testtagUpdate');
     cy.get('.input-file').attachFile('tileicon.png');
     cy.get('button[data-cy="tag-create-or-update"]').click();
+    cy.visit('/');
     cy.get('.box')
       .filter(':contains("testtagUpdate")')
       .should('contain.html', 'img');
@@ -44,6 +45,7 @@ describe('Tags', () => {
     cy.get('[formcontrolname="tag"]').click();
     cy.contains('testtagUpdate').click();
     cy.get('button[data-cy="tile-create-or-update"]').click();
+    cy.visit('/');
     cy.get('.box').filter(':contains("testtagUpdate")').click({ force: true });
     cy.contains('testtile2');
   });

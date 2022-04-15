@@ -36,6 +36,7 @@ describe('Tiles', () => {
     cy.get('input[formcontrolname="url"]').clear().type('https://test.de');
     cy.get('.input-file').attachFile('tileicon.png');
     cy.get('button[data-cy="tile-create-or-update"]').click();
+    cy.visit("/")
     cy.get('majesdash-tile')
       .filter(':contains("testtileUpdate")')
       .should('contain.html', 'img');
