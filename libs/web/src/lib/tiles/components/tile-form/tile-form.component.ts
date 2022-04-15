@@ -60,7 +60,15 @@ export class TileFormComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cdRef.detectChanges();
   }
 
-  @HostListener('document:keydown.enter') addTile() {
+  @HostListener('document:keydown.enter') addOrUpdate() {
+    if (this.tile) {
+      this.updateTile();
+    } else {
+      this.addTile();
+    }
+  }
+
+  addTile() {
     this.tileAddEvent.emit({
       title: this.createTileForm.value.name,
       type: this.createTileForm.value.type,
