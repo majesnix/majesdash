@@ -86,7 +86,7 @@ export class TagService {
         const index = this.tagsSubject$.value.findIndex((t) => t.id === tag.id);
         this.tagsSubject$.value.splice(index, 1, tag);
         this.selectedTagSubject$.next(undefined);
-        this.router.navigate(['/']);
+        this.router.navigate(['/tags']);
       });
   }
 

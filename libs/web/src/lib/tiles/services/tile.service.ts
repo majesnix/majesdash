@@ -100,7 +100,7 @@ export class TileService {
         );
         this.tilesSubject$.value.splice(index, 1, tile);
         this.selectedTileSubject$.next(undefined);
-        this.router.navigate(['/']);
+        this.router.navigate(['/tiles']);
       });
   }
 
