@@ -23,11 +23,13 @@ export class GridComponent {
     private tileService: TileService,
     private location: Location
   ) {
+    this.tileService.clear();
+    this.tagService.clear();
+
     if (window.location.href !== window.location.origin + '/') {
       this.tileService.getTiles({
         tag: window.location.pathname.split('/')[2],
       });
-      this.tagService.clear();
     } else {
       this.tileService.getTiles();
       this.tagService.getTags();

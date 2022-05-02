@@ -127,4 +127,8 @@ export class TileService {
         );
       });
   }
+
+  clear() {
+    this.tilesSubject$.next([]);
+  }
 }
