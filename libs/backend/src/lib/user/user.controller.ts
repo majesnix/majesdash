@@ -64,6 +64,19 @@ export class UserController {
           return cb(null, `${nanoid(5)}${extname(file.originalname)}`);
         },
       }),
+      fileFilter: (req, file, cb) => {
+        const mimeType = file.mimetype;
+        if (
+          mimeType !== 'image/jpeg' &&
+          mimeType !== 'image/webp' &&
+          mimeType !== 'image/png' &&
+          mimeType !== 'image/svg+xml' &&
+          mimeType !== 'image/gif'
+        ) {
+          return cb(new Error('Only Images are allowed'), false);
+        }
+        return cb(null, true);
+      },
     })
   )
   async update(
