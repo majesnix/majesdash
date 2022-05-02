@@ -13,7 +13,7 @@ jobs:
     name: e2e chrome
     runs-on: ubuntu-latest
     container:
-      image: cypress/browsers:node16.13.2-chrome100-ff98
+      image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
     steps:
       - name: Checkout 🛎
@@ -31,7 +31,7 @@ jobs:
     name: e2e firefox
     runs-on: ubuntu-latest
     container:
-      image: cypress/browsers:node16.13.2-chrome100-ff98
+      image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
     steps:
       - name: Checkout 🛎

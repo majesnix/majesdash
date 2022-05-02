@@ -1,15 +1,15 @@
 module.exports = {
-  displayName: 'backend',
-  preset: '../../jest.preset.js',
+  displayName: 'data',
+
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/backend',
+  coverageDirectory: '../../coverage/libs/data',
+  preset: '../../jest.preset.ts',
 };
