@@ -1,13 +1,13 @@
-import {
-  MatColorFormats,
-  MAT_COLOR_FORMATS,
-  NgxMatColorPickerModule,
-} from '@angular-material-components/color-picker';
-import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import {
+  MatColorFormats,
+  MAT_COLOR_FORMATS,
+  NgxMatColorPickerModule,
+} from '@majesnix/color-picker';
+import { NgxMatFileInputModule } from '@majesnix/file-input';
 import { AdminGuard } from '../auth/guards/admin.guard';
 import { JsonEditorModule } from '../json-editor/json-editor.module';
 import { MaterialModule } from '../material/material.module';

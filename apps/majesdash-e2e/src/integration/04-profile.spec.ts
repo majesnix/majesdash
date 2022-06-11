@@ -12,7 +12,7 @@ describe('Profile', () => {
   });
 
   it('should upload a profile picture', () => {
-    cy.get('.input-file').attachFile('tileicon.png');
+    cy.get('.input-file').selectFile('src/fixtures/tileicon.png', { force: true });
     cy.get('button[data-cy="update-save-button"]').click();
     cy.get('[data-cy="user-avatar"]').should('have.attr', 'src');
   });

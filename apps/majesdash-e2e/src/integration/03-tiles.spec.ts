@@ -23,7 +23,9 @@ describe('Tiles', () => {
     cy.get('button[ng-reflect-router-link="/tiles/create"]').click();
     cy.get('input[formcontrolname="name"]').type('testtile2');
     cy.get('input[formcontrolname="url"]').type('https://google.de');
-    cy.get('.input-file').attachFile('tileicon.png');
+    cy.get('.input-file').selectFile('src/fixtures/tileicon.png', {
+      force: true,
+    });
     cy.get('button[data-cy="tile-create-or-update"]').click();
     cy.get('majesdash-tile')
       .filter(':contains("testtile2")')
@@ -34,9 +36,11 @@ describe('Tiles', () => {
     cy.get('[data-cy="tile-list-edit-button"]').eq(0).click();
     cy.get('input[formcontrolname="name"]').clear().type('testtileUpdate');
     cy.get('input[formcontrolname="url"]').clear().type('https://test.de');
-    cy.get('.input-file').attachFile('tileicon.png');
+    cy.get('.input-file').selectFile('src/fixtures/tileicon.png', {
+      force: true,
+    });
     cy.get('button[data-cy="tile-create-or-update"]').click();
-    cy.visit("/")
+    cy.visit('/');
     cy.get('majesdash-tile')
       .filter(':contains("testtileUpdate")')
       .should('contain.html', 'img');

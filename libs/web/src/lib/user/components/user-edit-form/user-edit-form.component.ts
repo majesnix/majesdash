@@ -15,20 +15,23 @@ import {
 })
 export class UserEditFormComponent implements OnInit {
   @Output() userUpdateEvent = new EventEmitter<IUserUpdateAdmin>();
-  @Output() userPasswordResetEvent = new EventEmitter<IUserResetPasswordAdmin>();
+  @Output() userPasswordResetEvent =
+    new EventEmitter<IUserResetPasswordAdmin>();
   @Output() userDeleteEvent = new EventEmitter<IUserDeleteAdmin>();
   @Output() userDeleteAvatarEvent = new EventEmitter<IUserDeleteAvatarAdmin>();
   @Input() user?: IUser | null;
   hide = true;
 
   userForm = new FormGroup({
-    username: new FormControl(undefined, {
+    username: new FormControl<string | null | undefined>(undefined, {
       validators: [Validators.required],
     }),
     email: new FormControl(this.user?.email ?? undefined, {
       validators: [Validators.required, Validators.email],
     }),
-    isAdmin: new FormControl(this.user?.isAdmin ?? false),
+    isAdmin: new FormControl<boolean | null | undefined>(
+      this.user?.isAdmin ?? false
+    ),
   });
 
   ngOnInit(): void {

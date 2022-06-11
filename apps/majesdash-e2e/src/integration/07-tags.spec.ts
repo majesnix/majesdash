@@ -21,7 +21,7 @@ describe('Tags', () => {
   it('should create a second tag with an icon', () => {
     cy.get('button[ng-reflect-router-link="/tags/create"]').click();
     cy.get('input[formcontrolname="name"]').type('testtag2');
-    cy.get('.input-file').attachFile('tileicon.png');
+    cy.get('.input-file').selectFile('src/fixtures/tileicon.png', { force: true });
     cy.get('button[data-cy="tag-create-or-update"]').click();
     cy.get('.box')
       .filter(':contains("testtag2")')
@@ -31,7 +31,7 @@ describe('Tags', () => {
   it('should update the first tag', () => {
     cy.get('[data-cy="tag-list-edit-button"]').eq(0).click();
     cy.get('input[formcontrolname="name"]').clear().type('testtagUpdate');
-    cy.get('.input-file').attachFile('tileicon.png');
+    cy.get('.input-file').selectFile('src/fixtures/tileicon.png', { force: true });
     cy.get('button[data-cy="tag-create-or-update"]').click();
     cy.visit('/');
     cy.get('.box')

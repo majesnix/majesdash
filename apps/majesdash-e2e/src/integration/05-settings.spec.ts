@@ -13,11 +13,11 @@ describe('Admin Settings', () => {
     cy.get('[data-cy="user-settings-form"]').as('system-settings');
   });
 
-  it('should upload a system background picture', () => {
+  it.only('should upload a system background picture', () => {
     cy.get('@system-settings')
       .get('.input-file')
       .eq(1)
-      .attachFile('system-background.jpg');
+      .selectFile('src/fixtures/system-background.jpg', { force: true });
     cy.get('button[data-cy="save-system-settings-button"]').click();
   });
 
@@ -25,7 +25,7 @@ describe('Admin Settings', () => {
     cy.get('@user-settings')
       .get('.input-file')
       .eq(0)
-      .attachFile('user-background.jpg');
+      .selectFile('src/fixtures/user-background.jpg', { force: true });
     cy.get('button[data-cy="save-user-background-button"]').click();
   });
 

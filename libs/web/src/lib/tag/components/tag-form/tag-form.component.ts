@@ -1,4 +1,3 @@
-import { MaxSizeValidator } from '@angular-material-components/file-input';
 import {
   AfterViewInit,
   ChangeDetectorRef,
@@ -15,6 +14,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { ITag } from '@majesdash/data';
+import { MaxSizeValidator } from '@majesnix/file-input';
 import { TagService } from '../../services/tag.service';
 
 @Component({

@@ -5,9 +5,9 @@ export class AdminUpdateUserDto implements IUserUpdateAdmin {
   @ApiProperty({ required: true })
   id!: number;
   @ApiProperty({ required: false })
-  username?: string;
+  username: string | null | undefined;
   @ApiProperty({ required: false })
-  email?: string;
+  email: string | null | undefined;
   @ApiProperty({ required: false })
-  isAdmin?: boolean;
+  isAdmin: boolean | null | undefined;
 }

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { MaxSizeValidator } from '@angular-material-components/file-input';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ISystemSettings, ISystemSettingsUpdate } from '@majesdash/data';
+import { MaxSizeValidator } from '@majesnix/file-input';
 
 @Component({
   selector: 'majesdash-system-settings-form',
@@ -23,7 +23,7 @@ export class SystemSettingsFormComponent implements OnInit {
       background: [undefined, [MaxSizeValidator(16 * 2 ** 20)]],
       weatherWidget: this.systemSettings.weatherWidget,
       weatherWidgetApiKey: this.systemSettings.weatherWidgetApiKey,
-      weatherWidgetTown: this.systemSettings.weatherWidgetTown
+      weatherWidgetTown: this.systemSettings.weatherWidgetTown,
     });
   }
 
@@ -32,8 +32,7 @@ export class SystemSettingsFormComponent implements OnInit {
       background: this.systemSettingsForm.value.background,
       weatherWidget: this.systemSettingsForm.value.weatherWidget,
       weatherWidgetApiKey: this.systemSettingsForm.value.weatherWidgetApiKey,
-      weatherWidgetTown: this.systemSettingsForm.value.weatherWidgetTown
-
+      weatherWidgetTown: this.systemSettingsForm.value.weatherWidgetTown,
     });
   }
 }

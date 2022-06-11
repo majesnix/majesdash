@@ -1,7 +1,7 @@
-import { MaxSizeValidator } from '@angular-material-components/file-input';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { IUserUpdate } from '@majesdash/data';
+import { MaxSizeValidator } from '@majesnix/file-input';
 
 @Component({
   selector: 'majesdash-profile-form',
@@ -12,9 +12,9 @@ export class ProfileFormComponent {
   @Output() userUpdateEvent = new EventEmitter<IUserUpdate>();
   hide = true;
 
-  profileForm: FormGroup;
+  profileForm: UntypedFormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: UntypedFormBuilder) {
     this.profileForm = this.fb.group({
       avatar: [undefined, [MaxSizeValidator(16 * 2 ** 20)]],
       password: '',

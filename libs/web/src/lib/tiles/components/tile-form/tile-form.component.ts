@@ -1,4 +1,3 @@
-import { MaxSizeValidator } from '@angular-material-components/file-input';
 import {
   AfterViewInit,
   ChangeDetectorRef,
@@ -12,9 +11,14 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { ITile } from '@majesdash/data';
+import { MaxSizeValidator } from '@majesnix/file-input';
 import { TagService } from '../../../tag/services/tag.service';
 import { TileService } from '../../services/tile.service';
 
@@ -30,13 +34,13 @@ export class TileFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('tileName') tileNameInputField!: ElementRef;
 
   public color: ThemePalette = 'primary';
-  createTileForm!: FormGroup;
+  createTileForm!: UntypedFormGroup;
   tags$ = this.tagService.tags$;
 
   constructor(
     public window: Window,
     private cdRef: ChangeDetectorRef,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private tileService: TileService,
     private tagService: TagService
   ) {}

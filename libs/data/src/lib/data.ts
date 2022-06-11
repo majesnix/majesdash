@@ -85,9 +85,9 @@ export interface ICreateUserDto {
 
 export interface IUserUpdateAdmin {
   id: number;
-  username?: string;
-  email?: string;
-  isAdmin?: boolean;
+  username: string | null | undefined;
+  email: string | null | undefined;
+  isAdmin: boolean | null | undefined;
 }
 
 export interface IUserResetPasswordAdmin {
