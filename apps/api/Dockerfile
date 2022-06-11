@@ -13,7 +13,7 @@ RUN apk add -q --update \
   && yarn --frozen-lockfile
 
 RUN yarn build:all \
-  && npm prune --omit=dev \
+  && npm prune --omit=dev --legacy-peer-deps \
   && /usr/local/bin/node-prune
 
 # stage 2 - build final image
