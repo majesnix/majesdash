@@ -9,6 +9,7 @@ import { join } from 'path';
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), './client'),
       exclude: ['/api*'],
+      serveRoot: '/',
     }),
   ],
 })
