@@ -18,7 +18,7 @@ export class TileService {
   async findAll(tag?: string): Promise<TileEntity[]> {
     return await this.tileRepository.find({
       where: {
-        tagId: tag ?? IsNull(),
+        tagId: tag ? parseInt(tag) : IsNull(),
       },
     });
   }
@@ -27,14 +27,16 @@ export class TileService {
     return await this.tileRepository.find();
   }
 
-  async findOne(where: string): Promise<TileEntity> {
-    return await this.tileRepository.findOne(where);
+  async findOne(id: number): Promise<TileEntity> {
+    return await this.tileRepository.findOne({ where: { id } });
   }
 
   async create(tileDto: TileDto, filename?: string): Promise<TileEntity> {
     let tag: TagEntity | undefined;
     if (tileDto.tag) {
-      tag = await this.tagRepository.findOne({ where: { id: tileDto.tag } });
+      tag = await this.tagRepository.findOne({
+        where: { name: tileDto.tag },
+      });
     }
 
     const tile = new TileEntity();
@@ -53,7 +55,7 @@ export class TileService {
   }
 
   async update(id: number, tileDto: TileDto): Promise<TileEntity> {
-    const toUpdate = await this.tileRepository.findOne(id);
+    const toUpdate = await this.tileRepository.findOne({ where: { id } });
 
     let tag: TagEntity | undefined;
     if (tileDto.tag) {

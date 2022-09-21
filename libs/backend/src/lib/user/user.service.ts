@@ -11,7 +11,7 @@ import { validate } from 'class-validator';
 import { randomBytes } from 'crypto';
 import { unlink } from 'fs-extra';
 import * as jwt from 'jsonwebtoken';
-import { DeleteResult, getRepository, Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { SystemSettingsEntity } from '../system-settings/system-settings.entity';
 import { UserSettingsEntity } from '../user-settings/user-settings.entity';
 import {
@@ -36,7 +36,7 @@ export class UserService {
 
   async findAll(): Promise<UserEntity[]> {
     return await this.userRepository.find({
-      select: ['email', 'id', 'isAdmin', 'username'],
+      select: { email: true, id: true, isAdmin: true, username: true },
     });
   }
 
@@ -47,9 +47,9 @@ export class UserService {
   }: LoginUserDto): Promise<UserEntity | null> {
     let user: UserEntity;
     if (email) {
-      user = await this.userRepository.findOne({ email });
+      user = await this.userRepository.findOne({ where: { email } });
     } else if (username) {
-      user = await this.userRepository.findOne({ username });
+      user = await this.userRepository.findOne({ where: { username } });
     }
 
     if (!user) {
@@ -64,11 +64,11 @@ export class UserService {
   }
 
   async create(dto: CreateUserDto): Promise<IUserWithToken> {
-    const systemSettings = await this.systemSetingsRepository.findOne();
+    const systemSettings = (await this.systemSetingsRepository.find())[0];
 
     // check uniqueness of username/email
     const { username, email, password, passwordRepeat, isAdmin } = dto;
-    const qb = getRepository(UserEntity)
+    const qb = this.userRepository
       .createQueryBuilder('user')
       .where('user.username = :username', { username })
       .orWhere('user.email = :email', { email });
@@ -128,7 +128,7 @@ export class UserService {
     dto: UpdateUserDto,
     avatar?: string
   ): Promise<UserEntity> {
-    const user = await this.userRepository.findOne(id);
+    const user = await this.userRepository.findOne({ where: { id } });
 
     if (!user)
       new HttpException({ message: 'User not found' }, HttpStatus.NOT_FOUND);
@@ -144,7 +144,7 @@ export class UserService {
   }
 
   async updateAsAdmin(dto: AdminUpdateUserDto): Promise<UserEntity> {
-    const user = await this.userRepository.findOne(dto.id);
+    const user = await this.userRepository.findOne({ where: { id: dto.id } });
 
     if (!user)
       new HttpException({ message: 'User not found' }, HttpStatus.NOT_FOUND);
@@ -165,7 +165,9 @@ export class UserService {
   }
 
   async resetPassword(id: number): Promise<IUserResetPasswordAdminResponse> {
-    const user = await this.userRepository.findOne(id);
+    console.log('reset pw');
+    const user = await this.userRepository.findOne({ where: { id } });
+    console.log('found user', user);
 
     if (!user)
       new HttpException({ message: 'User not found' }, HttpStatus.NOT_FOUND);
@@ -176,13 +178,15 @@ export class UserService {
 
     await this.userRepository.save(user);
 
+    console.log('saved user');
+
     return {
       password: tempPassword,
     };
   }
 
   async deleteAvatar(id: number) {
-    const user = await this.userRepository.findOne(id);
+    const user = await this.userRepository.findOne({ where: { id } });
 
     if (!user)
       new HttpException({ message: 'User not found' }, HttpStatus.NOT_FOUND);
@@ -200,8 +204,11 @@ export class UserService {
   }
 
   async findById(id: number): Promise<IUserWithToken> {
-    const user = await this.userRepository.findOne(id, {
-      relations: ['settings'],
+    const user = await this.userRepository.findOne({
+      where: { id },
+      relations: {
+        settings: true,
+      },
     });
 
     if (!user) {
@@ -213,7 +220,7 @@ export class UserService {
   }
 
   async findByEmail(email: string): Promise<IUserWithToken> {
-    const user = await this.userRepository.findOne({ email: email });
+    const user = await this.userRepository.findOne({ where: { email } });
     if (!user) {
       const errors = { User: ' not found' };
       throw new HttpException({ errors }, 401);

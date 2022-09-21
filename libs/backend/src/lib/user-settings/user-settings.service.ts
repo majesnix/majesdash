@@ -13,8 +13,11 @@ export class UserSettingsService {
   ) {}
 
   async findOne(id: number): Promise<UserSettingsEntity> {
-    const user = await this.usersRepository.findOne(id, {
-      relations: ['settings'],
+    const user = await this.usersRepository.findOne({
+      where: { id },
+      relations: {
+        settings: true,
+      },
     });
 
     return user.settings;
@@ -25,8 +28,11 @@ export class UserSettingsService {
     userSettings?: UserSettingsDto,
     filename?: string
   ): Promise<UserSettingsEntity> {
-    const user = await this.usersRepository.findOne(id, {
-      relations: ['settings'],
+    const user = await this.usersRepository.findOne({
+      where: { id },
+      relations: {
+        settings: true,
+      },
     });
 
     user.settings.background = filename;

@@ -45,7 +45,7 @@ export class TileController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<TileEntity> {
+  async findOne(@Param('id') id: number): Promise<TileEntity> {
     return await this.tileService.findOne(id);
   }
 

@@ -29,6 +29,7 @@ import { WeatherModule } from './weather/weather.module';
         UserSettingsEntity,
       ],
       synchronize: true,
+      autoLoadEntities: true,
     }),
     TagModule,
     TileModule,

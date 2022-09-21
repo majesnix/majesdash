@@ -16,7 +16,7 @@ export class TagService {
   }
 
   async findOne(id: string): Promise<TagEntity> {
-    return await this.tagRepository.findOne(id);
+    return await this.tagRepository.findOne({ where: { id: parseInt(id) } });
   }
 
   async create(tagDto: TagDto, filename?: string): Promise<TagEntity> {
@@ -30,7 +30,7 @@ export class TagService {
   }
 
   async update(id: number, tagDto: TagDto): Promise<TagEntity> {
-    const toUpdate = await this.tagRepository.findOne(id);
+    const toUpdate = await this.tagRepository.findOne({ where: { id } });
     const updated = Object.assign(toUpdate, tagDto);
     return await this.tagRepository.save(updated);
   }
