@@ -30,6 +30,7 @@ import { WeatherModule } from './weather/weather.module';
       ],
       synchronize: true,
       autoLoadEntities: true,
+      logging: ["error"],
     }),
     TagModule,
     TileModule,
