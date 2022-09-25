@@ -16,7 +16,7 @@ export class SystemSettingsService {
   }
 
   async update(systemSettingsData: SystemSettingsUpdateDto, filename?: string) {
-    const systemSettings = (await this.systemSettingsRepository.find())[0];
+    const [systemSettings] = await this.systemSettingsRepository.find();
 
     const useWeatherWidget = JSON.parse(systemSettingsData.weatherWidget);
     if (filename) {

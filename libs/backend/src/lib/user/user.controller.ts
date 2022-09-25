@@ -26,6 +26,8 @@ import {
   LoginUserDto,
   UpdateUserDto,
 } from './dto';
+import { UserDeleteAvatarDto } from './dto/delete-avatar.dto';
+import { UserResetPasswordDto } from './dto/reset-password.dto';
 import { User } from './user.decorator';
 import { UserService } from './user.service';
 
@@ -108,14 +110,14 @@ export class UserController {
 
   @Put('users/resetPassword')
   @ApiBearerAuth('Bearer')
-  async resetPassword(@Body() id: number) {
-    return await this.userService.resetPassword(id);
+  async resetPassword(@Body() resetPasswordDto: UserResetPasswordDto) {
+    return await this.userService.resetPassword(resetPasswordDto.id);
   }
 
   @Put('users/deleteAvatar')
   @ApiBearerAuth('Bearer')
-  async deleteAvatar(@Body() id: number) {
-    return await this.userService.deleteAvatar(id);
+  async deleteAvatar(@Body() deleteAvatarDto: UserDeleteAvatarDto) {
+    return await this.userService.deleteAvatar(deleteAvatarDto.id);
   }
 
   @Delete('users/:id')

@@ -14,9 +14,8 @@ export class WeatherService {
   ) {}
 
   async getWeather() {
-    const { weatherWidgetApiKey, weatherWidgetTown } = (
-      await this.systemSettingsRepository.find()
-    )[0];
+    const [{ weatherWidgetApiKey, weatherWidgetTown }] =
+      await this.systemSettingsRepository.find();
     const weather: OpenWeatherResponse = await this.http
       .get(
         `https://api.openweathermap.org/data/2.5/weather?q=${weatherWidgetTown}&APPID=${weatherWidgetApiKey}`

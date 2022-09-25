@@ -16,7 +16,9 @@ export class TagService {
   }
 
   async findOne(id: string): Promise<TagEntity> {
-    return await this.tagRepository.findOne({ where: { id: parseInt(id) } });
+    return await this.tagRepository.findOne({
+      where: { id: parseInt(id) },
+    });
   }
 
   async create(tagDto: TagDto, filename?: string): Promise<TagEntity> {

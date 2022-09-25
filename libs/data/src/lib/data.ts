@@ -102,6 +102,14 @@ export interface IUserDeleteAdmin {
   id: number;
 }
 
+export interface IUserResetPassword {
+  id: number;
+}
+
+export interface IUserDeleteAvatar {
+  id: number;
+}
+
 export interface IUserDeleteAvatarAdmin {
   id: number;
 }

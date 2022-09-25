@@ -64,7 +64,7 @@ export class UserService {
   }
 
   async create(dto: CreateUserDto): Promise<IUserWithToken> {
-    const systemSettings = (await this.systemSetingsRepository.find())[0];
+    const [systemSettings] = await this.systemSetingsRepository.find();
 
     // check uniqueness of username/email
     const { username, email, password, passwordRepeat, isAdmin } = dto;
@@ -165,9 +165,9 @@ export class UserService {
   }
 
   async resetPassword(id: number): Promise<IUserResetPasswordAdminResponse> {
-    console.log('reset pw');
-    const user = await this.userRepository.findOne({ where: { id } });
-    console.log('found user', user);
+    const [user] = await this.userRepository.find({
+      where: { id },
+    });
 
     if (!user)
       new HttpException({ message: 'User not found' }, HttpStatus.NOT_FOUND);
@@ -178,15 +178,13 @@ export class UserService {
 
     await this.userRepository.save(user);
 
-    console.log('saved user');
-
     return {
       password: tempPassword,
     };
   }
 
   async deleteAvatar(id: number) {
-    const user = await this.userRepository.findOne({ where: { id } });
+    const [user] = await this.userRepository.find({ where: { id } });
 
     if (!user)
       new HttpException({ message: 'User not found' }, HttpStatus.NOT_FOUND);
