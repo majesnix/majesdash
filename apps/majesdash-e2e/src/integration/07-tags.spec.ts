@@ -58,6 +58,13 @@ describe('Tags', () => {
     cy.contains('testtagUpdate');
   });
 
+  it('should be able to navigate to a tag, when not logged in', () => {
+    cy.clearLocalStorage();
+    cy.visit('/');
+    cy.get('.box').filter(':contains("testtagUpdate")').click({ force: true });
+    cy.contains('testtile2');
+  });
+
   it('should unassign a tag', () => {
     cy.visit('/tiles');
     cy.get('[data-cy="tile-list-edit-button"]').eq(0).click();

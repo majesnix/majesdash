@@ -17,12 +17,12 @@ import { TagComponent } from './containers/tag/tag.component';
 const tagRoutes: Routes = [
   {
     path: 'tags',
-    canActivate: [AdminGuard],
     children: [
-      { path: '', component: TagListComponent },
+      { path: '', component: TagListComponent, canActivate: [AdminGuard] },
       {
         path: 'create',
         component: TagCreateComponent,
+        canActivate: [AdminGuard],
       },
       {
         path: ':id',
