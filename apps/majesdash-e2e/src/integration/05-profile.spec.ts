@@ -19,7 +19,7 @@ describe('Profile', () => {
 
   it('should not be able to navigate to profile, when not logged in', () => {
     cy.clearLocalStorage();
-    cy.visit('/profile');
+    cy.reload();
     cy.url().should('include', '/login');
   });
 
@@ -28,7 +28,7 @@ describe('Profile', () => {
     cy.get('input[type="password"]').eq(1).type('testuser1');
     cy.get('button[data-cy="update-save-button"]').click();
     cy.clearLocalStorage();
-    cy.visit('/login');
+    cy.visit('/#/login');
     cy.get('input[formcontrolname="emailOrUsername"]').type('test@test.de');
     cy.get('input[formcontrolname="password"]').type('testuser1');
     cy.get('[data-cy="login-form-submit-button"]').click();

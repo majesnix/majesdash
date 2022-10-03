@@ -55,7 +55,7 @@ describe('Tiles', () => {
 
   it('should not be able to navigate to tiles, when not logged in', () => {
     cy.clearLocalStorage();
-    cy.visit('/tiles');
+    cy.reload();
     cy.url().should('include', '/login');
   });
 });

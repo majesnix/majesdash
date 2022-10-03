@@ -26,9 +26,9 @@ export class GridComponent {
     this.tileService.clear();
     this.tagService.clear();
 
-    if (window.location.href !== window.location.origin + '/') {
+    if (window.location.hash !== '#/') {
       this.tileService.getTiles({
-        tag: window.location.pathname.split('/')[2],
+        tag: window.location.hash.split('/')[2],
       });
     } else {
       this.tileService.getTiles();
@@ -37,7 +37,7 @@ export class GridComponent {
   }
 
   @HostListener('document:keyup.backspace') navigateBack() {
-    if (window.location.href.includes('tags')) {
+    if (window.location.hash.includes('tags')) {
       this.location.back();
     }
   }

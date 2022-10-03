@@ -2,7 +2,7 @@ describe('Login with username or email and can logout', () => {
   beforeEach(() => {
     cy.clearLocalStorage();
     cy.reload();
-    cy.visit('/login');
+    cy.visit('/#/login');
   });
 
   it('should login with email', () => {

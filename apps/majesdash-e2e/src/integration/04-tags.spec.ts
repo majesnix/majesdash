@@ -2,7 +2,7 @@ describe('Tags', () => {
   beforeEach(() => {
     cy.request('POST', '/api/users/login', {
       username: 'testuser',
-      password: 'testuser1',
+      password: 'testuser',
     }).then((res) => {
       cy.setLocalStorage('token', res.body.token);
     });
@@ -40,7 +40,9 @@ describe('Tags', () => {
   });
 
   it('should assign a tag to a tile', () => {
-    cy.visit('/tiles');
+    cy.visit('/#/tiles');
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500);
     cy.get('[data-cy="tile-list-edit-button"]').eq(0).click();
     cy.get('[formcontrolname="tag"]').click();
     cy.contains('testtagUpdate').click();
@@ -66,7 +68,7 @@ describe('Tags', () => {
   });
 
   it('should unassign a tag', () => {
-    cy.visit('/tiles');
+    cy.visit('/#/tiles');
     cy.get('[data-cy="tile-list-edit-button"]').eq(0).click();
     cy.get('[formcontrolname="tag"]').contains('testtagUpdate');
     cy.get('[formcontrolname="tag"]').click();
@@ -86,7 +88,7 @@ describe('Tags', () => {
 
   it('should not be able to navigate to tags, when not logged in', () => {
     cy.clearLocalStorage();
-    cy.visit('/tags');
+    cy.reload();
     cy.url().should('include', '/login');
   });
 });

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ITag, ITile, IUser } from '@majesdash/data';
@@ -12,7 +12,7 @@ import { TileService } from '../../services/tile.service';
   templateUrl: './tile-list.component.html',
   styleUrls: ['./tile-list.component.scss'],
 })
-export class TileListComponent implements AfterViewInit, OnDestroy {
+export class TileListComponent implements OnInit, OnDestroy {
   tiles$: Observable<ITile[]> = this.tileService.tiles$;
   tags$: Observable<ITag[]> = this.tagService.tags$;
   currentUser$: Observable<IUser | undefined> = this.userService.user$;
@@ -34,7 +34,7 @@ export class TileListComponent implements AfterViewInit, OnDestroy {
     this.tagService.getTags();
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.tileSubscription = this.tiles$.subscribe((tiles) => {
       this.dataSource.data = tiles;
       this.dataSource.paginator = this.paginator;

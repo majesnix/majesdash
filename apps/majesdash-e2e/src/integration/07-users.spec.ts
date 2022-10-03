@@ -103,9 +103,9 @@ describe('Admin user list', () => {
     cy.get('[data-cy="user-list"]').should('contain', 'testuser');
   });
 
-  it('should not be able to navigate to settings, when not logged in', () => {
+  it('should not be able to navigate to users, when not logged in', () => {
     cy.clearLocalStorage();
-    cy.visit('/users');
+    cy.reload();
     cy.url().should('include', '/login');
   });
 });

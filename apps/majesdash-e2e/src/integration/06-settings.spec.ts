@@ -42,7 +42,7 @@ describe('Admin Settings', () => {
     cy.get('[data-cy="system-weatherWidget-town-input"]').type('london,gb');
     cy.get('button[data-cy="save-system-settings-button"]').click();
     cy.visit('/');
-    cy.visit('/settings');
+    cy.visit('/#/settings');
     cy.get('mat-slide-toggle input').should('be.checked');
     cy.get('[data-cy="system-weatherWidget-apiKey-input"]').should(
       'have.value',
@@ -56,7 +56,7 @@ describe('Admin Settings', () => {
 
   it('should not be able to navigate to settings, when not logged in', () => {
     cy.clearLocalStorage();
-    cy.visit('/settings');
+    cy.reload();
     cy.url().should('include', '/login');
   });
 });

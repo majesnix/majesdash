@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import { OnInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ITag, IUser } from '@majesdash/data';
@@ -11,7 +11,7 @@ import { TagService } from '../../services/tag.service';
   templateUrl: './tag-list.component.html',
   styleUrls: ['./tag-list.component.scss'],
 })
-export class TagListComponent implements AfterViewInit, OnDestroy {
+export class TagListComponent implements OnInit, OnDestroy {
   tags$: Observable<ITag[]> = this.tagService.tags$;
   currentUser$: Observable<IUser | undefined> = this.userService.user$;
   dataSource = new MatTableDataSource<ITag>([]);
@@ -30,7 +30,7 @@ export class TagListComponent implements AfterViewInit, OnDestroy {
     this.tagService.getTags();
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.tagSubscription = this.tags$.subscribe((tags) => {
       this.dataSource.data = tags;
       this.dataSource.paginator = this.paginator;

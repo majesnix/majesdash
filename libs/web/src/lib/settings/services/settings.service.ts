@@ -63,7 +63,7 @@ export class SettingsService {
         this.systemSettingsSubject$.next(systemSettings);
         if (!systemSettings.initialized) {
           this.router.navigate(['/setup']);
-        } else if (this.router.url === '/setup') {
+        } else if (this.window.location.hash === '#/setup') {
           this.router.navigate(['/login']);
         }
       });

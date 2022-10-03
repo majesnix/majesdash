@@ -18,7 +18,7 @@ export class AdminGuard implements CanActivate {
         if (user?.isAdmin || localStorage.getItem('token')) {
           return true;
         } else {
-          return this.router.parseUrl('/login');
+          return this.router.createUrlTree(['/login']);
         }
       })
     );
