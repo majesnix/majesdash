@@ -104,11 +104,6 @@ export class UserService {
     newUser.isAdmin = systemSettings.initialized ? isAdmin : true;
     newUser.settings = settings;
 
-    if (!systemSettings.initialized) {
-      systemSettings.initialized = true;
-      await this.systemSetingsRepository.save(systemSettings);
-    }
-
     const errors = await validate(newUser);
     if (errors.length > 0) {
       const _errors = { username: 'Userinput is not valid.' };
@@ -117,6 +112,10 @@ export class UserService {
         HttpStatus.BAD_REQUEST
       );
     } else {
+      if (!systemSettings.initialized) {
+        systemSettings.initialized = true;
+        await this.systemSetingsRepository.save(systemSettings);
+      }
       const savedUser = await this.userRepository.save(newUser);
 
       return this.buildUserRO(savedUser);
