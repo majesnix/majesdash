@@ -21,9 +21,11 @@ describe('Tags', () => {
   it('should create a second tag with an icon', () => {
     cy.get('button[ng-reflect-router-link="/tags/create"]').click();
     cy.get('input[formcontrolname="name"]').type('testtag2');
-    cy.get('.input-file').selectFile('src/fixtures/tileicon.png', { force: true });
+    cy.get('.input-file').selectFile('src/fixtures/tileicon.png', {
+      force: true,
+    });
     cy.get('button[data-cy="tag-create-or-update"]').click();
-    cy.get('.box')
+    cy.get('majesdash-tag')
       .filter(':contains("testtag2")')
       .should('contain.html', 'img');
   });
@@ -31,10 +33,12 @@ describe('Tags', () => {
   it('should update the first tag', () => {
     cy.get('[data-cy="tag-list-edit-button"]').eq(0).click();
     cy.get('input[formcontrolname="name"]').clear().type('testtagUpdate');
-    cy.get('.input-file').selectFile('src/fixtures/tileicon.png', { force: true });
+    cy.get('.input-file').selectFile('src/fixtures/tileicon.png', {
+      force: true,
+    });
     cy.get('button[data-cy="tag-create-or-update"]').click();
     cy.visit('/');
-    cy.get('.box')
+    cy.get('majesdash-tag')
       .filter(':contains("testtagUpdate")')
       .should('contain.html', 'img');
   });
@@ -48,6 +52,8 @@ describe('Tags', () => {
     cy.contains('testtagUpdate').click();
     cy.get('button[data-cy="tile-create-or-update"]').click();
     cy.visit('/');
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500);
     cy.get('.box').filter(':contains("testtagUpdate")').click({ force: true });
     cy.contains('testtile2');
   });
@@ -81,9 +87,7 @@ describe('Tags', () => {
     cy.get('button[color=red]').eq(1).click();
     cy.visit('/');
     cy.get('majesdash-tag').should('have.length', 1);
-    cy.get('.box')
-      .filter(':contains("testtagUpdate")')
-      .should('contain.html', 'img');
+    cy.get('majesdash-tag').filter(':contains("testtagUpdate")');
   });
 
   it('should not be able to navigate to tags, when not logged in', () => {
