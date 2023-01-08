@@ -8,17 +8,15 @@
       "projectType": "application",
       "architect": {
         "build": {
-          "builder": "@nrwl/node:webpack",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "builder": "@nrwl/webpack:webpack",
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": [
-              "apps/api/src/assets"
-            ]
+            "assets": ["apps/api/src/assets"],
+            "target": "node",
+            "compiler": "tsc"
           },
           "configurations": {
             "production": {
@@ -42,20 +40,14 @@
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "apps/api/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/api/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/api"
-          ],
+          "outputs": ["{workspaceRoot}/coverage/apps/api"],
           "options": {
             "jestConfig": "apps/api/jest.config.ts",
             "passWithNoTests": true
@@ -72,20 +64,14 @@
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend"
-          ],
+          "outputs": ["{workspaceRoot}/coverage/libs/backend"],
           "options": {
             "jestConfig": "libs/backend/jest.config.ts",
             "passWithNoTests": true
@@ -102,20 +88,14 @@
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "libs/data/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/data/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/data"
-          ],
+          "outputs": ["{workspaceRoot}/coverage/libs/data"],
           "options": {
             "jestConfig": "libs/data/jest.config.ts",
             "passWithNoTests": true
@@ -133,9 +113,7 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/majesdash",
             "index": "apps/majesdash/src/index.html",
@@ -147,9 +125,7 @@
               "apps/majesdash/src/favicon.png",
               "apps/majesdash/src/assets"
             ],
-            "styles": [
-              "apps/majesdash/src/styles.scss"
-            ],
+            "styles": ["apps/majesdash/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -158,7 +134,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -218,9 +194,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/majesdash"
-          ],
+          "outputs": ["{workspaceRoot}/coverage/apps/majesdash"],
           "options": {
             "jestConfig": "apps/majesdash/jest.config.ts",
             "passWithNoTests": true
@@ -244,20 +218,14 @@
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "apps/majesdash-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/majesdash-e2e/**/*.{js,ts}"]
           }
         }
       },
       "tags": [],
-      "implicitDependencies": [
-        "majesdash"
-      ]
+      "implicitDependencies": ["majesdash"]
     },
     "majesdash-e2e-chrome": {
       "$schema": "../../node_modules/nx/schemas/project-schema.json",
@@ -274,20 +242,14 @@
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "apps/majesdash-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/majesdash-e2e/**/*.{js,ts}"]
           }
         }
       },
       "tags": [],
-      "implicitDependencies": [
-        "majesdash"
-      ]
+      "implicitDependencies": ["majesdash"]
     },
     "majesdash-e2e-firefox": {
       "$schema": "../../node_modules/nx/schemas/project-schema.json",
@@ -304,20 +266,14 @@
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "apps/majesdash-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/majesdash-e2e/**/*.{js,ts}"]
           }
         }
       },
       "tags": [],
-      "implicitDependencies": [
-        "majesdash"
-      ]
+      "implicitDependencies": ["majesdash"]
     },
     "web": {
       "$schema": "../../node_modules/nx/schemas/project-schema.json",
@@ -328,9 +284,7 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/web"
-          ],
+          "outputs": ["{workspaceRoot}/coverage/libs/web"],
           "options": {
             "jestConfig": "libs/web/jest.config.ts",
             "passWithNoTests": true

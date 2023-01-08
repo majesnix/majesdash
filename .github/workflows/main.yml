@@ -23,7 +23,7 @@ jobs:
         run: yarn global add nx --silent && echo "SECRET=abc" > .env
 
       - name: Cypress tests 🧪
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v5
         with:
           command: yarn e2e:ci-chrome
 
@@ -41,7 +41,7 @@ jobs:
         run: yarn global add nx --silent && echo "SECRET=abc" > .env
 
       - name: Cypress tests 🧪
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v5
         with:
           command: yarn e2e:ci-firefox
 
