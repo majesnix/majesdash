@@ -7,6 +7,7 @@ import {
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdminAuthMiddleware } from '../admin-auth.middleware';
 import { AuthMiddleware } from '../auth.middleware';
+import { LoggedInMiddleware } from '../logged-in.middleware';
 import { SystemSettingsEntity } from '../system-settings/system-settings.entity';
 import { SystemSettingsService } from '../system-settings/system-settings.service';
 import { TagEntity } from '../tag/tag.entity';
@@ -31,6 +32,9 @@ import { TileService } from './tile.service';
 })
 export class TileModule implements NestModule {
   public configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggedInMiddleware)
+      .forRoutes({ path: 'tiles', method: RequestMethod.GET });
     consumer
       .apply(AuthMiddleware)
       .forRoutes(

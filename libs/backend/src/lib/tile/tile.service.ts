@@ -15,12 +15,18 @@ export class TileService {
     private readonly tagRepository: Repository<TagEntity>
   ) {}
 
-  async findAll(tag?: string): Promise<TileEntity[]> {
-    return await this.tileRepository.find({
-      where: {
-        tagId: tag ? parseInt(tag) : IsNull(),
-      },
-    });
+  async findAll(loggedIn: boolean, tag?: string): Promise<TileEntity[]> {
+    if (loggedIn) {
+      return await this.tileRepository.find({
+        where: {
+          tagId: tag ? parseInt(tag) : IsNull(),
+        },
+      });
+    } else {
+      return await this.tileRepository.find({
+        where: { hidden: false, tagId: tag ? parseInt(tag) : IsNull() },
+      });
+    }
   }
 
   async findAllAdmin(): Promise<TileEntity[]> {
@@ -48,6 +54,7 @@ export class TileService {
     tile.order = tileDto.order;
     tile.tag = tag ?? undefined;
     tile.config = JSON.stringify(tileDto.config) ?? '{}';
+    tile.hidden = !!tileDto.hidden ?? false;
 
     const tileEntity = await this.tileRepository.save(tile);
 
@@ -85,6 +92,7 @@ export class TileService {
     toUpdate.order = tileDto.order ?? toUpdate.order ?? 0;
     toUpdate.tag = tag ?? null;
     toUpdate.config = JSON.stringify(tileDto.config) ?? '{}';
+    toUpdate.hidden = !!tileDto.hidden ?? false;
 
     return await this.tileRepository.save(toUpdate);
   }

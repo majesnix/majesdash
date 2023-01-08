@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Req,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -31,8 +32,8 @@ export class TagController {
   constructor(private readonly tagService: TagService) {}
 
   @Get()
-  async findAll(): Promise<TagEntity[]> {
-    return await this.tagService.findAll();
+  async findAll(@Req() req: CustomRequest): Promise<TagEntity[]> {
+    return await this.tagService.findAll(req.loggedIn);
   }
 
   @Get(':id')

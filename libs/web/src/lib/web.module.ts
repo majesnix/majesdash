@@ -33,7 +33,7 @@ import { WeatherModule } from './weather/weather.module';
     RouterModule.forRoot([], {
       scrollPositionRestoration: 'top',
       initialNavigation: 'enabledNonBlocking',
-      useHash: true
+      useHash: true,
     }),
   ],
   declarations: [],

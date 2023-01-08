@@ -54,6 +54,7 @@ export class TileFormComponent implements OnInit, AfterViewInit, OnDestroy {
       icon: [undefined, [MaxSizeValidator(16 * 2 ** 20)]],
       settings: [this.tile?.config ?? {}],
       tag: [this.tile?.tagId ?? 0],
+      hidden: [this.tile?.hidden ?? false],
     });
   }
 
@@ -83,6 +84,7 @@ export class TileFormComponent implements OnInit, AfterViewInit, OnDestroy {
         this.createTileForm.value.tag === 0
           ? undefined
           : this.createTileForm.value.tag,
+      hidden: this.createTileForm.value.hidden,
     });
   }
 
@@ -99,6 +101,7 @@ export class TileFormComponent implements OnInit, AfterViewInit, OnDestroy {
         this.createTileForm.value.tag === 0
           ? undefined
           : this.createTileForm.value.tag,
+      hidden: this.createTileForm.value.hidden,
     });
   }
 

@@ -53,6 +53,18 @@ describe('Tiles', () => {
     cy.get('majesdash-tile').eq(0).should('contain', 'testtile2');
   });
 
+  it('should show hidden tiles only to logged in users', () => {
+    cy.get('button[ng-reflect-router-link="/tiles/create"]').click();
+    cy.get('input[formcontrolname="name"]').type('hidden tile');
+    cy.get('input[formcontrolname="url"]').type('https://google.de');
+    cy.get('mat-checkbox[formcontrolname="hidden"]').find('input').click();
+    cy.get('button[data-cy="tile-create-or-update"]').click();
+    cy.get('majesdash-tile').should('contain', 'hidden tile');
+    cy.clearLocalStorage();
+    cy.visit('/');
+    cy.get('majesdash-tile').should('not.contain', 'hidden tile');
+  });
+
   it('should not be able to navigate to tiles, when not logged in', () => {
     cy.clearLocalStorage();
     cy.reload();

@@ -18,6 +18,10 @@ export class TagEntity {
   @ApiProperty()
   name!: string;
 
+  @Column()
+  @ApiProperty({ default: false })
+  hidden!: boolean;
+
   @Column({ nullable: true })
   @ApiProperty()
   color?: string;

@@ -43,6 +43,7 @@ export class TagFormComponent implements OnInit, AfterViewInit, OnDestroy {
       name: [this.tag?.name ?? '', [Validators.required]],
       color: [this.tag?.color ?? ''],
       icon: [undefined, [MaxSizeValidator(16 * 2 ** 20)]],
+      hidden: [this.tag?.hidden ?? false],
     });
   }
 
@@ -64,6 +65,7 @@ export class TagFormComponent implements OnInit, AfterViewInit, OnDestroy {
       name: this.createTagForm.value.name,
       color: this.createTagForm.value.color.hex,
       icon: this.createTagForm.value.icon,
+      hidden: this.createTagForm.value.hidden,
     });
   }
 
@@ -74,6 +76,7 @@ export class TagFormComponent implements OnInit, AfterViewInit, OnDestroy {
       name: this.createTagForm.value.name,
       color: this.createTagForm.value.color.hex,
       icon: this.createTagForm.value.icon,
+      hidden: this.createTagForm.value.hidden,
     });
   }
 

@@ -11,8 +11,12 @@ export class TagService {
     private readonly tagRepository: Repository<TagEntity>
   ) {}
 
-  async findAll(): Promise<TagEntity[]> {
-    return await this.tagRepository.find();
+  async findAll(loggedIn: boolean): Promise<TagEntity[]> {
+    if (loggedIn) {
+      return await this.tagRepository.find();
+    } else {
+      return await this.tagRepository.find({ where: { hidden: false } });
+    }
   }
 
   async findOne(id: string): Promise<TagEntity> {
@@ -27,6 +31,7 @@ export class TagService {
     tag.icon = filename;
     tag.color = tagDto.color;
     tag.order = tagDto.order;
+    tag.hidden = !!tagDto.hidden ?? false;
 
     return await this.tagRepository.save(tag);
   }

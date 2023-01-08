@@ -90,6 +90,17 @@ describe('Tags', () => {
     cy.get('majesdash-tag').filter(':contains("testtagUpdate")');
   });
 
+  it('should show hidden tiles only to logged in users', () => {
+    cy.get('button[ng-reflect-router-link="/tags/create"]').click();
+    cy.get('input[formcontrolname="name"]').type('hidden tag');
+    cy.get('mat-checkbox[formcontrolname="hidden"]').find('input').click();
+    cy.get('button[data-cy="tag-create-or-update"]').click();
+    cy.get('majesdash-tag').should('contain', 'hidden tag');
+    cy.clearLocalStorage();
+    cy.visit('/');
+    cy.get('majesdash-tag').should('not.contain', 'hidden tag');
+  });
+
   it('should not be able to navigate to tags, when not logged in', () => {
     cy.clearLocalStorage();
     cy.reload();

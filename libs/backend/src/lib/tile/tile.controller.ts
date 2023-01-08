@@ -8,6 +8,7 @@ import {
   Post,
   Put,
   Query,
+  Req,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -34,8 +35,11 @@ export class TileController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
-  async findAll(@Query('tag') tag: string | undefined): Promise<TileEntity[]> {
-    return await this.tileService.findAll(tag);
+  async findAll(
+    @Query('tag') tag: string | undefined,
+    @Req() req: CustomRequest
+  ): Promise<TileEntity[]> {
+    return await this.tileService.findAll(req.loggedIn, tag);
   }
 
   @Get('all')

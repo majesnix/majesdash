@@ -13,6 +13,8 @@ export class TileDto implements Omit<ITile, 'id'> {
   @IsNotEmpty()
   @ApiProperty()
   readonly url!: string;
+  @ApiProperty()
+  readonly hidden?: boolean;
   @ApiProperty({ required: false })
   readonly tag?: string;
   @ApiProperty({ required: false })

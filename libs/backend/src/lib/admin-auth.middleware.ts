@@ -9,6 +9,7 @@ import { UserService } from './user/user.service';
 
 export interface CustomRequest extends Request {
   user?: IUserWithToken;
+  loggedIn: boolean;
 }
 
 @Injectable()
@@ -42,6 +43,7 @@ export class AdminAuthMiddleware implements NestMiddleware {
         throw new HttpException('Not authorized.', HttpStatus.FORBIDDEN);
       }
 
+      req.loggedIn = true;
       req.user = user;
       next();
     } else {
