@@ -18,8 +18,8 @@ export class TagEntity {
   @ApiProperty()
   name!: string;
 
-  @Column()
-  @ApiProperty({ default: false })
+  @Column({ default: false })
+  @ApiProperty()
   hidden!: boolean;
 
   @Column({ nullable: true })

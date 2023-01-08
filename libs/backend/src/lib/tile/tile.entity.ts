@@ -22,8 +22,8 @@ export class TileEntity {
   @ApiProperty()
   title!: string;
 
-  @Column()
-  @ApiProperty({ default: false })
+  @Column({ default: false })
+  @ApiProperty()
   hidden?: boolean;
 
   @Column({ nullable: true })
