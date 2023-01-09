@@ -54,7 +54,7 @@ export class TileService {
     tile.order = tileDto.order;
     tile.tag = tag ?? undefined;
     tile.config = JSON.stringify(tileDto.config) ?? '{}';
-    tile.hidden = !!tileDto.hidden ?? false;
+    tile.hidden = Boolean(tileDto.hidden);
 
     const tileEntity = await this.tileRepository.save(tile);
 
@@ -92,7 +92,7 @@ export class TileService {
     toUpdate.order = tileDto.order ?? toUpdate.order ?? 0;
     toUpdate.tag = tag ?? null;
     toUpdate.config = JSON.stringify(tileDto.config) ?? '{}';
-    toUpdate.hidden = !!tileDto.hidden ?? false;
+    toUpdate.hidden = tileDto.hidden;
 
     return await this.tileRepository.save(toUpdate);
   }

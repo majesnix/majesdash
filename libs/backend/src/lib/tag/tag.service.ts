@@ -31,7 +31,7 @@ export class TagService {
     tag.icon = filename;
     tag.color = tagDto.color;
     tag.order = tagDto.order;
-    tag.hidden = !!tagDto.hidden ?? false;
+    tag.hidden = Boolean(tagDto.hidden);
 
     return await this.tagRepository.save(tag);
   }

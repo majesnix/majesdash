@@ -20,7 +20,7 @@ export class TagEntity {
 
   @Column({ default: false })
   @ApiProperty()
-  hidden!: boolean;
+  hidden?: boolean;
 
   @Column({ nullable: true })
   @ApiProperty()
