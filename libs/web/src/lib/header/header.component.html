@@ -6,22 +6,30 @@
     <span *ngIf="user$ | async as user">
       <button
         mat-button
-        style="color: darkgrey; font-size: 0.75rem"
+        style="
+          color: darkgrey;
+          font-size: 0.75rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        "
         [matMenuTriggerFor]="menu"
         data-cy="user-menu"
       >
-        <mat-icon *ngIf="!user.avatar" class="user-avatar"
-          >account_circle</mat-icon
-        >
-        <img
-          *ngIf="user.avatar"
-          src="{{ window.location.origin }}/images/{{ user.id }}/{{
-            user.avatar
-          }}"
-          class="user-avatar"
-          data-cy="user-avatar"
-        />
-        {{ (user$ | async)?.username }}
+        <div style="height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">
+          <mat-icon *ngIf="!user.avatar" class="user-avatar"
+            >account_circle</mat-icon
+          >
+          <img
+            *ngIf="user.avatar"
+            src="{{ window.location.origin }}/images/{{ user.id }}/{{
+              user.avatar
+            }}"
+            class="user-avatar"
+            data-cy="user-avatar"
+          />
+          {{ (user$ | async)?.username }}
+        </div>
       </button>
     </span>
     <span *ngIf="!!(user$ | async) !== true">
