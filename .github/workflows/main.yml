@@ -60,7 +60,7 @@ jobs:
         with:
           major-wording: 'BREAKING CHANGE,major'
           minor-wording: 'feat'
-          patch-wording: 'patch,fix,fixes,chore,ci'
+          patch-wording: 'patch,fix,fixes,chore,ci,style'
           skip-tag: 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
