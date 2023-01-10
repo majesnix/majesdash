@@ -1,14 +1,15 @@
 import { ITag } from '@majesdash/data';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsBooleanString, IsNotEmpty } from 'class-validator';
 
 export class TagDto implements Omit<ITag, 'id'> {
   @IsNotEmpty()
   @ApiProperty({ required: true })
   readonly name: string;
 
+  @IsBooleanString()
   @ApiProperty()
-  readonly hidden?: boolean;
+  hidden?: string;
 
   @ApiProperty({ required: false })
   readonly color?: string;

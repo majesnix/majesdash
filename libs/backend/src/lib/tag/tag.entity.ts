@@ -18,10 +18,6 @@ export class TagEntity {
   @ApiProperty()
   name!: string;
 
-  @Column({ default: false })
-  @ApiProperty()
-  hidden?: boolean;
-
   @Column({ nullable: true })
   @ApiProperty()
   color?: string;
@@ -42,4 +38,8 @@ export class TagEntity {
 
   @UpdateDateColumn({ name: 'updated_at', select: false })
   updated_at!: Date;
+
+  @Column({ default: false })
+  @ApiProperty()
+  hidden?: boolean;
 }

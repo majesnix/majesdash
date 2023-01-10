@@ -58,7 +58,7 @@ export interface ITile {
   id: number;
   title: string;
   url: string;
-  hidden?: boolean;
+  hidden?: string;
   type?: string;
   color?: string;
   icon?: string;
@@ -71,7 +71,7 @@ export interface ITile {
 export interface ITag {
   id: number;
   name: string;
-  hidden?: boolean;
+  hidden?: string;
   color?: string;
   icon?: string;
   order?: number;

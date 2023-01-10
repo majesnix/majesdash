@@ -69,7 +69,7 @@ export class TileService {
     tile.color && formData.append('color', tile.color);
     tile.config && formData.append('config', tile.config);
     tile.tag && formData.append('tag', tile.tag.toString());
-    tile.hidden && formData.append('hidden', tile.hidden.toString());
+    tile.hidden && formData.append('hidden', tile.hidden);
 
     return this.httpClient
       .post<ITile>(`${this.window.location.origin}/api/tiles`, formData)
@@ -89,7 +89,7 @@ export class TileService {
     tile.color && formData.append('color', tile.color);
     tile.order && formData.append('order', tile.order.toString());
     tile.tag && formData.append('tag', tile.tag.toString());
-    tile.hidden && formData.append('hidden', tile.hidden.toString());
+    tile.hidden && formData.append('hidden', tile.hidden);
 
     return this.httpClient
       .put<ITile>(

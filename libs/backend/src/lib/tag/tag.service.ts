@@ -31,15 +31,23 @@ export class TagService {
     tag.icon = filename;
     tag.color = tagDto.color;
     tag.order = tagDto.order;
-    tag.hidden = Boolean(tagDto.hidden);
+    tag.hidden = tagDto.hidden === 'true';
 
     return await this.tagRepository.save(tag);
   }
 
   async update(id: number, tagDto: TagDto): Promise<TagEntity> {
     const toUpdate = await this.tagRepository.findOne({ where: { id } });
-    const updated = Object.assign(toUpdate, tagDto);
-    return await this.tagRepository.save(updated);
+
+    toUpdate.name = tagDto.name ? tagDto.name : toUpdate.name;
+    toUpdate.color = tagDto.color ? tagDto.color : toUpdate.color;
+    toUpdate.hidden = tagDto.hidden
+      ? tagDto.hidden === 'true'
+      : toUpdate.hidden;
+    toUpdate.icon = tagDto.icon ? tagDto.icon : toUpdate.icon;
+    toUpdate.order = tagDto.order ? tagDto.order : toUpdate.order;
+
+    return await this.tagRepository.save(toUpdate);
   }
 
   async delete(id: number): Promise<DeleteResult> {

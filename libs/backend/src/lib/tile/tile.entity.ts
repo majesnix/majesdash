@@ -22,10 +22,6 @@ export class TileEntity {
   @ApiProperty()
   title!: string;
 
-  @Column({ default: false })
-  @ApiProperty()
-  hidden?: boolean;
-
   @Column({ nullable: true })
   @ApiProperty()
   type?: string;
@@ -65,4 +61,8 @@ export class TileEntity {
 
   @UpdateDateColumn({ name: 'updated_at', select: false })
   updated_at!: Date;
+
+  @Column({ default: false })
+  @ApiProperty()
+  hidden?: boolean;
 }

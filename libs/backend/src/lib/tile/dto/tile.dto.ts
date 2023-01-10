@@ -1,6 +1,6 @@
 import { ITile } from '@majesdash/data';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsUrl } from 'class-validator';
+import { IsBooleanString, IsNotEmpty, IsUrl } from 'class-validator';
 
 export class TileDto implements Omit<ITile, 'id'> {
   @IsNotEmpty()
@@ -13,8 +13,9 @@ export class TileDto implements Omit<ITile, 'id'> {
   @IsNotEmpty()
   @ApiProperty()
   readonly url!: string;
+  @IsBooleanString()
   @ApiProperty()
-  readonly hidden?: boolean;
+  readonly hidden?: string;
   @ApiProperty({ required: false })
   readonly tag?: string;
   @ApiProperty({ required: false })

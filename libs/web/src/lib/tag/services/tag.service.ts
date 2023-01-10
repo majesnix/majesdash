@@ -63,7 +63,7 @@ export class TagService {
     );
     tag.icon && formData.append('icon', tag.icon);
     tag.color && formData.append('color', tag.color);
-    tag.hidden && formData.append('hidden', tag.hidden.toString());
+    tag.hidden && formData.append('hidden', tag.hidden);
 
     return this.httpClient
       .post<ITag>(`${this.window.location.origin}/api/tags`, formData)
@@ -80,7 +80,7 @@ export class TagService {
     tag.icon && formData.append('icon', tag.icon);
     tag.color && formData.append('color', tag.color);
     tag.order && formData.append('order', tag.order.toString());
-    tag.hidden && formData.append('hidden', tag.hidden.toString());
+    tag.hidden && formData.append('hidden', tag.hidden);
 
     return this.httpClient
       .put<ITag>(`${this.window.location.origin}/api/tags/${tag.id}`, formData)
