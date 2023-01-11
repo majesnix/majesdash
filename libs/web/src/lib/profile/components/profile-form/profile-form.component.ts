@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { IUserUpdate } from '@majesdash/data';
-import { MaxSizeValidator } from '@majesnix/file-input';
+import { MaxSizeValidator } from '@angular-material-components/file-input';
 
 @Component({
   selector: 'majesdash-profile-form',

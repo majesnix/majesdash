@@ -2,7 +2,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ISystemSettings, ISystemSettingsUpdate } from '@majesdash/data';
-import { MaxSizeValidator } from '@majesnix/file-input';
+import { MaxSizeValidator } from '@angular-material-components/file-input';
 
 @Component({
   selector: 'majesdash-system-settings-form',

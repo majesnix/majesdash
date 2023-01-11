@@ -18,7 +18,7 @@ import {
 } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { ITile } from '@majesdash/data';
-import { MaxSizeValidator } from '@majesnix/file-input';
+import { MaxSizeValidator } from '@angular-material-components/file-input';
 import { TagService } from '../../../tag/services/tag.service';
 import { TileService } from '../../services/tile.service';
 
