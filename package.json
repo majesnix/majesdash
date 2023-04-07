@@ -27,6 +27,8 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-material-components/color-picker": "9.0.0",
+    "@angular-material-components/file-input": "9.0.0",
     "@angular/animations": "15.0.4",
     "@angular/cdk": "15.0.4",
     "@angular/common": "15.0.4",
@@ -38,8 +40,6 @@
     "@angular/platform-browser": "15.0.4",
     "@angular/platform-browser-dynamic": "15.0.4",
     "@angular/router": "15.0.4",
-    "@angular-material-components/color-picker": "9.0.0",
-    "@angular-material-components/file-input": "9.0.0",
     "@nestjs/common": "9.0.11",
     "@nestjs/config": "^1.1.5",
     "@nestjs/core": "9.0.11",
